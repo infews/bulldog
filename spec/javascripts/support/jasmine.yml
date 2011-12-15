@@ -11,6 +11,14 @@
 #   - dist/**/*.js
 #
 src_files:
+    - lib/dev/jquery-1.7.1.js
+    - lib/dev/underscore.js
+    - lib/underscore.string.js
+    - lib/dev/backbone.js
+    - lib/dev/backbone.localstorage.js
+    - lib/mustache.js
+    - lib/mustache-jammit.js
+    - app/bulldog.js
     - app/**/*.js
 
 # stylesheets
