@@ -1,9 +1,8 @@
-
-begin
-  require 'jasmine'
-  load 'jasmine/tasks/jasmine.rake'
-rescue LoadError
-  task :jasmine do
-    abort "Jasmine is not available. In order to run jasmine, you must: (sudo) gem install jasmine"
-  end
+Dir["#{File.dirname(__FILE__)}/tasks/**/*.rb"].each do |rakefile|
+  require rakefile
 end
+
+def root
+  File.dirname(__FILE__)
+end
+

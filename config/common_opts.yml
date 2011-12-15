@@ -1,0 +1,4 @@
+template_function: Mustache.template
+template_namespace: M$T
+template_extension: .mustache
+gzip_assets: off

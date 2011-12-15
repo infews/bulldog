@@ -1,0 +1,7 @@
+  app:
+    - app/models/**/*.js
+    - app/collections/**/*.js
+    - app/agents/**/*.js
+    - app/views/**/*.js
+    - app/routers/**/*.js
+    - app/views/templates/*.mustache

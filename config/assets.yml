@@ -1,0 +1,26 @@
+template_function: Mustache.template
+template_namespace: M$T
+template_extension: .mustache
+gzip_assets: off
+
+compress_assets: off
+
+javascripts:
+
+  lib:
+    - lib/release/jquery-1.7.1.min.js
+    - lib/release/underscore-min.js
+    - lib/underscore.string.js
+    - lib/release/backbone-min.js
+    - lib/release/backbone.localstorage-min.js
+    - lib/mustache.js
+    - lib/mustache-jammit.js
+
+  app:
+    - app/models/**/*.js
+    - app/collections/**/*.js
+    - app/agents/**/*.js
+    - app/views/**/*.js
+    - app/routers/**/*.js
+    - app/views/templates/*.mustache
+

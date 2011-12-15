@@ -1,0 +1,17 @@
+<%= common_opts %>
+compress_assets: on
+
+javascripts:
+  lib:
+    - lib/release/jquery-1.7.1.min.js
+    - lib/release/underscore-min.js
+    - lib/underscore.string.js
+    - lib/release/backbone-min.js
+    - lib/release/backbone.localstorage-min.js
+    - lib/mustache.js
+    - lib/mustache-jammit.js
+
+  app:
+    <%= app %>
+
+
