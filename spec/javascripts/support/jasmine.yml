@@ -13,7 +13,8 @@
 src_files:
     - lib/dev/jquery-1.7.1.js
     - lib/dev/underscore.js
-    - lib/underscore.string.js
+    - lib/dev/underscore.string.js
+    - lib/add-underscore-string.js
     - lib/dev/backbone.js
     - lib/dev/backbone.localstorage.js
     - lib/mustache.js

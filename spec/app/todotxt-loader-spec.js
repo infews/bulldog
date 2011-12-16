@@ -39,5 +39,33 @@ describe("todoTxt", function () {
       expect(tasks.length).toEqual(7);
       expect(tasks[0].get('description')).toEqual('Call Mom for her birthday');
     });
+
+    it("should set the project correctly on a Task", function () {
+      expect(tasks[2].get('project')).toEqual('Vacation');
+      expect(tasks[4].get('project')).toEqual('CleanDesk');
+    });
+
+    it("should set the context correctly on a Task", function () {
+      expect(tasks[2].get('context')).toEqual('pc');
+      expect(tasks[4].get('context')).toEqual('home');
+      expect(tasks[5].get('context')).toEqual('work');
+    });
+
+    it("should strip the project from the description", function () {
+      expect(tasks[2].get('description')).not.toMatch(/\+Vacation/);
+    });
+
+    it("should strip the context from the description", function () {
+      expect(tasks[2].get('description')).not.toMatch(/@pc/);
+    });
+
+    it("should clean up extra whitespace from task descriptions", function () {
+      expect(tasks[2].get('description')).toEqual('Google Maui restaurant reviews');
+    });
+
+    it("should set the task number", function () {
+      expect(tasks[2].get('number')).toEqual(3);
+    });
+
   });
 });

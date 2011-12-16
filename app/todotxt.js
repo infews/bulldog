@@ -19,14 +19,36 @@
     todoTxt.load(createTasks);
 
     function createTasks(descriptions) {
-      var tasks = _.map(descriptions, function(desc) {
-        return new bulldog.Task({
-          description: desc
-        });
+      var i = 0;
+      var tasks = _(descriptions).map(function(desc) {
+        i++;
+        return new bulldog.Task(taskProperties(desc, i));
       });
 
       onSuccess(tasks);
     }
+
+    function taskProperties(taskText, number) {
+      var projectRE = /\+(\w+)/,
+          contextRE = /@(\w+)/,
+          project, context;
+
+      project = extract(projectRE);
+      context = extract(contextRE);
+
+      return {
+        description: _.clean(taskText.replace(projectRE, '').replace(contextRE, '')),
+        context: context,
+        project: project,
+        number: number
+      };
+
+      function extract(re) {
+        var match = taskText.match(re);
+        return match ? match[1] : ''
+      }
+    }
+
   };
 
 }(jQuery));
