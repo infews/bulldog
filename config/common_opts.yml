@@ -1,3 +1,0 @@
-template_function: Mustache.template
-template_extension: .mustache
-gzip_assets: off

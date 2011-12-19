@@ -10,12 +10,12 @@ namespace :build do
   end
 
   task :del_dev_assets do
-    Dir.glob("#{root}/build/dev/*.js").each { |f| FileUtils.rm(f) if File.exist?(f) }
+    Dir.glob("#{root}/build/dev/*.js").each { |f| del_file f }
   end
 
   desc "Build assets for development"
   task :dev_assets => [:del_assets_yml, :del_dev_assets] do
-    write_assets_yml "dev.yml.erb"
+    write_assets_yml :dev
     system "jammit -o #{root}/build/dev"
   end
 
@@ -40,9 +40,11 @@ namespace :build do
     "#{root}/config"
   end
 
-  def write_assets_yml(erb_file)
+  def write_assets_yml(mode)
+    context = context_for mode
+
+    template = Tilt.new("#{root}/config/assets.yml.erb")
     Dir.chdir(config_dir) do
-      template = Tilt.new(erb_file)
       File.open('assets.yml', 'w') do |f|
         f << template.render(context)
       end
@@ -50,12 +52,12 @@ namespace :build do
 
   end
 
-  def context
+  def context_for(mode)
     cxt = nil
     Dir.chdir(config_dir) do
       cxt = OpenStruct.new(
-        :common_opts => File.read("common_opts.yml"),
-        :app => File.read("app.yml")
+        :options => File.read("#{mode}_options.yml"),
+        :lib_js => File.read("#{mode}_lib.yml")
       )
     end
     cxt

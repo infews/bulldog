@@ -1,9 +1,3 @@
-<%= common_opts %>
-
-compress_assets: off
-
-javascripts:
-
   lib:
     - lib/dev/jquery-1.7.1.js
     - lib/dev/underscore.js
@@ -13,6 +7,3 @@ javascripts:
     - lib/mustache.js
     - lib/mustache-jammit.js
     - lib/add-underscore-string.js
-
-<%= app %>
-

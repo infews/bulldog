@@ -1,3 +1,11 @@
+template_function: Mustache.template
+template_extension: .mustache
+gzip_assets: off
+
+<%= options %>
+
+javascripts:
+
   app:
     - app/bulldog.js
     - app/todoTxt.js
@@ -7,3 +15,5 @@
     - app/views/**/*.js
     - app/routers/**/*.js
     - app/views/templates/*.mustache
+
+<%= lib_js %>
