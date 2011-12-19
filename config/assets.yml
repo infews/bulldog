@@ -1,5 +1,4 @@
 template_function: Mustache.template
-template_namespace: M$T
 template_extension: .mustache
 gzip_assets: off
 
@@ -8,15 +7,18 @@ compress_assets: off
 javascripts:
 
   lib:
-    - lib/release/jquery-1.7.1.min.js
-    - lib/release/underscore-min.js
-    - lib/underscore.string.js
-    - lib/release/backbone-min.js
-    - lib/release/backbone.localstorage-min.js
+    - lib/dev/jquery-1.7.1.js
+    - lib/dev/underscore.js
+    - lib/dev/underscore.string.js
+    - lib/dev/backbone.js
+    - lib/dev/backbone.localstorage.js
     - lib/mustache.js
     - lib/mustache-jammit.js
+    - lib/add-underscore-string.js
 
   app:
+    - app/bulldog.js
+    - app/todoTxt.js
     - app/models/**/*.js
     - app/collections/**/*.js
     - app/agents/**/*.js

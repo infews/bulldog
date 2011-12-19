@@ -10,7 +10,7 @@ describe("todoTxt", function () {
     });
 
     it("should request the local todo.txt file", function () {
-      expect(request.url).toEqual('todo.txt');
+      expect(request.url).toMatch('todo.txt');
     });
 
     describe("onSuccess", function () {
@@ -37,7 +37,7 @@ describe("todoTxt", function () {
 
     it("should call the onSuccess with an array of Task models", function () {
       expect(tasks.length).toEqual(7);
-      expect(tasks[0].get('description')).toEqual('Call Mom for her birthday');
+      expect(tasks[0].get('action')).toEqual('Call Mom for her birthday');
     });
 
     it("should set the project correctly on a Task", function () {
@@ -51,16 +51,16 @@ describe("todoTxt", function () {
       expect(tasks[5].get('context')).toEqual('work');
     });
 
-    it("should strip the project from the description", function () {
-      expect(tasks[2].get('description')).not.toMatch(/\+Vacation/);
+    it("should strip the project from the action", function () {
+      expect(tasks[2].get('action')).not.toMatch(/\+Vacation/);
     });
 
-    it("should strip the context from the description", function () {
-      expect(tasks[2].get('description')).not.toMatch(/@pc/);
+    it("should strip the context from the action", function () {
+      expect(tasks[2].get('action')).not.toMatch(/@pc/);
     });
 
-    it("should clean up extra whitespace from task descriptions", function () {
-      expect(tasks[2].get('description')).toEqual('Google Maui restaurant reviews');
+    it("should clean up extra whitespace from task actions", function () {
+      expect(tasks[2].get('action')).toEqual('Google Maui restaurant reviews');
     });
 
     it("should set the task number", function () {

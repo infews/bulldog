@@ -1,0 +1,48 @@
+Read C. Tullner's estate info planning documents http://mail.google.com/a/bigpencil.net/?ui=2&ik=24e583d8b1&view=pt&search=inbox&msg=12b96e8a0b260b0f @read +Estate_Planning
+Add a page on the Jasmine wiki telling people about the Tracker project & membership @pc +Jasmine
+schedule lunch with Palmer Truelson re: Jasmine & Titanium https://mail.google.com/mail/u/0/?shva=1#inbox/12d7e6f46286426c @pc
+Process Github issues for Jasmine @pc +Jasmine
+Process pull requests for Jasmine @pc +Jasmine
+Break down stories for getting Jasmine CI working again @pc +Jasmine
+Find an owner for our official Jasmine jQuery 'setup' stuff @work +Jasmine
+Settle the tag line contest @email +Jasmine
+Review pull requests for t-shirt list @work +Jasmine
+update firmware on router via polarcloud.com @pc
+Talk to C about using ONE LastPass account on all machines @home
+break down tasks for cleaning & fixing main bathroom toilet: tank clean, redo hose, new bolts @pc +Home_Repair
+Get 2003 box out of garage and start shredding @home +New_Year_Docs
+Put 2009 files into a filing box and re-label @home +New_Year_Docs
+Compress audio CDs into minimal sleeves - but only one band per sleeve @home +CD_Drawer_Compression
+Process remaining jewel cases into sleeves @home +CD_Drawer_Compression
+Determine how many more sleeves to buy @home +CD_Drawer_Compression
+Write up the Big Pencil story for the blog @pc +BigPencil
+schedule HTML5 beer with Judy @email
+read home 2010 inspection @read +HomeRepair
+Write up how-to for integration tests for Enyo @pivotal +Palm
+Write up definition of Deadline Chicken for Urban Dictionary @pc
+Mail off request for new social security card @home +SSCard
+Finish filling out social security card replacement form @pc +SSCard
+Put Pivot Twitter list on Dossier #pivotal @pc +Pivot_Twitter_List
+Ask Jasmine list why anyone feels the need to use Sinon @email +Jasmine
+Setup Time Machine for Redwood @pc
+Setup Time Machine for Nails @pc
+Make Chewie hard-wired to the network @pc
+email grill blower re: installation below a Master Touch ash can ring @pc +Grill
+buy grill blower @pc +Grill
+buy Weber parts: Master touch top - red?, handle, grates for both grills +Grill deluxe covers for both grills
+buy foil tape +Grill
+Remove video card from Kreed @home +Kreed
+Change video card to motherboard on Kreed @home +Kreed
+Boot and Nuke Kreed in garage to use old monitor @home +Kreed
+Pull latest changes from Sean's fork of Jasmine +Jasmine_Html_Reporter @pc
+Copy SCSS files from Sean's fork to main/master @pc +Jasmine_Html_Reporter
+Update build task to generate css file @pc +Jasmine_Html_Reporter
+Remove deprecation & move to HtmlReporter in master @pc +Jasmine_Html_Reporter
+Squash/rebase all of HtmlReporter into one commit @pc +Jasmine_Html_Reporter
+Redo deprecation & switch of reporters so it's the last commit @pc +Jasmine_Html_Reporter
+Change version back to 1.1 @pc +Jasmine_Html_Reporter
+Push fixed-up branch back to master @pc +Jasmine_Html_Reporter
+Start 'open' loops for other reports (Justin, Sonja, Chris, Andrew, Kurtis) @work
+Call BART Parking re: card problems @call +BART_Parking
+Make a github repo for Nails workstation recipies @pc +Mac_Redo
+Setup TimeMaching for Nalis at home @pc +Mac_Redo

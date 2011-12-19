@@ -1,7 +1,13 @@
+require 'jammit'
 module Jasmine
   class Config
 
-    # Add your overrides or custom config code here
+    root = File.dirname(__FILE__) + '/../../..'
+
+    Jammit.package!({
+      :config_path => "#{root}/config/templates.yml",
+      :output_folder => "#{root}/spec/helpers"
+    })
 
   end
 end
@@ -14,7 +20,7 @@ module Jasmine
       me = self
       example_name = spec["name"]
       @spec_ids << spec["id"]
-      backtrace = @example_locations[parent.description + " " + example_name]
+      backtrace = @example_locations[parent.action + " " + example_name]
       parent.it example_name, {} do
         me.report_spec(spec["id"])
       end

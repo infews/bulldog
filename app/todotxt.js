@@ -4,7 +4,7 @@
   todoTxt.load = function(onSuccess) {
     $.ajax({
       type: "GET",
-      url: "todo.txt",
+      url: "http://localhost/bulldog/build/dev/todo.txt",
       dataType: "html",
       success: splitTasks
     });
@@ -18,9 +18,9 @@
   todoTxt.buildTasks = function(onSuccess)  {
     todoTxt.load(createTasks);
 
-    function createTasks(descriptions) {
+    function createTasks(actions) {
       var i = 0;
-      var tasks = _(descriptions).map(function(desc) {
+      var tasks = _(actions).map(function(desc) {
         i++;
         return new bulldog.Task(taskProperties(desc, i));
       });
@@ -37,7 +37,7 @@
       context = extract(contextRE);
 
       return {
-        description: _.clean(taskText.replace(projectRE, '').replace(contextRE, '')),
+        action: _.clean(taskText.replace(projectRE, '').replace(contextRE, '')),
         context: context,
         project: project,
         number: number
@@ -48,7 +48,6 @@
         return match ? match[1] : ''
       }
     }
-
   };
 
 }(jQuery));

@@ -1,4 +1,6 @@
   app:
+    - app/bulldog.js
+    - app/todoTxt.js
     - app/models/**/*.js
     - app/collections/**/*.js
     - app/agents/**/*.js

@@ -1,0 +1,8 @@
+# used only for test
+template_function: Mustache.template
+template_extension: .mustache
+compress_assets: off
+
+javascripts:
+  templates:
+    - app/views/templates/*.mustache
