@@ -18,7 +18,7 @@ describe("todoTxt", function () {
         request.response(testResponses.localTodos);
       });
 
-      it("should send the file split into task lines", function () {
+      it("should send the file split into task lines, ignoring blank lines", function () {
         expect(tasksLines.length).toEqual(7);
       });
     });

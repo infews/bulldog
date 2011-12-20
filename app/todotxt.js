@@ -10,7 +10,7 @@
     });
 
     function splitTasks(data) {
-      var tasks = data.split("\n");
+      var tasks = _(data.split("\n")).reject(function(item) { return item.length == 0; });
       onSuccess(tasks);
     }
   };
