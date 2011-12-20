@@ -1,12 +1,18 @@
 <div class="data">
-  <div class="number">{{number}}</div>
-  {{#project}}
-  <div class="project">{{project}}</div>
-  {{/project}}
+  <div>
+    <span class="number">{{number}}</span>
+  </div>
   {{#context}}
   <div class="context">{{context}}</div>
   {{/context}}
 </div>
+<div class="spacer">
+</div>
 <div class="right">
   <div class="action">{{action}}</div>
+  {{#project}}
+  <div class="project">
+    <span>{{project}}</span>
+  </div>
+  {{/project}}
 </div>

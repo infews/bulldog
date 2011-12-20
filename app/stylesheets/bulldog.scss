@@ -1,0 +1,80 @@
+@import "compass";
+@import "compass/reset";
+@import "compass/css3";
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+$base-color: #222 !default;
+
+@mixin background-carbon-fiber(
+    $background-color: $base-color,
+    $dot-color: scale-lightness($background-color, -50),
+    $highlight-color: rgba(#fff, .1),
+    $spacing-size: 16px,
+    $dot-size: 2px
+) {
+    @include background-image(
+        radial-gradient($dot-color $dot-size, rgba(darken($dot-color, 5), 0) $dot-size + 1),
+        radial-gradient($dot-color $dot-size, rgba(darken($dot-color, 5), 0) $dot-size + 1),
+        radial-gradient($highlight-color $dot-size, rgba(#fff, 0) $dot-size + 1px),
+        radial-gradient($highlight-color $dot-size, rgba(#fff, 0) $dot-size + 1px)
+    );
+
+    background-repeat: repeat;
+    background-position: 0 0, $spacing-size/2 $spacing-size/2, 0 1px, $spacing-size/2 $spacing-size/2 + 1px;
+    background-color: $background-color;
+    background-size: $spacing-size $spacing-size;
+}
+
+body {
+  @include background-carbon-fiber();
+}
+
+.app {
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+
+  .task-list {
+
+    .task {
+      @include display-box;
+      @include box-pack(start);
+
+      background-color: white;
+      margin: 20px;
+      border-radius: 4px;
+
+      div {
+        padding: 6px;
+      }
+
+      .data, .right, .spacer {
+        @include display-box;
+        @include box-orient(vertical);
+        @include box-pack(start);
+      }                
+      
+      .data .number {
+        border-radius: 12px;
+        margin: 4px 8px;
+        padding: 4px 12px;
+        background-color: black;
+        color: white;
+        font-weight: bold;
+      }
+
+      .spacer {
+        width: 8px;
+      }
+
+      .right {
+        @include box-flex(1);
+
+        .project {
+          text-align: right;
+          font-size: 10px;
+          color: #6d6d6d;
+        }
+      }
+    }
+  }
+}

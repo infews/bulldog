@@ -19,8 +19,20 @@ namespace :build do
     system "jammit -o #{root}/build/dev"
   end
 
+  desc "build CSS"
+  task :dev_css do
+    #Compass.configuration do |config|
+    #  config.project_path = root
+    #  config.sass_dir = 'app/stylesheets'
+    #  config.css_dir = 'build/dev'
+    #end
+
+
+    system "compass compile ."
+  end
+
   desc "build HTML for development"
-  task :dev => :dev_assets do
+  task :dev => [:dev_assets, :dev_css] do
     bulldog_dev = "#{root}/build/dev/bulldog.html"
 
     del_file bulldog_dev

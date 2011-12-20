@@ -1,0 +1,143 @@
+/* line 17, ../../../../../.rvm/gems/ruby-1.9.2-p290@bulldog/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* line 20, ../../../../../.rvm/gems/ruby-1.9.2-p290@bulldog/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body {
+  line-height: 1;
+}
+
+/* line 22, ../../../../../.rvm/gems/ruby-1.9.2-p290@bulldog/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 24, ../../../../../.rvm/gems/ruby-1.9.2-p290@bulldog/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 26, ../../../../../.rvm/gems/ruby-1.9.2-p290@bulldog/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 28, ../../../../../.rvm/gems/ruby-1.9.2-p290@bulldog/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 101, ../../../../../.rvm/gems/ruby-1.9.2-p290@bulldog/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 30, ../../../../../.rvm/gems/ruby-1.9.2-p290@bulldog/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 114, ../../../../../.rvm/gems/ruby-1.9.2-p290@bulldog/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+/* line 29, ../../app/stylesheets/bulldog.scss */
+body {
+  background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 3, color-stop(66.667%, #111111), color-stop(100%, rgba(4, 4, 4, 0))), -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 3, color-stop(66.667%, #111111), color-stop(100%, rgba(4, 4, 4, 0))), -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 3, color-stop(66.667%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(255, 255, 255, 0))), -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 3, color-stop(66.667%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(255, 255, 255, 0)));
+  background-image: -webkit-radial-gradient(#111111 2px, rgba(4, 4, 4, 0) 3px), -webkit-radial-gradient(#111111 2px, rgba(4, 4, 4, 0) 3px), -webkit-radial-gradient(rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0) 3px), -webkit-radial-gradient(rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0) 3px);
+  background-image: -moz-radial-gradient(#111111 2px, rgba(4, 4, 4, 0) 3px), -moz-radial-gradient(#111111 2px, rgba(4, 4, 4, 0) 3px), -moz-radial-gradient(rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0) 3px), -moz-radial-gradient(rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0) 3px);
+  background-image: -o-radial-gradient(#111111 2px, rgba(4, 4, 4, 0) 3px), -o-radial-gradient(#111111 2px, rgba(4, 4, 4, 0) 3px), -o-radial-gradient(rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0) 3px), -o-radial-gradient(rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0) 3px);
+  background-image: -ms-radial-gradient(#111111 2px, rgba(4, 4, 4, 0) 3px), -ms-radial-gradient(#111111 2px, rgba(4, 4, 4, 0) 3px), -ms-radial-gradient(rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0) 3px), -ms-radial-gradient(rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0) 3px);
+  background-image: radial-gradient(#111111 2px, rgba(4, 4, 4, 0) 3px), radial-gradient(#111111 2px, rgba(4, 4, 4, 0) 3px), radial-gradient(rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0) 3px), radial-gradient(rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0) 3px);
+  background-repeat: repeat;
+  background-position: 0 0, 8px 8px, 0 1px, 8px 9px;
+  background-color: #222222;
+  background-size: 16px 16px;
+}
+
+/* line 33, ../../app/stylesheets/bulldog.scss */
+.app {
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+}
+/* line 38, ../../app/stylesheets/bulldog.scss */
+.app .task-list .task {
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-box;
+  display: box;
+  -moz-box-pack: start;
+  -webkit-box-pack: start;
+  -ms-box-pack: start;
+  box-pack: start;
+  background-color: white;
+  margin: 20px;
+  border-radius: 4px;
+}
+/* line 46, ../../app/stylesheets/bulldog.scss */
+.app .task-list .task div {
+  padding: 6px;
+}
+/* line 50, ../../app/stylesheets/bulldog.scss */
+.app .task-list .task .data, .app .task-list .task .right, .app .task-list .task .spacer {
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-box;
+  display: box;
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
+  -ms-box-orient: vertical;
+  box-orient: vertical;
+  -moz-box-pack: start;
+  -webkit-box-pack: start;
+  -ms-box-pack: start;
+  box-pack: start;
+}
+/* line 56, ../../app/stylesheets/bulldog.scss */
+.app .task-list .task .data .number {
+  border-radius: 12px;
+  margin: 4px 8px;
+  padding: 4px 12px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+}
+/* line 65, ../../app/stylesheets/bulldog.scss */
+.app .task-list .task .spacer {
+  width: 8px;
+}
+/* line 69, ../../app/stylesheets/bulldog.scss */
+.app .task-list .task .right {
+  -moz-box-flex: 1;
+  -webkit-box-flex: 1;
+  -ms-box-flex: 1;
+  box-flex: 1;
+}
+/* line 72, ../../app/stylesheets/bulldog.scss */
+.app .task-list .task .right .project {
+  text-align: right;
+  font-size: 10px;
+  color: #6d6d6d;
+}
