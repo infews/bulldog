@@ -125,17 +125,23 @@ body {
   font-weight: bold;
 }
 /* line 65, ../../app/stylesheets/bulldog.scss */
+.app .task-list .task .context {
+  text-align: center;
+  color: #006400;
+  font-weight: bold;
+}
+/* line 70, ../../app/stylesheets/bulldog.scss */
 .app .task-list .task .spacer {
   width: 8px;
 }
-/* line 69, ../../app/stylesheets/bulldog.scss */
+/* line 74, ../../app/stylesheets/bulldog.scss */
 .app .task-list .task .right {
   -moz-box-flex: 1;
   -webkit-box-flex: 1;
   -ms-box-flex: 1;
   box-flex: 1;
 }
-/* line 72, ../../app/stylesheets/bulldog.scss */
+/* line 77, ../../app/stylesheets/bulldog.scss */
 .app .task-list .task .right .project {
   text-align: right;
   font-size: 10px;
