@@ -24,18 +24,26 @@ describe("todoTxt", function () {
     });
   });
 
-  describe(".buildTasks", function () {
-    var tasks;
+  describe(".build", function () {
+    var tasks, projects;
 
     beforeEach(function () {
-      todoTxt.buildTasks(function (taskModels) {
-        tasks = taskModels;
+      todoTxt.build(function (data) {
+        tasks = data.tasks;
+        projects = data.projects;
       });
       request = mostRecentAjaxRequest();
       request.response(testResponses.localTodos);
     });
 
-    it("should call the onSuccess with an array of Task models", function () {
+    it("should collect the projects", function() {
+      expect(projects.length).toEqual(3);
+      expect(projects[0].get('name')).toEqual('(none)');
+      expect(projects[1].get('name')).toEqual('Vacation');
+      expect(projects[2].get('name')).toEqual('CleanDesk');
+    });
+
+    it("should build the tasks", function () {
       expect(tasks.length).toEqual(7);
       expect(tasks[0].get('action')).toEqual('Call Mom for her birthday');
     });
