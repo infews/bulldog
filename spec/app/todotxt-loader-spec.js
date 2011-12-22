@@ -29,18 +29,10 @@ describe("todoTxt", function () {
 
     beforeEach(function () {
       todoTxt.build(function (data) {
-        tasks = data.tasks;
-        projects = data.projects;
+        tasks = data;
       });
       request = mostRecentAjaxRequest();
       request.response(testResponses.localTodos);
-    });
-
-    it("should collect the projects", function() {
-      expect(projects.length).toEqual(3);
-      expect(projects[0].get('name')).toEqual('(none)');
-      expect(projects[1].get('name')).toEqual('Vacation');
-      expect(projects[2].get('name')).toEqual('CleanDesk');
     });
 
     it("should build the tasks", function () {

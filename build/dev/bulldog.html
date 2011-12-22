@@ -4,6 +4,23 @@
     <title>Bulldog | Todo.txt</title>
     <script src='lib.js' type='text/javascript'></script>
     <script src='app.js' type='text/javascript'></script>
+    <script type='text/javascript'>
+      //<![CDATA[
+        (function($) {
+          $(startApp);
+        
+          function startApp() {
+            localStorage.clear();
+        
+            todoTxt.build(function(tasks){
+              var app = new bulldog.App(tasks);
+              Backbone.history.start();
+              app.navigate('/all');
+            });
+          }
+        }(jQuery));
+      //]]>
+    </script>
     <link href='bulldog.css' rel='stylesheet' type='text/css' />
   </head>
   <body>

@@ -82,7 +82,27 @@ body {
 .app {
   font-family: "Open Sans", "Helvetica Neue", sans-serif;
 }
-/* line 38, ../../app/stylesheets/bulldog.scss */
+/* line 36, ../../app/stylesheets/bulldog.scss */
+.app .project-list {
+  background-color: white;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 4px;
+}
+/* line 43, ../../app/stylesheets/bulldog.scss */
+.app .project-list h1 {
+  font-size: 20px;
+}
+/* line 47, ../../app/stylesheets/bulldog.scss */
+.app .project-list ul {
+  /*margin: 20px;*/
+  padding: 20px 0;
+}
+/* line 51, ../../app/stylesheets/bulldog.scss */
+.app .project-list ul li {
+  margin: 4px;
+}
+/* line 59, ../../app/stylesheets/bulldog.scss */
 .app .task-list .task {
   display: -moz-box;
   display: -webkit-box;
@@ -96,11 +116,11 @@ body {
   margin: 20px;
   border-radius: 4px;
 }
-/* line 46, ../../app/stylesheets/bulldog.scss */
+/* line 67, ../../app/stylesheets/bulldog.scss */
 .app .task-list .task div {
   padding: 6px;
 }
-/* line 50, ../../app/stylesheets/bulldog.scss */
+/* line 71, ../../app/stylesheets/bulldog.scss */
 .app .task-list .task .data, .app .task-list .task .right, .app .task-list .task .spacer {
   display: -moz-box;
   display: -webkit-box;
@@ -115,7 +135,7 @@ body {
   -ms-box-pack: start;
   box-pack: start;
 }
-/* line 56, ../../app/stylesheets/bulldog.scss */
+/* line 77, ../../app/stylesheets/bulldog.scss */
 .app .task-list .task .data .number {
   border-radius: 12px;
   margin: 4px 8px;
@@ -124,24 +144,24 @@ body {
   color: white;
   font-weight: bold;
 }
-/* line 65, ../../app/stylesheets/bulldog.scss */
+/* line 86, ../../app/stylesheets/bulldog.scss */
 .app .task-list .task .context {
   text-align: center;
   color: #006400;
   font-weight: bold;
 }
-/* line 70, ../../app/stylesheets/bulldog.scss */
+/* line 91, ../../app/stylesheets/bulldog.scss */
 .app .task-list .task .spacer {
   width: 8px;
 }
-/* line 74, ../../app/stylesheets/bulldog.scss */
+/* line 95, ../../app/stylesheets/bulldog.scss */
 .app .task-list .task .right {
   -moz-box-flex: 1;
   -webkit-box-flex: 1;
   -ms-box-flex: 1;
   box-flex: 1;
 }
-/* line 77, ../../app/stylesheets/bulldog.scss */
+/* line 98, ../../app/stylesheets/bulldog.scss */
 .app .task-list .task .right .project {
   text-align: right;
   font-size: 10px;

@@ -26,4 +26,14 @@ describe("bulldog.App", function() {
       expect($(".task-list", $content).length).toEqual(1);
     });
   });
+
+  describe("#projects", function() {
+    beforeEach(function() {
+      app.projectList();
+    });
+
+    it("should render just the list of all project names", function() {
+      expect($(".project-list", $content).length).toEqual(1);
+    });
+  });
 });

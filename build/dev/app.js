@@ -1,20 +1,6 @@
 (function ($) {
   window.bulldog = {};
   bulldog.version = "0.1.0";
-
-  $(startApp);
-
-  function startApp() {
-    var app;
-
-    localStorage.clear();
-
-    todoTxt.buildTasks(function(tasks){
-      app = new bulldog.App(tasks);
-      Backbone.history.start();
-      app.navigate('/all');
-    });
-  }
 }(jQuery));
 (function ($) {
 
@@ -33,10 +19,10 @@
     }
   };
 
-  todoTxt.buildTasks = function(onSuccess)  {
-    todoTxt.load(createTasks);
+  todoTxt.build = function(onSuccess)  {
+    todoTxt.load(parseData);
 
-    function createTasks(actions) {
+    function parseData(actions) {
       var i = 0;
       var tasks = _(actions).map(function(desc) {
         i++;
@@ -68,6 +54,10 @@
     }
   };
 
+}(jQuery));
+(function ($) {
+  bulldog.Project = Backbone.Model.extend({
+  });
 }(jQuery));
 (function ($) {
   bulldog.Task = Backbone.Model.extend({
@@ -112,6 +102,37 @@
     }
   }
 }(jQuery));
+(function($, namespace) {
+
+  namespace.ProjectListView = function(options) {
+    var tagOptions = {tagName: 'div', className: 'project-list'};
+    var self = new (Backbone.View.extend(tagOptions))(options);
+
+    self.render = function() {
+      var $el = $(self.el);
+      $el.empty();
+
+      var locals = {
+        projects: self.collection.map(function(project) {
+          return project.get('name');
+        })
+      };
+
+      $el.append(JST["projects"](locals));
+
+      return self;
+    };
+
+    initialize();
+
+    return self;
+
+    function initialize() {
+      options.collection.bind('reset', self.render);
+    }
+  };
+
+}(jQuery, bulldog));
 (function($, namespace) {
 
   namespace.TaskListView = function(options) {
@@ -172,7 +193,8 @@
   bulldog.App = Backbone.Router.extend({
 
     routes: {
-      '/all': 'allTasks'
+      '/all':          'allTasks',
+      '/projects/all': 'projectList'
     },
 
     initialize: function(tasks) {
@@ -184,11 +206,41 @@
       var $appNode = $('.app');
       $appNode.empty();
       $appNode.append(this.allTasksView.render().el);
-    }
+    },
 
+    projectList: function() {
+      var projects = new Backbone.Collection(projectsFrom(this.taskList));
+      this.allProjectsView = new bulldog.ProjectListView({collection: projects});
+      var $appNode = $('.app');
+      $appNode.empty();
+      $appNode.append(this.allProjectsView.render().el);
+
+      function projectsFrom(tasks) {
+        var names = tasks.reduce(addUniqueName, []);
+
+        return _(names).map(function(n) {
+          if (n == '') {
+            n = '(none)';
+          }
+
+          return new Backbone.Model({name: n});
+        });
+
+        function addUniqueName(names, task) {
+          name = task.get('project');
+
+          if (!_(names).include(name)) {
+            names.push(name);
+          }
+
+          return names;
+        }
+      }
+    }
   });
 }(jQuery));(function(){
 window.JST = window.JST || {};
 
+window.JST['projects'] = Mustache.template('<h1>All Projects</h1>\n<ul>\n{{#projects}}\n  <li class="project">{{.}}</li>\n{{/projects}}\n</ul>');
 window.JST['task'] = Mustache.template('<div class="data">\n  <div>\n    <span class="number">{{number}}</span>\n  </div>\n  {{#context}}\n  <div class="context">{{context}}</div>\n  {{/context}}\n</div>\n<div class="spacer">\n</div>\n<div class="right">\n  <div class="action">{{{action}}}</div>\n  {{#project}}\n  <div class="project">\n    <span>{{project}}</span>\n  </div>\n  {{/project}}\n</div>\n');
 })();

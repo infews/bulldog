@@ -4,6 +4,22 @@
     %title Bulldog | Todo.txt
     %script{:src => 'lib.js', :type => 'text/javascript'}
     %script{:src => 'app.js', :type => 'text/javascript'}
+    -#%script
+    :javascript
+      (function($) {
+        $(startApp);
+
+        function startApp() {
+          localStorage.clear();
+
+          todoTxt.build(function(tasks){
+            var app = new bulldog.App(tasks);
+            Backbone.history.start();
+            app.navigate('/all');
+          });
+        }
+      }(jQuery));
+
     %link{:href => "bulldog.css", :rel => 'stylesheet', :type => 'text/css'}
   %body
     .app

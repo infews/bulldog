@@ -25,9 +25,7 @@
         return new bulldog.Task(taskProperties(desc, i));
       });
 
-      var projects = gatherProjectsFrom(tasks);
-
-      onSuccess({tasks: tasks, projects: projects});
+      onSuccess(tasks);
     }
 
     function taskProperties(taskText, number) {
@@ -48,29 +46,6 @@
       function extract(re) {
         var match = taskText.match(re);
         return match ? match[1] : ''
-      }
-    }
-
-    function gatherProjectsFrom(models) {
-
-      var names = _(models).reduce(addUniqueName, []);
-
-      return _(names).map(function(n) {
-        if (n == '') {
-          n = '(none)';
-        }
-
-        return new bulldog.Project({name: n});
-      });
-
-      function addUniqueName(names, task) {
-        name = task.get('project');
-
-        if (!_(names).include(name)) {
-          names.push(name);
-        }
-
-        return names;
       }
     }
   };

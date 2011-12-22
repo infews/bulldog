@@ -33,6 +33,26 @@ body {
 .app {
   font-family: "Open Sans", "Helvetica Neue", sans-serif;
 
+  .project-list {
+     background-color: white;
+     margin: 20px;
+     padding: 20px;
+
+     border-radius: 4px;
+
+     h1 {
+      font-size: 20px;
+     }
+
+     ul {
+       padding: 20px 0;
+
+       li {
+         margin: 4px;
+       }
+     }
+  }
+
   .task-list {
 
     .task {

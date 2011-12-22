@@ -29,7 +29,7 @@ describe("bulldog.TaskView", function() {
     });
 
     it("should render the task number", function() {
-      expect($('div.number', $task).text()).toEqual('17');
+      expect($('span.number', $task).text()).toEqual('17');
     });
 
     it("should render the task context", function() {
@@ -37,7 +37,7 @@ describe("bulldog.TaskView", function() {
     });
 
     it("should render the task project", function() {
-      expect($('div.project', $task).text()).toEqual('Happy Birthday');
+      expect($('div.project', $task).text()).toMatch('Happy Birthday');
     });
   });
 });
