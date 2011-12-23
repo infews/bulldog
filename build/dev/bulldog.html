@@ -15,7 +15,7 @@
             todoTxt.build(function(tasks){
               var app = new bulldog.App(tasks);
               Backbone.history.start();
-              app.navigate('/all');
+              app.navigate('/');
             });
           }
         }(jQuery));
@@ -24,6 +24,7 @@
     <link href='bulldog.css' rel='stylesheet' type='text/css' />
   </head>
   <body>
-    <div class='app'></div>
+    <nav class='projects'></nav>
+    <section class='tasks'></section>
   </body>
 </html>

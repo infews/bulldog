@@ -15,12 +15,13 @@
           todoTxt.build(function(tasks){
             var app = new bulldog.App(tasks);
             Backbone.history.start();
-            app.navigate('/all');
+            app.navigate('/');
           });
         }
       }(jQuery));
 
     %link{:href => "bulldog.css", :rel => 'stylesheet', :type => 'text/css'}
   %body
-    .app
+    %nav.projects
+    %section.tasks
 

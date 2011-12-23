@@ -66,6 +66,14 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
 /* line 29, ../../app/stylesheets/bulldog.scss */
 body {
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-box;
+  display: box;
+  -moz-box-pack: start;
+  -webkit-box-pack: start;
+  -ms-box-pack: start;
+  box-pack: start;
   background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 3, color-stop(66.667%, #111111), color-stop(100%, rgba(4, 4, 4, 0))), -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 3, color-stop(66.667%, #111111), color-stop(100%, rgba(4, 4, 4, 0))), -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 3, color-stop(66.667%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(255, 255, 255, 0))), -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 3, color-stop(66.667%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(255, 255, 255, 0)));
   background-image: -webkit-radial-gradient(#111111 2px, rgba(4, 4, 4, 0) 3px), -webkit-radial-gradient(#111111 2px, rgba(4, 4, 4, 0) 3px), -webkit-radial-gradient(rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0) 3px), -webkit-radial-gradient(rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0) 3px);
   background-image: -moz-radial-gradient(#111111 2px, rgba(4, 4, 4, 0) 3px), -moz-radial-gradient(#111111 2px, rgba(4, 4, 4, 0) 3px), -moz-radial-gradient(rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0) 3px), -moz-radial-gradient(rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0) 3px);
@@ -76,34 +84,63 @@ body {
   background-position: 0 0, 8px 8px, 0 1px, 8px 9px;
   background-color: #222222;
   background-size: 16px 16px;
-}
-
-/* line 33, ../../app/stylesheets/bulldog.scss */
-.app {
   font-family: "Open Sans", "Helvetica Neue", sans-serif;
 }
-/* line 36, ../../app/stylesheets/bulldog.scss */
-.app .project-list {
+
+/* line 37, ../../app/stylesheets/bulldog.scss */
+nav {
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-box;
+  display: box;
+  -moz-box-pack: start;
+  -webkit-box-pack: start;
+  -ms-box-pack: start;
+  box-pack: start;
+}
+
+/* line 42, ../../app/stylesheets/bulldog.scss */
+section {
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-box;
+  display: box;
+  -moz-box-pack: start;
+  -webkit-box-pack: start;
+  -ms-box-pack: start;
+  box-pack: start;
+  -moz-box-flex: 1;
+  -webkit-box-flex: 1;
+  -ms-box-flex: 1;
+  box-flex: 1;
+}
+
+/* line 48, ../../app/stylesheets/bulldog.scss */
+.project-list {
   background-color: white;
   margin: 20px;
   padding: 20px;
   border-radius: 4px;
 }
-/* line 43, ../../app/stylesheets/bulldog.scss */
-.app .project-list h1 {
+/* line 55, ../../app/stylesheets/bulldog.scss */
+.project-list h1 {
   font-size: 20px;
 }
-/* line 47, ../../app/stylesheets/bulldog.scss */
-.app .project-list ul {
-  /*margin: 20px;*/
+/* line 59, ../../app/stylesheets/bulldog.scss */
+.project-list ul {
   padding: 20px 0;
 }
-/* line 51, ../../app/stylesheets/bulldog.scss */
-.app .project-list ul li {
+/* line 62, ../../app/stylesheets/bulldog.scss */
+.project-list ul li {
   margin: 4px;
 }
-/* line 59, ../../app/stylesheets/bulldog.scss */
-.app .task-list .task {
+
+/* line 68, ../../app/stylesheets/bulldog.scss */
+.task-list {
+  margin: 20px 10px;
+}
+/* line 72, ../../app/stylesheets/bulldog.scss */
+.task-list .task {
   display: -moz-box;
   display: -webkit-box;
   display: -ms-box;
@@ -113,15 +150,15 @@ body {
   -ms-box-pack: start;
   box-pack: start;
   background-color: white;
-  margin: 20px;
+  margin: 10px;
   border-radius: 4px;
 }
-/* line 67, ../../app/stylesheets/bulldog.scss */
-.app .task-list .task div {
+/* line 80, ../../app/stylesheets/bulldog.scss */
+.task-list .task div {
   padding: 6px;
 }
-/* line 71, ../../app/stylesheets/bulldog.scss */
-.app .task-list .task .data, .app .task-list .task .right, .app .task-list .task .spacer {
+/* line 84, ../../app/stylesheets/bulldog.scss */
+.task-list .task .data, .task-list .task .right, .task-list .task .spacer {
   display: -moz-box;
   display: -webkit-box;
   display: -ms-box;
@@ -135,8 +172,8 @@ body {
   -ms-box-pack: start;
   box-pack: start;
 }
-/* line 77, ../../app/stylesheets/bulldog.scss */
-.app .task-list .task .data .number {
+/* line 90, ../../app/stylesheets/bulldog.scss */
+.task-list .task .data .number {
   border-radius: 12px;
   margin: 4px 8px;
   padding: 4px 12px;
@@ -144,25 +181,25 @@ body {
   color: white;
   font-weight: bold;
 }
-/* line 86, ../../app/stylesheets/bulldog.scss */
-.app .task-list .task .context {
+/* line 99, ../../app/stylesheets/bulldog.scss */
+.task-list .task .context {
   text-align: center;
   color: #006400;
   font-weight: bold;
 }
-/* line 91, ../../app/stylesheets/bulldog.scss */
-.app .task-list .task .spacer {
+/* line 104, ../../app/stylesheets/bulldog.scss */
+.task-list .task .spacer {
   width: 8px;
 }
-/* line 95, ../../app/stylesheets/bulldog.scss */
-.app .task-list .task .right {
+/* line 108, ../../app/stylesheets/bulldog.scss */
+.task-list .task .right {
   -moz-box-flex: 1;
   -webkit-box-flex: 1;
   -ms-box-flex: 1;
   box-flex: 1;
 }
-/* line 98, ../../app/stylesheets/bulldog.scss */
-.app .task-list .task .right .project {
+/* line 111, ../../app/stylesheets/bulldog.scss */
+.task-list .task .right .project {
   text-align: right;
   font-size: 10px;
   color: #6d6d6d;
