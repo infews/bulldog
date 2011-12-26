@@ -9,7 +9,7 @@ describe("bulldog.TaskAgent", function() {
       project: "Happy Birthday"
     });
 
-    agent = new bulldog.TaskAgent(view, task)
+    agent = new bulldog.TaskAgent(view, task);
   });
 
   describe("#getTaskLocals", function() {

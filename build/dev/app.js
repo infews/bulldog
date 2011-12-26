@@ -69,6 +69,32 @@
   });
 }(jQuery));
 (function($) {
+  bulldog.ProjectListAgent = function(view, projects) {
+    var self = this;
+
+    self.getProjectLocals = function() {
+      var projectLocals = projects.map(function(p) {
+        return {
+          className: 'project',
+          name: p.get('name')
+        };
+      });
+
+      projectLocals[0].className += ' selected';
+
+      var lastName = _(projectLocals).last().name;
+
+      if (lastName == '') {
+        projectLocals[projectLocals.length - 1].name = '(none)';
+      }
+
+      return { projects: projectLocals };
+    };
+
+    return self;
+  }
+}(jQuery));
+(function($) {
   bulldog.TaskAgent = function(view, task) {
     var self = this;
 
@@ -107,16 +133,13 @@
   namespace.ProjectListView = function(options) {
     var tagOptions = {tagName: 'div', className: 'project-list'};
     var self = new (Backbone.View.extend(tagOptions))(options);
+    var agent = new bulldog.ProjectListAgent(self, options.collection);
 
     self.render = function() {
       var $el = $(self.el);
       $el.empty();
 
-      var locals = {
-        projects: self.collection.map(function(project) {
-          return project.get('name');
-        })
-      };
+      var locals = agent.getProjectLocals();
 
       $el.append(JST["projects"](locals));
 
@@ -252,6 +275,6 @@
 }(jQuery));(function(){
 window.JST = window.JST || {};
 
-window.JST['projects'] = Mustache.template('<h1>All Projects</h1>\n<ul>\n{{#projects}}\n  <li class="project">{{.}}</li>\n{{/projects}}\n</ul>');
+window.JST['projects'] = Mustache.template('<div class="project heading">All Projects</div>\n{{#projects}}\n<div class="{{className}}">{{name}}</div>\n{{/projects}}\n');
 window.JST['task'] = Mustache.template('<div class="data">\n  <div>\n    <span class="number">{{number}}</span>\n  </div>\n  {{#context}}\n  <div class="context">{{context}}</div>\n  {{/context}}\n</div>\n<div class="spacer">\n</div>\n<div class="right">\n  <div class="action">{{{action}}}</div>\n  {{#project}}\n  <div class="project">\n    <span>{{project}}</span>\n  </div>\n  {{/project}}\n</div>\n');
 })();

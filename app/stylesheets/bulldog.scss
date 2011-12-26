@@ -37,6 +37,7 @@ body {
 nav {
   @include display-box;
   @include box-pack(start);
+  margin: 10px 0 10px 10px;
 }
 
 section {
@@ -47,21 +48,30 @@ section {
 
 .project-list {
    background-color: white;
-   margin: 20px;
-   padding: 20px;
-
    border-radius: 4px;
 
-   h1 {
-    font-size: 20px;
-   }
+   margin: 10px;
 
-   ul {
-     padding: 20px 0;
+   .project {
+      padding: 10px;
+      border-top: 1px solid #a9a9a9;
+      border-bottom: 1px solid #d3d3d3;
 
-     li {
-       margin: 4px;
-     }
+      &.heading {
+        border-top: none;
+        font-weight: bold;
+
+        &:hover {
+          background-color: white;
+          color: black;
+          border-radius-top: 4px;
+        }
+      }
+
+      &.selected, &:hover {
+        color: white;
+        background-color: #c7c7c7;
+      }
    }
 }
 
