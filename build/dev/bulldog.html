@@ -13,7 +13,7 @@
             localStorage.clear();
         
             todoTxt.build(function(tasks){
-              var app = new bulldog.App(tasks);
+              var app = new bulldog.Router(tasks);
               Backbone.history.start();
               app.navigate('/');
             });

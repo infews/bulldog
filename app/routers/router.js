@@ -1,5 +1,5 @@
 (function($) {
-  bulldog.App = Backbone.Router.extend({
+  bulldog.Router = Backbone.Router.extend({
 
     routes: {
       '/': 'view'

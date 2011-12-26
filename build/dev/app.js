@@ -72,23 +72,46 @@
   bulldog.ProjectListAgent = function(view, projects) {
     var self = this;
 
+    var currentSelection = 'All';
+
+    self.setCurrentSelection = function(value) {
+      if (projects.find(function(p){ return value === p.get('name'); })) {
+        currentSelection = value;
+      } else {
+        currentSelection = 'All';
+      }
+    };
+
+    self.getCurrentSelection = function() {
+      return currentSelection;
+    };
+
     self.getProjectLocals = function() {
-      var projectLocals = projects.map(function(p) {
-        return {
+      var locals = projects.map(function(project) {
+        var p = {
           className: 'project',
-          name: p.get('name')
+          name: project.get('name')
         };
+
+        if (p.name === currentSelection) {
+          p.className += ' selected';
+        }
+
+        if (p.name == '') {
+          p.name = '(none)';
+        }
+
+        p.name = prettyProjectName(p.name);
+
+        return p;
       });
 
-      projectLocals[0].className += ' selected';
+      return { projects: locals };
 
-      var lastName = _(projectLocals).last().name;
+      function prettyProjectName(str) {
 
-      if (lastName == '') {
-        projectLocals[projectLocals.length - 1].name = '(none)';
+        return _(_(str).humanize()).titleize();
       }
-
-      return { projects: projectLocals };
     };
 
     return self;
@@ -213,7 +236,7 @@
 }(jQuery, bulldog));
 
 (function($) {
-  bulldog.App = Backbone.Router.extend({
+  bulldog.Router = Backbone.Router.extend({
 
     routes: {
       '/': 'view'

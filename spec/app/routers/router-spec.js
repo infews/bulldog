@@ -1,4 +1,4 @@
-describe("bulldog.App", function() {
+describe("bulldog.Router", function() {
  var app, $content;
 
   beforeEach(function() {
@@ -8,7 +8,7 @@ describe("bulldog.App", function() {
       new Backbone.Model({action: "baz", project: 'Buzz'}),
       new Backbone.Model({action: "quuz", project: 'Zip'})
     ];
-    app = new bulldog.App(models);
+    app = new bulldog.Router(models);
     $content = $("#jasmine_content");
     $content.append('<nav class="projects"></nav><section class="tasks"></section>');
   });
