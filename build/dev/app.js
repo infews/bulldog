@@ -87,34 +87,35 @@
     };
 
     self.getProjectLocals = function() {
-      var locals = projects.map(function(project) {
-        var p = {
-          className: 'project',
-          name: project.get('name')
-        };
-
-        if (p.name === currentSelection) {
-          p.className += ' selected';
-        }
-
-        if (p.name == '') {
-          p.name = '(none)';
-        }
-
-        p.name = prettyProjectName(p.name);
-
-        return p;
-      });
-
-      return { projects: locals };
-
-      function prettyProjectName(str) {
-
-        return _(_(str).humanize()).titleize();
-      }
+      return {
+        projects: projects.map(buildLocals)
+      };
     };
 
     return self;
+
+    function buildLocals(project) {
+      var name = project.get('name');
+      if (name == '') {
+        name = '(none)';
+      }
+
+      var classes = ['project'];
+      if (name === currentSelection) {
+        classes.push('selected');
+      }
+
+      return {
+        name: prettyProjectName(name),
+        className: classes.join(' '),
+        url: "project/" + project.get('name')
+      };
+    }
+
+    function prettyProjectName(str) {
+      return _(_(str).humanize()).titleize();
+    }
+
   }
 }(jQuery));
 (function($) {
@@ -239,7 +240,8 @@
   bulldog.Router = Backbone.Router.extend({
 
     routes: {
-      '/': 'view'
+      '/':              'view',
+      '/project/:name': 'project'
     },
 
     initialize: function(tasks) {
@@ -251,7 +253,9 @@
 
         moveNoneToEnd(names);
 
-        return _(names).map(function(n) { return new Backbone.Model({name: n}); });
+        return _(names).map(function(n) {
+          return new Backbone.Model({name: n});
+        });
 
         function toUniqueProjectNames(names, task) {
           name = task.get('project');
@@ -267,15 +271,24 @@
           var index = _(list).indexOf('');
 
           if (index >= 0) {
-            list.splice(list.length-1, 0, list.splice(index, 1)[0]);
+            list.splice(list.length - 1, 0, list.splice(index, 1)[0]);
           }
         }
       }
     },
 
-    allTasks: function() {
-      this.allTasksView = new bulldog.TaskListView({collection: this.taskList});
-      this.replace('.tasks', this.allTasksView.render().el);
+    tasksFor: function(options) {
+      var taskList = this.taskList;
+
+      if (options.project != 'All') {
+        var tasks = this.taskList.filter(function(t) {
+          return t.get('project') == options.project;
+        });
+        taskList = new bulldog.TaskList(tasks);
+      }
+
+      this.tasksView = new bulldog.TaskListView({collection: taskList});
+      this.replace('.tasks', this.tasksView.render().el);
     },
 
     allProjects: function() {
@@ -285,7 +298,11 @@
 
     view: function() {
       this.allProjects();
-      this.allTasks();
+      this.tasksFor({project: 'All'});
+    },
+
+    project: function(project) {
+      this.tasksFor({project: project});
     },
 
     replace: function(selector, node) {
@@ -298,6 +315,6 @@
 }(jQuery));(function(){
 window.JST = window.JST || {};
 
-window.JST['projects'] = Mustache.template('<div class="project heading">All Projects</div>\n{{#projects}}\n<div class="{{className}}">{{name}}</div>\n{{/projects}}\n');
+window.JST['projects'] = Mustache.template('<div class="project heading">All Projects</div>\n{{#projects}}\n<div class="{{className}}"><a href="#/{{url}}">{{name}}</a></div>\n{{/projects}}\n');
 window.JST['task'] = Mustache.template('<div class="data">\n  <div>\n    <span class="number">{{number}}</span>\n  </div>\n  {{#context}}\n  <div class="context">{{context}}</div>\n  {{/context}}\n</div>\n<div class="spacer">\n</div>\n<div class="right">\n  <div class="action">{{{action}}}</div>\n  {{#project}}\n  <div class="project">\n    <span>{{project}}</span>\n  </div>\n  {{/project}}\n</div>\n');
 })();

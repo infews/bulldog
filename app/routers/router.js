@@ -2,7 +2,8 @@
   bulldog.Router = Backbone.Router.extend({
 
     routes: {
-      '/': 'view'
+      '/':              'view',
+      '/project/:name': 'project'
     },
 
     initialize: function(tasks) {
@@ -14,7 +15,9 @@
 
         moveNoneToEnd(names);
 
-        return _(names).map(function(n) { return new Backbone.Model({name: n}); });
+        return _(names).map(function(n) {
+          return new Backbone.Model({name: n});
+        });
 
         function toUniqueProjectNames(names, task) {
           name = task.get('project');
@@ -30,15 +33,24 @@
           var index = _(list).indexOf('');
 
           if (index >= 0) {
-            list.splice(list.length-1, 0, list.splice(index, 1)[0]);
+            list.splice(list.length - 1, 0, list.splice(index, 1)[0]);
           }
         }
       }
     },
 
-    allTasks: function() {
-      this.allTasksView = new bulldog.TaskListView({collection: this.taskList});
-      this.replace('.tasks', this.allTasksView.render().el);
+    tasksFor: function(options) {
+      var taskList = this.taskList;
+
+      if (options.project != 'All') {
+        var tasks = this.taskList.filter(function(t) {
+          return t.get('project') == options.project;
+        });
+        taskList = new bulldog.TaskList(tasks);
+      }
+
+      this.tasksView = new bulldog.TaskListView({collection: taskList});
+      this.replace('.tasks', this.tasksView.render().el);
     },
 
     allProjects: function() {
@@ -48,7 +60,11 @@
 
     view: function() {
       this.allProjects();
-      this.allTasks();
+      this.tasksFor({project: 'All'});
+    },
+
+    project: function(project) {
+      this.tasksFor({project: project});
     },
 
     replace: function(selector, node) {

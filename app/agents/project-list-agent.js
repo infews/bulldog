@@ -17,33 +17,34 @@
     };
 
     self.getProjectLocals = function() {
-      var locals = projects.map(function(project) {
-        var p = {
-          className: 'project',
-          name: project.get('name')
-        };
-
-        if (p.name === currentSelection) {
-          p.className += ' selected';
-        }
-
-        if (p.name == '') {
-          p.name = '(none)';
-        }
-
-        p.name = prettyProjectName(p.name);
-
-        return p;
-      });
-
-      return { projects: locals };
-
-      function prettyProjectName(str) {
-
-        return _(_(str).humanize()).titleize();
-      }
+      return {
+        projects: projects.map(buildLocals)
+      };
     };
 
     return self;
+
+    function buildLocals(project) {
+      var name = project.get('name');
+      if (name == '') {
+        name = '(none)';
+      }
+
+      var classes = ['project'];
+      if (name === currentSelection) {
+        classes.push('selected');
+      }
+
+      return {
+        name: prettyProjectName(name),
+        className: classes.join(' '),
+        url: "project/" + project.get('name')
+      };
+    }
+
+    function prettyProjectName(str) {
+      return _(_(str).humanize()).titleize();
+    }
+
   }
 }(jQuery));

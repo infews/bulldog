@@ -2,13 +2,13 @@ describe("bulldog.Router", function() {
  var app, $content;
 
   beforeEach(function() {
-    var models = [
+    var tasks = [
       new Backbone.Model({action: "foo", project: 'Zip'}),
       new Backbone.Model({action: "bar", project: ''}),
       new Backbone.Model({action: "baz", project: 'Buzz'}),
       new Backbone.Model({action: "quuz", project: 'Zip'})
     ];
-    app = new bulldog.Router(models);
+    app = new bulldog.Router(tasks);
     $content = $("#jasmine_content");
     $content.append('<nav class="projects"></nav><section class="tasks"></section>');
   });
@@ -31,13 +31,28 @@ describe("bulldog.Router", function() {
     });
   });
 
-  describe("#allTasks", function() {
-    beforeEach(function() {
-      app.allTasks();
+  describe("#tasksFor", function() {
+
+    describe("when no project is specified", function() {
+      beforeEach(function() {
+        app.tasksFor({project: 'All'});
+      });
+
+      it("should render all tasks into the DOM", function() {
+        expect($(".task-list", $content).length).toEqual(1);
+        expect($(".task", $content).length).toEqual(4);
+      });
     });
 
-    it("should render the basic task list to the DOM", function() {
-      expect($(".task-list", $content).length).toEqual(1);
+    describe("when a project is specified", function() {
+      beforeEach(function() {
+        app.tasksFor({project: 'Zip'});
+      });
+
+      it("should render only the requested Project's tasks into the DOM", function() {
+        expect($(".task-list", $content).length).toEqual(1);
+        expect($(".task", $content).length).toEqual(2);
+      });
     });
   });
 

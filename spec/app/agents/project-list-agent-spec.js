@@ -50,17 +50,19 @@ describe("bulldog.ProjectListAgent", function() {
   });
 
   describe("#getProjectLocals", function() {
-    var locals;
+    var locals, projectAttrs;
 
     describe("when there is a selection", function() {
       beforeEach(function() {
         agent.setCurrentSelection('ThankYouNotes');
         locals = agent.getProjectLocals();
+        projectAttrs = locals.projects[1];
       });
 
       it("should have the correct project selected", function() {
-        expect(locals.projects[1].name).toEqual('Thank You Notes');
-        expect(locals.projects[1].className).toEqual('project selected');
+        expect(projectAttrs.name).toEqual('Thank You Notes');
+        expect(projectAttrs.className).toEqual('project selected');
+        expect(projectAttrs.url).toEqual('project/ThankYouNotes');
       });
     });
 
