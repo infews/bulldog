@@ -44,13 +44,14 @@ section {
   @include display-box;
   @include box-pack(start);
   @include box-flex(1);
+  margin: 10px 10px 0;
 }
 
 .project-list {
    background-color: white;
    border-radius: 4px;
 
-   margin: 10px;
+   margin: 4px;
 
    .project {
       padding: 10px;
@@ -76,15 +77,17 @@ section {
 }
 
 .task-list {
-
-  margin: 20px 10px;
+  @include display-box;
+  @include box-pack(start);
+  @include box-orient(vertical);
+  @include box-flex(1);
 
   .task {
     @include display-box;
     @include box-pack(start);
 
     background-color: white;
-    margin: 10px;
+    margin: 4px;
     border-radius: 4px;
 
     div {
@@ -100,7 +103,7 @@ section {
     .data .number {
       border-radius: 12px;
       margin: 4px 8px;
-      padding: 4px 12px;
+      padding: 4px 8px;
       background-color: black;
       color: white;
       font-weight: bold;

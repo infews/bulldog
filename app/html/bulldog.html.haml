@@ -4,7 +4,6 @@
     %title Bulldog | Todo.txt
     %script{:src => 'lib.js', :type => 'text/javascript'}
     %script{:src => 'app.js', :type => 'text/javascript'}
-    -#%script
     :javascript
       (function($) {
         $(startApp);
@@ -20,7 +19,7 @@
         }
       }(jQuery));
 
-    %link{:href => "bulldog.css", :rel => 'stylesheet', :type => 'text/css'}
+    %link{:href => 'bulldog.css', :rel => 'stylesheet', :type => 'text/css'}
   %body
     %nav.projects
     %section.tasks
