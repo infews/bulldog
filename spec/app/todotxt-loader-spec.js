@@ -41,8 +41,8 @@ describe("todoTxt", function () {
     });
 
     it("should set the project correctly on a Task", function () {
-      expect(tasks[2].get('project')).toEqual('Vacation');
-      expect(tasks[4].get('project')).toEqual('CleanDesk');
+      expect(tasks[2].get('projectName')).toEqual('Vacation');
+      expect(tasks[4].get('projectName')).toEqual('CleanDesk');
     });
 
     it("should set the context correctly on a Task", function () {

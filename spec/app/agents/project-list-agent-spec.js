@@ -7,9 +7,9 @@ describe("bulldog.ProjectListAgent", function() {
       new Backbone.Model({name: "ThankYouNotes"}),
       new Backbone.Model({name: ""})
     ];
-    var list = new Backbone.Collection(projects);
+    var collection = new Backbone.Collection(projects);
 
-    agent = new bulldog.ProjectListAgent(view, list);
+    agent = new bulldog.ProjectListAgent(view, collection);
   });
 
   describe("current selection", function() {
@@ -92,4 +92,17 @@ describe("bulldog.ProjectListAgent", function() {
       });
     });
   });
+
+  describe("#findProjectByPrettyName", function() {
+    var project;
+    beforeEach(function() {
+      project = agent.findProjectByPrettyName('(none)');
+    });
+
+    it("should return the correct project", function() {
+      expect(project.get('name')).toEqual('');
+    });
+  });
+
+
 });

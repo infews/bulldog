@@ -20,7 +20,7 @@
         });
 
         function toUniqueProjectNames(names, task) {
-          name = task.get('project');
+          name = task.get('projectName');
 
           if (!_(names).include(name)) {
             names.push(name);
@@ -42,9 +42,9 @@
     tasksFor: function(options) {
       var taskList = this.taskList;
 
-      if (options.project != 'All') {
-        var tasks = this.taskList.filter(function(t) {
-          return t.get('project') == options.project;
+      if (options.projectName != 'All') {
+        var tasks = this.taskList.filter(function(task) {
+          return task.get('projectName') == options.projectName;
         });
         taskList = new bulldog.TaskList(tasks);
       }
@@ -55,16 +55,20 @@
 
     allProjects: function() {
       this.allProjectsView = new bulldog.ProjectListView({collection: this.projectList});
+      var self = this;
       this.replace('.projects', this.allProjectsView.render().el);
+      this.allProjectsView.bind('project', function(project) {
+        self.navigate('/project/' + project.get('name'), true);
+      });
     },
 
     view: function() {
       this.allProjects();
-      this.tasksFor({project: 'All'});
+      this.tasksFor({projectName: 'All'});
     },
 
-    project: function(project) {
-      this.tasksFor({project: project});
+    project: function(projectName) {
+      this.tasksFor({projectName: projectName});
     },
 
     replace: function(selector, node) {

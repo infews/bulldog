@@ -6,7 +6,7 @@ describe("bulldog.TaskAgent", function() {
       action:  "Call mom for wishes",
       number:  "17",
       context: "calls",
-      project: "Happy Birthday"
+      projectName: "Happy Birthday"
     });
 
     agent = new bulldog.TaskAgent(view, task);
@@ -23,7 +23,7 @@ describe("bulldog.TaskAgent", function() {
       expect(locals.action).toEqual('Call mom for wishes');
       expect(locals.number).toEqual('17');
       expect(locals.context).toEqual('calls');
-      expect(locals.project).toEqual('Happy Birthday');
+      expect(locals.projectName).toEqual('Happy Birthday');
     });
   });
 
@@ -35,7 +35,7 @@ describe("bulldog.TaskAgent", function() {
           action:  "Call mom for wishes http://foobar.com/abc",
           number:  "17",
           context: "calls",
-          project: "Happy Birthday"
+          projectName: "Happy Birthday"
         });
 
         agent = new bulldog.TaskAgent(view, task)
@@ -53,7 +53,7 @@ describe("bulldog.TaskAgent", function() {
           action:  "Call mom for wishes http://foobar.com/abc boo https://www.example.com?q=zippy",
           number:  "17",
           context: "calls",
-          project: "Happy Birthday"
+          projectName: "Happy Birthday"
         });
 
         agent = new bulldog.TaskAgent(view, task)

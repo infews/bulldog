@@ -22,13 +22,16 @@
       };
     };
 
+    self.findProjectByPrettyName = function(prettyName) {
+      return projects.find(function(project) {
+        return prettyProjectName(project.get('name')) === prettyName;
+      });
+    };
+
     return self;
 
     function buildLocals(project) {
       var name = project.get('name');
-      if (name == '') {
-        name = '(none)';
-      }
 
       var classes = ['project'];
       if (name === currentSelection) {
@@ -43,6 +46,10 @@
     }
 
     function prettyProjectName(str) {
+      if (str == '') {
+        return '(none)';
+      }
+
       return _(_(str).humanize()).titleize();
     }
 

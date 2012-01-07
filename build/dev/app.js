@@ -43,8 +43,8 @@
       return {
         action: _.clean(taskText.replace(projectRE, '').replace(contextRE, '')),
         context: context,
-        project: project,
-        number: number
+        number: number,
+        projectName: project
       };
 
       function extract(re) {
@@ -92,13 +92,16 @@
       };
     };
 
+    self.findProjectByPrettyName = function(prettyName) {
+      return projects.find(function(project) {
+        return prettyProjectName(project.get('name')) === prettyName;
+      });
+    };
+
     return self;
 
     function buildLocals(project) {
       var name = project.get('name');
-      if (name == '') {
-        name = '(none)';
-      }
 
       var classes = ['project'];
       if (name === currentSelection) {
@@ -113,6 +116,10 @@
     }
 
     function prettyProjectName(str) {
+      if (str == '') {
+        return '(none)';
+      }
+
       return _(_(str).humanize()).titleize();
     }
 
@@ -127,7 +134,7 @@
         action: decorateLinks(task.get('action')),
         number: task.get('number'),
         context: task.get('context'),
-        project: task.get('project')
+        projectName: task.get('projectName')
       };
     };
 
@@ -155,19 +162,31 @@
 (function($, namespace) {
 
   namespace.ProjectListView = function(options) {
-    var tagOptions = {tagName: 'div', className: 'project-list'};
-    var self = new (Backbone.View.extend(tagOptions))(options);
+    var baseOptions = {
+      tagName: 'div',
+      className: 'project-list'
+    };
+    var self = new (Backbone.View.extend(baseOptions))(options);
     var agent = new bulldog.ProjectListAgent(self, options.collection);
 
     self.render = function() {
       var $el = $(self.el);
+
+      $el.unbind('click', self.selectProject);
       $el.empty();
 
-      var locals = agent.getProjectLocals();
-
-      $el.append(JST["projects"](locals));
+      $el.append(JST["projects"](agent.getProjectLocals()));
+      $el.bind('click', self.selectProject);
 
       return self;
+    };
+
+    self.selectProject = function(e) {
+      $('.project.selected').removeClass('selected');
+      var $project = $(e.target);
+      $project.addClass('selected');
+
+      self.trigger('project', agent.findProjectByPrettyName($project.text()));
     };
 
     initialize();
@@ -258,7 +277,7 @@
         });
 
         function toUniqueProjectNames(names, task) {
-          name = task.get('project');
+          name = task.get('projectName');
 
           if (!_(names).include(name)) {
             names.push(name);
@@ -280,9 +299,9 @@
     tasksFor: function(options) {
       var taskList = this.taskList;
 
-      if (options.project != 'All') {
-        var tasks = this.taskList.filter(function(t) {
-          return t.get('project') == options.project;
+      if (options.projectName != 'All') {
+        var tasks = this.taskList.filter(function(task) {
+          return task.get('projectName') == options.projectName;
         });
         taskList = new bulldog.TaskList(tasks);
       }
@@ -293,16 +312,20 @@
 
     allProjects: function() {
       this.allProjectsView = new bulldog.ProjectListView({collection: this.projectList});
+      var self = this;
       this.replace('.projects', this.allProjectsView.render().el);
+      this.allProjectsView.bind('project', function(project) {
+        self.navigate('/project/' + project.get('name'), true);
+      });
     },
 
     view: function() {
       this.allProjects();
-      this.tasksFor({project: 'All'});
+      this.tasksFor({projectName: 'All'});
     },
 
-    project: function(project) {
-      this.tasksFor({project: project});
+    project: function(projectName) {
+      this.tasksFor({projectName: projectName});
     },
 
     replace: function(selector, node) {
@@ -315,6 +338,6 @@
 }(jQuery));(function(){
 window.JST = window.JST || {};
 
-window.JST['projects'] = Mustache.template('<div class="project heading">All Projects</div>\n{{#projects}}\n<div class="{{className}}"><a href="#/{{url}}">{{name}}</a></div>\n{{/projects}}\n');
-window.JST['task'] = Mustache.template('<div class="data">\n  <div>\n    <span class="number">{{number}}</span>\n  </div>\n  {{#context}}\n  <div class="context">{{context}}</div>\n  {{/context}}\n</div>\n<div class="spacer">\n</div>\n<div class="right">\n  <div class="action">{{{action}}}</div>\n  {{#project}}\n  <div class="project">\n    <span>{{project}}</span>\n  </div>\n  {{/project}}\n</div>\n');
+window.JST['projects'] = Mustache.template('<div class="heading">All Projects</div>\n{{#projects}}\n<div class="{{className}}">{{name}}</div>\n{{/projects}}\n');
+window.JST['task'] = Mustache.template('<div class="data">\n  <div>\n    <span class="number">{{number}}</span>\n  </div>\n  {{#context}}\n  <div class="context">{{context}}</div>\n  {{/context}}\n</div>\n<div class="spacer">\n</div>\n<div class="right">\n  <div class="action">{{{action}}}</div>\n  {{#projectName}}\n  <div class="project">\n    <span>{{projectName}}</span>\n  </div>\n  {{/projectName}}\n</div>\n');
 })();

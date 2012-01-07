@@ -6,7 +6,7 @@ describe("bulldog.TaskView", function() {
       action:  "Call mom for wishes",
       number:  "17",
       context: "calls",
-      project: "Happy Birthday"
+      projectName: "Happy Birthday"
     });
 
     view = new bulldog.TaskView(task);

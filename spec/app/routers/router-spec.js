@@ -3,10 +3,10 @@ describe("bulldog.Router", function() {
 
   beforeEach(function() {
     var tasks = [
-      new Backbone.Model({action: "foo", project: 'Zip'}),
-      new Backbone.Model({action: "bar", project: ''}),
-      new Backbone.Model({action: "baz", project: 'Buzz'}),
-      new Backbone.Model({action: "quuz", project: 'Zip'})
+      new Backbone.Model({action: "foo", projectName: 'Zip'}),
+      new Backbone.Model({action: "bar", projectName: ''}),
+      new Backbone.Model({action: "baz", projectName: 'Buzz'}),
+      new Backbone.Model({action: "quuz", projectName: 'Zip'})
     ];
     app = new bulldog.Router(tasks);
     $content = $("#jasmine_content");
@@ -35,7 +35,7 @@ describe("bulldog.Router", function() {
 
     describe("when no project is specified", function() {
       beforeEach(function() {
-        app.tasksFor({project: 'All'});
+        app.tasksFor({projectName: 'All'});
       });
 
       it("should render all tasks into the DOM", function() {
@@ -46,7 +46,7 @@ describe("bulldog.Router", function() {
 
     describe("when a project is specified", function() {
       beforeEach(function() {
-        app.tasksFor({project: 'Zip'});
+        app.tasksFor({projectName: 'Zip'});
       });
 
       it("should render only the requested Project's tasks into the DOM", function() {

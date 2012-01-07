@@ -39,8 +39,8 @@
       return {
         action: _.clean(taskText.replace(projectRE, '').replace(contextRE, '')),
         context: context,
-        project: project,
-        number: number
+        number: number,
+        projectName: project
       };
 
       function extract(re) {

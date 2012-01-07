@@ -7,7 +7,7 @@
         action: decorateLinks(task.get('action')),
         number: task.get('number'),
         context: task.get('context'),
-        project: task.get('project')
+        projectName: task.get('projectName')
       };
     };
 
