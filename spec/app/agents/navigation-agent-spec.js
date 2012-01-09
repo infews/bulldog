@@ -1,4 +1,4 @@
-describe("bulldog.ProjectListAgent", function() {
+describe("bulldog.NavigationAgent", function() {
   var agent, view, locals;
 
   beforeEach(function() {
@@ -9,7 +9,7 @@ describe("bulldog.ProjectListAgent", function() {
     ];
     var collection = new Backbone.Collection(projects);
 
-    agent = new bulldog.ProjectListAgent(view, collection);
+    agent = new bulldog.NavigationAgent(view, collection);
   });
 
   describe("current selection", function() {

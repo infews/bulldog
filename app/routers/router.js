@@ -72,7 +72,7 @@
     },
 
     allProjects: function() {
-      this.allProjectsView = new bulldog.ProjectListView({collection: this.projectList});
+      this.allProjectsView = new bulldog.NavigationView({collection: this.projectList});
       var self = this;
       this.replace('.projects', this.allProjectsView.render().el);
       this.allProjectsView.bind('project', function(project) {

@@ -1,5 +1,5 @@
 (function($) {
-  bulldog.ProjectListAgent = function(view, projects) {
+  bulldog.NavigationAgent = function(view, projects) {
     var self = this;
 
     var currentSelection = 'All';

@@ -1,12 +1,12 @@
 (function($, namespace) {
 
-  namespace.ProjectListView = function(options) {
+  namespace.NavigationView = function(options) {
     var baseOptions = {
       tagName: 'div',
       className: 'project-list'
     };
     var self = new (Backbone.View.extend(baseOptions))(options);
-    var agent = new bulldog.ProjectListAgent(self, options.collection);
+    var agent = new bulldog.NavigationAgent(self, options.collection);
 
     self.render = function() {
       var $el = $(self.el);

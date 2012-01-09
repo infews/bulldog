@@ -1,4 +1,4 @@
-describe("bulldog.ProjectListView", function() {
+describe("bulldog.NavigationView", function() {
   var view, $content;
 
   beforeEach(function() {
@@ -8,7 +8,7 @@ describe("bulldog.ProjectListView", function() {
       new Backbone.Model({name: ''})
     ]);
 
-    view = new bulldog.ProjectListView({collection: collection});
+    view = new bulldog.NavigationView({collection: collection});
     $content = $("#jasmine_content");
   });
 
