@@ -9,34 +9,52 @@
     initialize: function(tasks) {
       this.taskList = new bulldog.TaskList(tasks);
       this.projectList = new Backbone.Collection(projectsFrom(this.taskList));
+      this.contextList = new Backbone.Collection(contextsFrom(this.taskList));
 
       function projectsFrom(tasks) {
         var names = tasks.reduce(toUniqueProjectNames, ['All']);
 
-        moveNoneToEnd(names);
+        moveEmptyToEnd(names);
 
         return _(names).map(function(n) {
           return new Backbone.Model({name: n});
         });
 
         function toUniqueProjectNames(names, task) {
-          name = task.get('projectName');
-
-          if (!_(names).include(name)) {
-            names.push(name);
-          }
-
+          addIfUnique(names, task.get('projectName'));
           return names;
         }
+      }
 
-        function moveNoneToEnd(list) {
-          var index = _(list).indexOf('');
+      function contextsFrom(tasks) {
+        var names = tasks.reduce(toUniqueContextNames, []);
 
-          if (index >= 0) {
-            list.splice(list.length - 1, 0, list.splice(index, 1)[0]);
-          }
+        moveEmptyToEnd(names);
+
+        return _(names).map(function(n) {
+          return new Backbone.Model({name: n});
+        });
+
+        function toUniqueContextNames(names, task) {
+          addIfUnique(names, task.get('context'));
+          return names;
         }
       }
+
+      function moveEmptyToEnd(list) {
+        var index = _(list).indexOf('');
+
+        if (index >= 0) {
+          list.splice(list.length - 1, 0, list.splice(index, 1)[0]);
+        }
+      }
+
+      function addIfUnique(list, value)  {
+        if (!_(list).include(value)) {
+          list.push(value);
+        }
+      }
+
     },
 
     tasksFor: function(options) {
