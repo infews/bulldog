@@ -38,6 +38,43 @@ nav {
   @include display-box;
   @include box-pack(start);
   margin: 10px 0 10px 10px;
+
+  .heading {
+    @include display-box;
+    @include box-pack(start);
+    @include box-orient(horizontal);
+
+    .projects, .contexts {
+      @include display-box;
+      @include box-pack(center);
+      @include box-flex(1);
+      padding: 4px;
+      text-align: center;
+      font-size: 24px;
+      color: #a9a9a9;
+
+      &.selected {
+        color: black;
+        font-weight: bold;
+      }
+    }
+
+    .projects {
+      &.selected {
+        border-right: 1px solid black;
+      }
+
+      border-right: 1px solid #d3d3d3;
+    }
+
+    .contexts {
+      &.selected {
+        border-left: 1px solid black;
+      }
+
+      border-left: 1px solid #d3d3d3;
+    }
+  }
 }
 
 section {
