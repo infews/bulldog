@@ -10,7 +10,7 @@ describe("bulldog.Router", function() {
     ];
     app = new bulldog.Router(tasks);
     $content = $("#jasmine_content");
-    $content.append('<nav class="projects"></nav><section class="tasks"></section>');
+    $content.append('<nav></nav><section class="tasks"></section>');
   });
 
   describe("#initialize", function() {
@@ -39,38 +39,34 @@ describe("bulldog.Router", function() {
     });
   });
 
-  describe("#tasksFor", function() {
-
-    describe("when no project is specified", function() {
-      beforeEach(function() {
-        app.tasksFor({projectName: 'All'});
-      });
-
-      it("should render all tasks into the DOM", function() {
-        expect($(".task-list", $content).length).toEqual(1);
-        expect($(".task", $content).length).toEqual(4);
-      });
+  describe("#root", function() {
+    beforeEach(function() {
+      app.root();
     });
 
-    describe("when a project is specified", function() {
-      beforeEach(function() {
-        app.tasksFor({projectName: 'Zip'});
-      });
+    it("should render the navigation UI", function() {
+      expect($('nav .navigation').length).toEqual(1)
+    });
 
-      it("should render only the requested Project's tasks into the DOM", function() {
-        expect($(".task-list", $content).length).toEqual(1);
-        expect($(".task", $content).length).toEqual(2);
-      });
+    it("should render the tasks UI", function() {
+      expect($("section.tasks .task-list", $content).length).toEqual(1);
+      expect($("section.tasks .task", $content).length).toEqual(4);
     });
   });
 
-  describe("#allProjects", function() {
+  describe("picking a project", function() {
+
     beforeEach(function() {
-      app.allProjects();
+      app.root();
+      $($('.project')[1]).click();
     });
 
-    it("should render just the list of all project names", function() {
-      expect($(".project-list", $content).length).toEqual(1);
+    it("should select the 2nd project", function() {
+      expect($($('.project.selected')[0]).text()).toMatch(/Zip/);
+    });
+
+    it("should re-render the project list", function() {
+      expect($('.tasks .task').length).toEqual(2);
     });
   });
 });

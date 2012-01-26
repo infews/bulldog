@@ -2,33 +2,122 @@ describe("bulldog.NavigationAgent", function() {
   var agent, view, locals;
 
   beforeEach(function() {
-    var projects = [
-      new Backbone.Model({name: "All"}),
-      new Backbone.Model({name: "ThankYouNotes"}),
-      new Backbone.Model({name: ""})
-    ];
-    var collection = new Backbone.Collection(projects);
+    var projectCollection = new Backbone.Collection([
+      new Backbone.Model({name: 'All'}),
+      new Backbone.Model({name: 'ThankYouNotes'}),
+      new Backbone.Model({name: ''})
+    ]);
 
-    agent = new bulldog.NavigationAgent(view, collection);
+    var contextCollection = new Backbone.Collection([
+      new Backbone.Model({name: 'home'}),
+      new Backbone.Model({name: 'pc'}),
+      new Backbone.Model({name: 'calls'}),
+      new Backbone.Model({name: ''})
+    ]);
+
+    view = { render: jasmine.createSpy('view.render') };
+    agent = new bulldog.NavigationAgent(
+      view,
+      {
+        projects: projectCollection,
+        contexts: contextCollection
+      }
+    );
   });
 
-  describe("current selection", function() {
+  describe("selected navigation tab", function() {
     var selection;
 
     describe("before being set", function() {
       beforeEach(function() {
-        selection = agent.getCurrentSelection();
+        selection = agent.getSelectedTab();
       });
 
-      it("#getCurrentSelection should return 'All'", function() {
+      it("should equal 'projects' text", function() {
+        expect(selection).toEqual('+');
+      });
+    });
+
+    describe("after being set", function() {
+      beforeEach(function() {
+        agent.selectTab("@");
+        selection = agent.getSelectedTab();
+      });
+
+      it("should equal 'contexts' text", function() {
+        expect(selection).toEqual('@');
+      });
+
+      it("should tell the view to re-render the navigation", function() {
+        expect(view.render).toHaveBeenCalled();
+      });
+    });
+
+    describe("when set to something other than projects or contexts", function() {
+      beforeEach(function() {
+        agent.selectTab('zippy');
+        selection = agent.getSelectedTab();
+      });
+
+      it("should return 'projects'", function() {
+        expect(selection).toEqual('+');
+      });
+    });
+  });
+
+  describe("selected project", function() {
+    var selection;
+
+    describe("before being set", function() {
+      beforeEach(function() {
+        selection = agent.getSelectedProject();
+      });
+
+      it("#getSelectedProject should return 'All'", function() {
         expect(selection).toEqual('All');
       });
     });
 
     describe("after being set", function() {
       beforeEach(function() {
-        agent.setCurrentSelection("");
-        selection = agent.getCurrentSelection();
+        agent.selectProject('ThankYouNotes');
+        selection = agent.getSelectedProject();
+      });
+
+      it("should equal the new value", function() {
+        expect(selection).toEqual('ThankYouNotes');
+      });
+    });
+
+    describe("when set to a non-present value", function() {
+      beforeEach(function() {
+        agent.selectProject('zippy');
+        selection = agent.getSelectedProject();
+      });
+
+      it("should return 'All'", function() {
+        expect(selection).toEqual('All');
+      });
+    });
+  });
+  
+  describe("selected context", function() {
+    var selection;
+
+    describe("before being set", function() {
+      beforeEach(function() {
+        selection = agent.getSelectedContext();
+      });
+
+      it("#getSelectedContext should return 'none'", function() {
+        expect(selection).toEqual('(none)');
+      });
+    });
+
+    describe("after being set", function() {
+      beforeEach(function() {
+        agent.selectContext("");
+        selection = agent.getSelectedContext();
       });
 
       it("should equal ''", function() {
@@ -38,57 +127,109 @@ describe("bulldog.NavigationAgent", function() {
 
     describe("when set to a non-present value", function() {
       beforeEach(function() {
-        agent.setCurrentSelection('zippy');
-        selection = agent.getCurrentSelection();
+        agent.selectContext('zippy');
+        selection = agent.getSelectedContext();
       });
 
       it("should return 'All'", function() {
-        expect(selection).toEqual('All');
+        expect(selection).toEqual('(none)');
       });
     });
 
   });
 
-  describe("#getProjectLocals", function() {
-    var locals, projectAttrs;
+  describe("#getLocals", function() {
+    var locals, item;
 
-    describe("when there is a selection", function() {
+    describe("when 'contexts' is selected", function() {
       beforeEach(function() {
-        agent.setCurrentSelection('ThankYouNotes');
-        locals = agent.getProjectLocals();
-        projectAttrs = locals.projects[1];
+        agent.selectTab('@');
+        agent.selectContext('home');
+        locals = agent.getLocals();
       });
 
-      it("should have the correct project selected", function() {
-        expect(projectAttrs.name).toEqual('Thank You Notes');
-        expect(projectAttrs.className).toEqual('project selected');
-        expect(projectAttrs.url).toEqual('project/ThankYouNotes');
+      it("should show 'contexts' selected", function() {
+        expect(locals.tabs.length).toEqual(2);
+        expect(locals.tabs[0]).toEqual({text: '+', className: 'projects'});
+        expect(locals.tabs[1]).toEqual({text: '@', className: 'contexts selected'});
       });
+
+      describe("the list", function() {
+        beforeEach(function() {
+          locals = agent.getLocals();
+        });
+
+        it("should return all the context names", function() {
+          expect(locals.list.length).toEqual(4);
+        });
+
+        it("should have the fist item selected", function() {
+          expect(_(locals.list).first().className).toEqual('context selected');
+        });
+
+        it("should return '(none)' as the last item", function() {
+          expect(_(locals.list).last().name).toEqual('(none)');
+        });
+
+        it("should have the right classname on all the other contexts", function() {
+          expect(_(locals.list).last().className).toEqual('context');
+        });
+      })
     });
 
-    describe("when there is no selection", function() {
-      beforeEach(function() {
-        locals = agent.getProjectLocals();
+    describe("when 'projects' is selected", function() {
+
+      describe("the navigation tabs", function() {
+
+        beforeEach(function() {
+          locals = agent.getLocals();
+        });
+
+        it("should show 'projects' selected", function() {
+          expect(locals.tabs.length).toEqual(2);
+          expect(locals.tabs[0]).toEqual({text: '+', className: 'projects selected'});
+          expect(locals.tabs[1]).toEqual({text: '@', className: 'contexts'});
+        });
       });
 
-      it("should return all the project names", function() {
-        expect(locals.projects.length).toEqual(3);
+      describe("when there is a selection", function() {
+        beforeEach(function() {
+          agent.selectProject('ThankYouNotes');
+          locals = agent.getLocals();
+          item = locals.list[1];
+        });
+
+        it("should have the correct project selected", function() {
+          expect(item.name).toEqual('Thank You Notes');
+          expect(item.className).toEqual('project selected');
+          expect(item.url).toEqual('project/ThankYouNotes');
+        });
       });
 
-      it("should return 'All' as the first project", function() {
-        expect(_(locals.projects).first().name).toEqual('All');
-      });
+      describe("the list", function() {
+        beforeEach(function() {
+          locals = agent.getLocals();
+        });
 
-      it("should have the 'All' project selected", function() {
-        expect(_(locals.projects).first().className).toEqual('project selected');
-      });
+        it("should return all the project names", function() {
+          expect(locals.list.length).toEqual(3);
+        });
 
-      it("should return '(none)' as the last project", function() {
-        expect(_(locals.projects).last().name).toEqual('(none)');
-      });
+        it("should return 'All' as the first item", function() {
+          expect(_(locals.list).first().name).toEqual('All');
+        });
 
-      it("should have the 'All' project selected", function() {
-        expect(_(locals.projects).last().className).toEqual('project');
+        it("should have the 'All' item selected", function() {
+          expect(_(locals.list).first().className).toEqual('project selected');
+        });
+
+        it("should return '(none)' as the last project", function() {
+          expect(_(locals.list).last().name).toEqual('(none)');
+        });
+
+        it("should have the 'All' project selected", function() {
+          expect(_(locals.list).last().className).toEqual('project');
+        });
       });
     });
   });
@@ -103,6 +244,4 @@ describe("bulldog.NavigationAgent", function() {
       expect(project.get('name')).toEqual('');
     });
   });
-
-
 });

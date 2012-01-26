@@ -1,40 +1,70 @@
 (function($) {
-  bulldog.NavigationAgent = function(view, projects) {
+  bulldog.NavigationAgent = function(view, options) {
     var self = this;
 
-    var currentSelection = 'All';
+    var selectedTab = '+';
+    var selectedProject = 'All';
+    var selectedContext = '(none)';
 
-    self.setCurrentSelection = function(value) {
-      if (projects.find(function(p){ return value === p.get('name'); })) {
-        currentSelection = value;
+    self.selectTab = function(value) {
+      selectedTab = _(['+', '@']).include(value) ? value: '+';
+      view.render();
+    };
+
+    self.getSelectedTab = function() {
+      return selectedTab;
+    };
+
+    self.selectProject = function(value) {
+      selectedProject = valueOrDefaultValue(options.projects, value, 'All');
+    };
+
+    self.getSelectedProject = function() {
+      return selectedProject;
+    };
+    
+    self.selectContext = function(value) {
+      selectedContext = valueOrDefaultValue(options.contexts, value, '(none)');
+    };
+
+    self.getSelectedContext = function() {
+      return selectedContext;
+    };
+
+    self.getLocals = function() {
+      var tabs = [{text: '+', className: 'projects'}, {text: '@', className: 'contexts'}];
+      var list = [];
+      if (selectedTab == '+') {
+        tabs[0].className += ' selected';
+        list = options.projects.map(projectsForLocals);
       } else {
-        currentSelection = 'All';
+        tabs[1].className += ' selected';
+        list = options.contexts.map(contextsForLocals)
       }
-    };
 
-    self.getCurrentSelection = function() {
-      return currentSelection;
-    };
-
-    self.getProjectLocals = function() {
       return {
-        projects: projects.map(buildLocals)
+        tabs: tabs,
+        list: list
       };
     };
 
     self.findProjectByPrettyName = function(prettyName) {
-      return projects.find(function(project) {
+      return options.projects.find(function(project) {
         return prettyProjectName(project.get('name')) === prettyName;
       });
     };
 
     return self;
 
-    function buildLocals(project) {
+    function valueOrDefaultValue(collection, value, defaultValue) {
+      return (collection.find(function(c){ return value === c.get('name'); }) ? value : defaultValue);
+    }
+
+    function projectsForLocals(project) {
       var name = project.get('name');
 
       var classes = ['project'];
-      if (name === currentSelection) {
+      if (name === selectedProject) {
         classes.push('selected');
       }
 
@@ -45,12 +75,35 @@
       };
     }
 
+    function contextsForLocals(context) {
+      var name = context.get('name');
+
+      var classes = ['context'];
+      if (name === selectedContext) {
+        classes.push('selected');
+      }
+
+      return {
+        name: prettyContextName(name),
+        className: classes.join(' '),
+        url: "context/" + name
+      };
+    }
+
     function prettyProjectName(str) {
       if (str == '') {
         return '(none)';
       }
 
       return _(_(str).humanize()).titleize();
+    }
+
+    function prettyContextName(str) {
+      if (str == '') {
+        return '(none)';
+      }
+
+      return _(str).humanize();
     }
 
   }

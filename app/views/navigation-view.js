@@ -2,30 +2,46 @@
 
   namespace.NavigationView = function(options) {
     var baseOptions = {
-      tagName: 'div',
-      className: 'project-list'
+      tagName:   'div',
+      className: 'navigation'
     };
     var self = new (Backbone.View.extend(baseOptions))(options);
-    var agent = new bulldog.NavigationAgent(self, options.collection);
+    var tabsView = new bulldog.NavigationTabsView(options);
+    var listView = new bulldog.NavigationListView(options);
 
     self.render = function() {
-      var $el = $(self.el);
-
-      $el.unbind('click', self.selectProject);
-      $el.empty();
-
-      $el.append(JST["projects"](agent.getProjectLocals()));
-      $el.bind('click', self.selectProject);
-
+      self.renderTabs();
+      self.renderList();
       return self;
     };
 
-    self.selectProject = function(e) {
-      $('.project.selected').removeClass('selected');
-      var $project = $(e.target);
-      $project.addClass('selected');
+    self.renderTabs = function() {
+      var $el = $(self.el);
+      var $tabs = $('.tabs', $el);
+      if ($tabs.length) {
+        $tabs.replaceWith(tabsView.el);
+      } else {
+        $el.append(tabsView.render().el);
+      }
+      tabsView.bind('tabSelected', self.selectList);
+    };
 
-      self.trigger('project', agent.findProjectByPrettyName($project.text()));
+    self.renderList = function() {
+      var $el = $(self.el);
+      var $list = $('.list', $el);
+      if ($list.length) {
+        $list.replaceWith(listView.el);
+      } else {
+        $el.append(listView.render().el);
+      }
+    };
+
+    self.selectList = function(listName) {
+      listView.selectList(listName);
+    };
+
+    self.propagateSelection = function(selection) {
+      self.trigger('selection', selection);
     };
 
     initialize();
@@ -33,7 +49,7 @@
     return self;
 
     function initialize() {
-      options.collection.bind('reset', self.render);
+      listView.bind('selection', self.propagateSelection);
     }
   };
 

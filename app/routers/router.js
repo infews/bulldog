@@ -2,8 +2,9 @@
   bulldog.Router = Backbone.Router.extend({
 
     routes: {
-      '/':              'view',
-      '/project/:name': 'project'
+      '/':              'root',
+      '/projects/:name': 'project',
+      '/contexts/:name': 'context'
     },
 
     initialize: function(tasks) {
@@ -49,7 +50,7 @@
         }
       }
 
-      function addIfUnique(list, value)  {
+      function addIfUnique(list, value) {
         if (!_(list).include(value)) {
           list.push(value);
         }
@@ -57,36 +58,33 @@
 
     },
 
-    tasksFor: function(options) {
+    root: function() {
+      this.navigationView = new bulldog.NavigationView({
+        projects: this.projectList,
+        contexts: this.contextList
+      });
+      $('nav').append(this.navigationView.render().el);
+      this.project('All');
+    },
+
+    project: function(projectName) {
       var taskList = this.taskList;
 
-      if (options.projectName != 'All') {
+      if (projectName != 'All') {
         var tasks = this.taskList.filter(function(task) {
-          return task.get('projectName') == options.projectName;
+          return task.get('projectName') == projectName;
         });
         taskList = new bulldog.TaskList(tasks);
       }
 
+      delete this.tasksView;
       this.tasksView = new bulldog.TaskListView({collection: taskList});
-      this.replace('.tasks', this.tasksView.render().el);
-    },
-
-    allProjects: function() {
-      this.allProjectsView = new bulldog.NavigationView({collection: this.projectList});
-      var self = this;
-      this.replace('.projects', this.allProjectsView.render().el);
-      this.allProjectsView.bind('project', function(project) {
-        self.navigate('/project/' + project.get('name'), true);
-      });
-    },
-
-    view: function() {
-      this.allProjects();
-      this.tasksFor({projectName: 'All'});
-    },
-
-    project: function(projectName) {
-      this.tasksFor({projectName: projectName});
+      var $taskList = $('.task-list');
+      if ($taskList.length > 0) {
+        this.replace('.task-list', this.tasksView.render().el);
+      } else {
+        $('section.tasks').append(this.tasksView.render().el);
+      }
     },
 
     replace: function(selector, node) {

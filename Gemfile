@@ -8,3 +8,8 @@ gem 'compass'
 gem 'compass-recipes'
 gem 'tilt', ">= 1.3"
 gem 'jammit'
+gem 'rspec'
+gem 'capybara'
+gem 'capybara-webkit'
+gem 'selenium-webdriver'
+gem 'fuubar'
