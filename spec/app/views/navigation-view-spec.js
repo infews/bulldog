@@ -41,12 +41,32 @@ describe("bulldog.NavigationView", function() {
     });
   });
 
+  describe("#select", function() {
+    beforeEach(function() {
+      $content.append(view.render().el);
+      view.select({list: 'projects', name: 'Baz'});
+    });
+
+    it("should select the projects tab", function() {
+      expect($('.tabs .projects.selected').length).toEqual(1);
+      expect($('.tabs .contexts.selected').length).toEqual(0);
+    });
+
+    it("should render the project list", function() {
+      expect($('.list .project').length).toBeGreaterThan(0);
+    });
+
+    it("should select the correct project in the list", function() {
+      expect($('.list .project.selected').text()).toMatch(/Baz/);
+    });
+  });
+
   describe("when contexts is clicked", function() {
     var $navigationNode;
 
     beforeEach(function () {
       $content.append(view.render().el);
-      $('.contexts').click();
+      view.select({list: 'contexts', name: ''});
 
       $navigationNode = $('.navigation', $content);
     });
@@ -62,10 +82,6 @@ describe("bulldog.NavigationView", function() {
 
     it("should render the context list", function() {
       expect($('.list .context').length).toEqual(4);
-    });
-
-    it("should trigger an event sharing the new selection", function() {
-      expect(view.trigger).toHaveBeenCalledWith('selection', {list: 'contexts', name: 'home'});
     });
   });
 });

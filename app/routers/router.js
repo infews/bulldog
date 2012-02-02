@@ -2,7 +2,7 @@
   bulldog.Router = Backbone.Router.extend({
 
     routes: {
-      '/':              'root',
+      '/':               'root',
       '/projects/:name': 'project',
       '/contexts/:name': 'context'
     },
@@ -11,6 +11,11 @@
       this.taskList = new bulldog.TaskList(tasks);
       this.projectList = new Backbone.Collection(projectsFrom(this.taskList));
       this.contextList = new Backbone.Collection(contextsFrom(this.taskList));
+
+      this.navigationView = new bulldog.NavigationView({
+        projects: this.projectList,
+        contexts: this.contextList
+      });
 
       function projectsFrom(tasks) {
         var names = tasks.reduce(toUniqueProjectNames, ['All']);
@@ -55,43 +60,44 @@
           list.push(value);
         }
       }
-
     },
 
     root: function() {
-      this.navigationView = new bulldog.NavigationView({
-        projects: this.projectList,
-        contexts: this.contextList
-      });
       $('nav').append(this.navigationView.render().el);
       this.project('All');
     },
 
-    project: function(projectName) {
+    project: function(name) {
       var taskList = this.taskList;
 
-      if (projectName != 'All') {
+      if (name != 'All') {
         var tasks = this.taskList.filter(function(task) {
-          return task.get('projectName') == projectName;
+          return task.get('projectName') == name;
         });
         taskList = new bulldog.TaskList(tasks);
       }
 
-      delete this.tasksView;
-      this.tasksView = new bulldog.TaskListView({collection: taskList});
-      var $taskList = $('.task-list');
-      if ($taskList.length > 0) {
-        this.replace('.task-list', this.tasksView.render().el);
-      } else {
-        $('section.tasks').append(this.tasksView.render().el);
-      }
+      this.select(taskList, 'projecs', name);
     },
 
-    replace: function(selector, node) {
-      var $appNode = $(selector);
-      $appNode.empty();
-      $appNode.append(node);
+    context: function(name) {
+      var tasks = this.taskList.filter(function(task) {
+        return task.get('context') == name;
+      });
+      var taskList = new bulldog.TaskList(tasks);
+
+      this.select(taskList, 'contexts', name);
+    },
+
+    select: function(taskList, listName, itemName) {
+      this.navigationView.select({list: listName, name: itemName});
+      delete this.tasksView;
+      this.tasksView = new bulldog.TaskListView({collection: taskList});
+      $('section.tasks').html(this.tasksView.render().el);
     }
+
+
+
 
   });
 }(jQuery));

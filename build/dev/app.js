@@ -69,42 +69,72 @@
   });
 }(jQuery));
 (function($) {
-  bulldog.ProjectListAgent = function(view, projects) {
+  bulldog.NavigationAgent = function(view, options) {
     var self = this;
 
-    var currentSelection = 'All';
+    var selectedTab = '+';
+    var selectedProject = 'All';
+    var selectedContext = '(none)';
+
+    self.selectTab = function(value) {
+      selectedTab = _(['+', '@']).include(value) ? value: '+';
+      view.render();
+    };
+
+    self.getSelectedTab = function() {
+      return selectedTab;
+    };
 
     self.selectProject = function(value) {
-      if (projects.find(function(p){ return value === p.get('name'); })) {
-        currentSelection = value;
-      } else {
-        currentSelection = 'All';
-      }
+      selectedProject = valueOrDefaultValue(options.projects, value, 'All');
     };
 
     self.getSelectedProject = function() {
-      return currentSelection;
+      return selectedProject;
+    };
+    
+    self.selectContext = function(value) {
+      selectedContext = valueOrDefaultValue(options.contexts, value, '(none)');
     };
 
-    self.getProjectLocals = function() {
+    self.getSelectedContext = function() {
+      return selectedContext;
+    };
+
+    self.getLocals = function() {
+      var tabs = [{text: '+', className: 'projects'}, {text: '@', className: 'contexts'}];
+      var list = [];
+      if (selectedTab == '+') {
+        tabs[0].className += ' selected';
+        list = options.projects.map(projectsForLocals);
+      } else {
+        tabs[1].className += ' selected';
+        list = options.contexts.map(contextsForLocals)
+      }
+
       return {
-        projects: projects.map(buildLocals)
+        tabs: tabs,
+        list: list
       };
     };
 
     self.findProjectByPrettyName = function(prettyName) {
-      return projects.find(function(project) {
+      return options.projects.find(function(project) {
         return prettyProjectName(project.get('name')) === prettyName;
       });
     };
 
     return self;
 
-    function buildLocals(project) {
+    function valueOrDefaultValue(collection, value, defaultValue) {
+      return (collection.find(function(c){ return value === c.get('name'); }) ? value : defaultValue);
+    }
+
+    function projectsForLocals(project) {
       var name = project.get('name');
 
       var classes = ['project'];
-      if (name === currentSelection) {
+      if (name === selectedProject) {
         classes.push('selected');
       }
 
@@ -115,6 +145,21 @@
       };
     }
 
+    function contextsForLocals(context) {
+      var name = context.get('name');
+
+      var classes = ['context'];
+      if (name === selectedContext) {
+        classes.push('selected');
+      }
+
+      return {
+        name: prettyContextName(name),
+        className: classes.join(' '),
+        url: "context/" + name
+      };
+    }
+
     function prettyProjectName(str) {
       if (str == '') {
         return '(none)';
@@ -122,6 +167,116 @@
 
       return _(_(str).humanize()).titleize();
     }
+
+    function prettyContextName(str) {
+      if (str == '') {
+        return '(none)';
+      }
+
+      return _(str).humanize();
+    }
+
+  }
+}(jQuery));
+(function($) {
+  bulldog.NavigationListAgent = function(view, options) {
+    var self = this;
+
+    var validLists = ['projects', 'contexts'];
+    var currentList = validLists[0];
+
+    self.selectList = function(value) {
+      currentList = _(validLists).include(value) ? value : validLists[0];
+      selectedItem = options[currentList].first();
+
+      view.render();
+    };
+
+    var selectedItem = options[currentList].first();
+
+    self.selectItem = function(name) {
+      var currentCollection = options[currentList];
+
+      selectedItem = currentCollection.find(function(model) {
+        var modelName = model.get('name');
+        return modelName == name || prettyNameFor(modelName) === name;
+      });
+
+      selectedItem = selectedItem || currentCollection.first();
+
+      view.render();
+    };
+
+    self.getSelection = function() {
+      return { list: currentList, name: selectedItem.get('name') };
+    };
+
+    self.getLocals = function() {
+      return {
+        list: options[currentList].map(forLocals)
+      };
+
+      function forLocals(model) {
+        var name = model.get('name');
+
+        var itemType = currentList.substring(0, currentList.length - 1);
+        var classes = [itemType];
+        if (name === selectedItem.get('name')) {
+          classes.push('selected');
+        }
+
+        var url = _.template("#/<%=list%>/<%=name%>");
+        return {
+          name:      prettyNameFor(name),
+          className: classes.join(' '),
+          url:       url({list: currentList, name: name})
+        };
+      }
+    };
+
+    return self;
+
+    function prettyNameFor(str) {
+      if (str == '') {
+        return '(none)';
+      }
+
+      return _(_(str).humanize()).titleize();
+    }
+  }
+}(jQuery));
+(function($) {
+  bulldog.NavigationTabsAgent = function(view) {
+    var self = this;
+
+    var validValues = ['projects', 'contexts'];
+    var selectedTab = validValues[0];
+
+    self.selectTab = function(value) {
+      selectedTab = _(validValues).include(value) ? value: validValues[0];
+      view.render();
+    };
+
+    self.getSelectedTab = function() {
+      return selectedTab;
+    };
+
+    self.getLocals = function() {
+      var tabs = [
+        {text: '+', className: 'projects'},
+        {text: '@', className: 'contexts'}
+      ];
+
+      var selectedIndex = _(validValues).indexOf(selectedTab);
+      selectedIndex = selectedIndex >= 0 ? selectedIndex : 0;
+      tabs[selectedIndex].className += ' selected';
+
+      return {
+        tabs: tabs
+      };
+    };
+
+    return self;
 
   }
 }(jQuery));
@@ -161,32 +316,106 @@
 }(jQuery));
 (function($, namespace) {
 
-  namespace.ProjectListView = function(options) {
+  namespace.NavigationListView = function(options) {
     var baseOptions = {
       tagName: 'div',
-      className: 'project-list'
+      className: 'list'
     };
     var self = new (Backbone.View.extend(baseOptions))(options);
-    var agent = new bulldog.ProjectListAgent(self, options.collection);
+    var agent = new bulldog.NavigationListAgent(self, options);
 
     self.render = function() {
       var $el = $(self.el);
 
-      $el.unbind('click', self.selectProject);
+      $el.unbind('click', self.select);
       $el.empty();
 
-      $el.append(JST["projects"](agent.getProjectLocals()));
-      $el.bind('click', self.selectProject);
+      var locals = agent.getLocals();
+      $el.append(JST["list"](locals));
+
+      $el.bind('click', self.selectItem);
 
       return self;
     };
 
-    self.selectProject = function(e) {
-      $('.project.selected').removeClass('selected');
-      var $project = $(e.target);
-      $project.addClass('selected');
+    self.select = function(selection) {
+      agent.selectList(selection.list);
+      agent.selectItem(selection.name);
+    };
 
-      self.trigger('project', agent.findProjectByPrettyName($project.text()));
+    return self;
+  };
+
+}(jQuery, bulldog));
+(function($, namespace) {
+  namespace.NavigationTabsView = function() {
+    var baseOptions = {
+      tagName: 'div',
+      className: 'tabs'
+    };
+    var self = new (Backbone.View.extend(baseOptions))();
+    var agent = new bulldog.NavigationTabsAgent(self);
+
+    var $el;
+
+    self.render = function() {
+      $el = $(self.el);
+
+      $el.unbind('click', self.selectTab);
+      $el.empty();
+
+      var locals = agent.getLocals();
+      $el.append(JST["tabs"](locals));
+
+      $el.bind('click', self.selectTab);
+
+      return self;
+    };
+
+    self.selectTab = function(newTab) {
+      agent.selectTab(newTab);
+      self.trigger('tabsUpdated');
+    };
+
+    return self;
+  }
+}(jQuery, bulldog));
+(function($, namespace) {
+
+  namespace.NavigationView = function(options) {
+    var baseOptions = {
+      tagName:   'div',
+      className: 'navigation'
+    };
+    var self = new (Backbone.View.extend(baseOptions))(options);
+    var tabsView = new bulldog.NavigationTabsView(options);
+    var listView = new bulldog.NavigationListView(options);
+
+    self.render = function() {
+      self.renderTabs();
+      self.renderList();
+      return self;
+    };
+
+    self.renderTabs = function() {
+      var $el = $(self.el);
+      var $tabs = $('.tabs', $el);
+      if (!$tabs.length) {
+        $el.append(tabsView.render().el);
+      }
+    };
+
+    self.renderList = function() {
+      var $el = $(self.el);
+      var $list = $('.list', $el);
+      if (!$list.length) {
+        $el.append(listView.render().el);
+      }
+    };
+
+    self.select = function(selection) {
+      tabsView.selectTab(selection.list);
+      listView.select(selection);
     };
 
     initialize();
@@ -194,7 +423,7 @@
     return self;
 
     function initialize() {
-      options.collection.bind('reset', self.render);
+      tabsView.bind('tabsUpdated', self.renderTabs);
     }
   };
 
@@ -259,85 +488,108 @@
   bulldog.Router = Backbone.Router.extend({
 
     routes: {
-      '/':              'view',
-      '/project/:name': 'project'
+      '/':               'root',
+      '/projects/:name': 'project',
+      '/contexts/:name': 'context'
     },
 
     initialize: function(tasks) {
       this.taskList = new bulldog.TaskList(tasks);
       this.projectList = new Backbone.Collection(projectsFrom(this.taskList));
+      this.contextList = new Backbone.Collection(contextsFrom(this.taskList));
+
+      this.navigationView = new bulldog.NavigationView({
+        projects: this.projectList,
+        contexts: this.contextList
+      });
 
       function projectsFrom(tasks) {
         var names = tasks.reduce(toUniqueProjectNames, ['All']);
 
-        moveNoneToEnd(names);
+        moveEmptyToEnd(names);
 
         return _(names).map(function(n) {
           return new Backbone.Model({name: n});
         });
 
         function toUniqueProjectNames(names, task) {
-          name = task.get('projectName');
-
-          if (!_(names).include(name)) {
-            names.push(name);
-          }
-
+          addIfUnique(names, task.get('projectName'));
           return names;
         }
+      }
 
-        function moveNoneToEnd(list) {
-          var index = _(list).indexOf('');
+      function contextsFrom(tasks) {
+        var names = tasks.reduce(toUniqueContextNames, []);
 
-          if (index >= 0) {
-            list.splice(list.length - 1, 0, list.splice(index, 1)[0]);
-          }
+        moveEmptyToEnd(names);
+
+        return _(names).map(function(n) {
+          return new Backbone.Model({name: n});
+        });
+
+        function toUniqueContextNames(names, task) {
+          addIfUnique(names, task.get('context'));
+          return names;
+        }
+      }
+
+      function moveEmptyToEnd(list) {
+        var index = _(list).indexOf('');
+
+        if (index >= 0) {
+          list.splice(list.length - 1, 0, list.splice(index, 1)[0]);
+        }
+      }
+
+      function addIfUnique(list, value) {
+        if (!_(list).include(value)) {
+          list.push(value);
         }
       }
     },
 
-    tasksFor: function(options) {
+    root: function() {
+      $('nav').append(this.navigationView.render().el);
+      this.project('All');
+    },
+
+    project: function(name) {
       var taskList = this.taskList;
 
-      if (options.projectName != 'All') {
+      if (name != 'All') {
         var tasks = this.taskList.filter(function(task) {
-          return task.get('projectName') == options.projectName;
+          return task.get('projectName') == name;
         });
         taskList = new bulldog.TaskList(tasks);
       }
 
-      this.tasksView = new bulldog.TaskListView({collection: taskList});
-      this.replace('.tasks', this.tasksView.render().el);
+      this.select(taskList, 'projecs', name);
     },
 
-    allProjects: function() {
-      this.allProjectsView = new bulldog.ProjectListView({collection: this.projectList});
-      var self = this;
-      this.replace('.projects', this.allProjectsView.render().el);
-      this.allProjectsView.bind('project', function(project) {
-        self.navigate('/project/' + project.get('name'), true);
+    context: function(name) {
+      var tasks = this.taskList.filter(function(task) {
+        return task.get('context') == name;
       });
+      var taskList = new bulldog.TaskList(tasks);
+
+      this.select(taskList, 'contexts', name);
     },
 
-    view: function() {
-      this.allProjects();
-      this.tasksFor({projectName: 'All'});
-    },
-
-    project: function(projectName) {
-      this.tasksFor({projectName: projectName});
-    },
-
-    replace: function(selector, node) {
-      var $appNode = $(selector);
-      $appNode.empty();
-      $appNode.append(node);
+    select: function(taskList, listName, itemName) {
+      this.navigationView.select({list: listName, name: itemName});
+      delete this.tasksView;
+      this.tasksView = new bulldog.TaskListView({collection: taskList});
+      $('section.tasks').html(this.tasksView.render().el);
     }
+
+
+
 
   });
 }(jQuery));(function(){
 window.JST = window.JST || {};
 
-window.JST['projects'] = Mustache.template('<div class="heading">\n  <div class="projects selected">+</div><div class="contexts">@</div>\n</div>\n{{#projects}}\n<div class="{{className}}">{{name}}</div>\n{{/projects}}\n');
+window.JST['list'] = Mustache.template('{{#list}}\n<div class="{{className}}">\n  <a href="{{url}}">{{name}}<a/>\n</div>\n{{/list}}\n');
+window.JST['tabs'] = Mustache.template('{{#tabs}}\n<div class="{{className}}">{{text}}</div>\n{{/tabs}}');
 window.JST['task'] = Mustache.template('<div class="data">\n  <div>\n    <span class="number">{{number}}</span>\n  </div>\n  {{#context}}\n  <div class="context">{{context}}</div>\n  {{/context}}\n</div>\n<div class="spacer">\n</div>\n<div class="right">\n  <div class="action">{{{action}}}</div>\n  {{#projectName}}\n  <div class="project">\n    <span>{{projectName}}</span>\n  </div>\n  {{/projectName}}\n</div>\n');
 })();

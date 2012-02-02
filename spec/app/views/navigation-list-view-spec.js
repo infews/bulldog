@@ -34,37 +34,31 @@ describe("bulldog.NavigationListView", function() {
     });
   });
 
-  describe("when a new list item is selected", function() {
+  describe("when the selection changes", function() {
     var $selected;
 
     beforeEach(function() {
       $content.append(view.render().el);
-      view.selectItem({target: $('.project', $content)[1]});
+      view.select({list: "projects", name: "Baz"});
       $selected = $('.selected');
     });
 
     it("should move the selection", function() {
+      var selectedItemName = $($selected[0]).text();
+      expect(_(selectedItemName).clean()).toEqual('Baz');
       expect($selected.length).toEqual(1);
-      expect($($selected[0]).text()).toEqual('Baz');
-    });
-
-    it("should trigger an event", function() {
-      expect(view.trigger).toHaveBeenCalledWith('selection', {list: 'projects', name: 'baz'});
     });
   });
 
   describe("when a new list is selected", function() {
     beforeEach(function() {
       $content.append(view.render().el);
-      view.selectList('contexts');
+      view.select({list: "contexts", name: "Home"});
       $list = $('.list');
     });
 
     it("should replace the list", function() {
       expect($('.context', $list).length).toEqual(4);
-    });
-    it("should trigger an event", function() {
-      expect(view.trigger).toHaveBeenCalledWith('selection', {list: 'contexts', name: 'home'});
     });
   });
 });

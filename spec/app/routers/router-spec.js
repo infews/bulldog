@@ -54,19 +54,55 @@ describe("bulldog.Router", function() {
     });
   });
 
-  describe("picking a project", function() {
-
+  describe("#project", function() {
     beforeEach(function() {
       app.root();
-      $($('.project')[1]).click();
+      app.project("Zip");
     });
 
-    it("should select the 2nd project", function() {
-      expect($($('.project.selected')[0]).text()).toMatch(/Zip/);
+    it("should select the 'projects' tab", function() {
+      expect($('nav .navigation .projects.selected').length).toEqual(1);
+      expect($('nav .navigation .contexts.selected').length).toEqual(0);
     });
 
-    it("should re-render the project list", function() {
-      expect($('.tasks .task').length).toEqual(2);
+    it("should select the correct project in the navigation", function() {
+      expect($('nav .navigation .project.selected').text()).toMatch(/Zip/);
+    });
+
+    it("should render the tasks UI", function() {
+      expect($("section.tasks .task-list", $content).length).toEqual(1);
+    });
+
+    it("should render the tasks UI with only tasks from from the selected project", function() {
+      expect($("section.tasks .task", $content).length).toEqual(2);
+    });
+  });
+
+  describe("#context", function() {
+    beforeEach(function() {
+      app.root();
+      app.context("pc");
+    });
+
+    it("should render the navigation UI", function() {
+      expect($('nav .navigation').length).toEqual(1)
+    });
+
+    it("should select the 'contexts' tab", function() {
+      expect($('nav .navigation .projects.selected').length).toEqual(0);
+      expect($('nav .navigation .contexts.selected').length).toEqual(1);
+    });
+
+    it("should select the correct context in the navigation", function() {
+      expect($('nav .navigation .context.selected').text()).toMatch(/pc/i);
+    });
+
+    it("should render the tasks UI", function() {
+      expect($("section.tasks .task-list", $content).length).toEqual(1);
+    });
+
+    it("should render the tasks UI with only tasks from from the selected context", function() {
+      expect($("section.tasks .task", $content).length).toEqual(1);
     });
   });
 });

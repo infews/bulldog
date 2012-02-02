@@ -14,12 +14,15 @@
 
     var selectedItem = options[currentList].first();
 
-    self.selectItem = function(prettyName) {
+    self.selectItem = function(name) {
       var currentCollection = options[currentList];
 
       selectedItem = currentCollection.find(function(model) {
-         return prettyNameFor(model.get('name')) === prettyName;
+        var modelName = model.get('name');
+        return modelName == name || prettyNameFor(modelName) === name;
       });
+
+      selectedItem = selectedItem || currentCollection.first();
 
       view.render();
     };
@@ -30,22 +33,23 @@
 
     self.getLocals = function() {
       return {
-        list:  options[currentList].map(forLocals)
+        list: options[currentList].map(forLocals)
       };
 
       function forLocals(model) {
         var name = model.get('name');
 
-        var itemType = currentList.substring(0, currentList.length-1);
+        var itemType = currentList.substring(0, currentList.length - 1);
         var classes = [itemType];
         if (name === selectedItem.get('name')) {
           classes.push('selected');
         }
 
+        var url = _.template("#/<%=list%>/<%=name%>");
         return {
-          name: prettyNameFor(name),
+          name:      prettyNameFor(name),
           className: classes.join(' '),
-          url:       "project/" + name
+          url:       url({list: currentList, name: name})
         };
       }
     };

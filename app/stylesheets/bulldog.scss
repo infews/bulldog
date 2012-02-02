@@ -39,10 +39,16 @@ nav {
   @include box-pack(start);
   margin: 10px 0 10px 10px;
 
-  .heading {
+  .navigation {
     @include display-box;
     @include box-pack(start);
     @include box-orient(horizontal);
+
+    .tabs {
+      @include display-box;
+      @include box-pack(start);
+      @include box-orient(horizontal);
+    }
 
     .projects, .contexts {
       @include display-box;

@@ -19,14 +19,13 @@
       $el.append(JST["tabs"](locals));
 
       $el.bind('click', self.selectTab);
+
       return self;
     };
 
-    self.selectTab = function(e) {
-      $('.selected', $el).removeClass('selected');
-      var newSelection = $(e.target).attr('class');
-      agent.selectTab(newSelection);
-      self.trigger('tabSelected', newSelection);
+    self.selectTab = function(newTab) {
+      agent.selectTab(newTab);
+      self.trigger('tabsUpdated');
     };
 
     return self;

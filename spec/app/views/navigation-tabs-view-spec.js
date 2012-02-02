@@ -21,19 +21,15 @@ describe("bulldog.NavigationTabsView", function() {
     });
   });
 
-  describe("when a tab is clicked", function() {
+  describe("when a tab is selected", function() {
     beforeEach(function () {
       $content.append(view.render().el);
-      $('.contexts', $content).click();
+      view.selectTab('contexts');
     });
 
     it("should select the contexts tab", function() {
       expect($('.tabs .projects.selected', $content).length).toEqual(0);
       expect($('.tabs .contexts.selected', $content).length).toEqual(1);
-    });
-
-    it("should trigger an event with the newly selected tab", function() {
-      expect(view.trigger).toHaveBeenCalledWith('tabSelected', 'contexts');
     });
   });
 });

@@ -22,15 +22,9 @@
       return self;
     };
 
-    self.selectItem = function(e) {
-      $target = $(e.target);
-      agent.selectItem($target.text());
-      self.trigger('selection', agent.getSelection());
-    };
-
-    self.selectList = function(listName) {
-      agent.selectList(listName);
-      self.trigger('selection', agent.getSelection());
+    self.select = function(selection) {
+      agent.selectList(selection.list);
+      agent.selectItem(selection.name);
     };
 
     return self;

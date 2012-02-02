@@ -44,6 +44,10 @@ describe("bulldog.NavigationListAgent", function() {
         expect(eachIsAProject).toEqual(true);
       });
 
+      it("should build the correct URLs", function() {
+        expect(locals.list[0].url).toEqual('#/projects/All');
+      });
+
       it("should have the default list item selected", function() {
         expect(locals.list[0].className.match(/selected/)).toBeTruthy();
       });
@@ -97,6 +101,10 @@ describe("bulldog.NavigationListAgent", function() {
           return item.className.match(/context/);
         });
         expect(eachIsContenxt).toEqual(true);
+      });
+
+      it("should build the correct URLs", function() {
+        expect(locals.list[0].url).toEqual('#/contexts/home');
       });
 
       it("should have the default list item selected", function() {

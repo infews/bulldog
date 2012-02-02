@@ -18,30 +18,22 @@
     self.renderTabs = function() {
       var $el = $(self.el);
       var $tabs = $('.tabs', $el);
-      if ($tabs.length) {
-        $tabs.replaceWith(tabsView.el);
-      } else {
+      if (!$tabs.length) {
         $el.append(tabsView.render().el);
       }
-      tabsView.bind('tabSelected', self.selectList);
     };
 
     self.renderList = function() {
       var $el = $(self.el);
       var $list = $('.list', $el);
-      if ($list.length) {
-        $list.replaceWith(listView.el);
-      } else {
+      if (!$list.length) {
         $el.append(listView.render().el);
       }
     };
 
-    self.selectList = function(listName) {
-      listView.selectList(listName);
-    };
-
-    self.propagateSelection = function(selection) {
-      self.trigger('selection', selection);
+    self.select = function(selection) {
+      tabsView.selectTab(selection.list);
+      listView.select(selection);
     };
 
     initialize();
@@ -49,7 +41,7 @@
     return self;
 
     function initialize() {
-      listView.bind('selection', self.propagateSelection);
+      tabsView.bind('tabsUpdated', self.renderTabs);
     }
   };
 
