@@ -327,14 +327,14 @@
     self.render = function() {
       var $el = $(self.el);
 
-      $el.unbind('click', self.select);
+//      $el.unbind('click', self.select);
       $el.empty();
 
       var locals = agent.getLocals();
       var dom = JST["list"](locals);
       $el.append(dom);
 
-      $el.bind('click', self.selectItem);
+//      $el.bind('click', self.selectItem);
 
       return self;
     };
@@ -362,13 +362,10 @@
     self.render = function() {
       $el = $(self.el);
 
-      $el.unbind('click', self.selectTab);
       $el.empty();
 
       var locals = agent.getLocals();
       $el.append(JST["tabs"](locals));
-
-      $el.bind('click', self.selectTab);
 
       return self;
     };
@@ -424,7 +421,7 @@
     return self;
 
     function initialize() {
-      tabsView.bind('tabsUpdated', self.renderTabs);
+//      tabsView.bind('tabsUpdated', self.renderTabs);
     }
   };
 
@@ -599,5 +596,5 @@ window.JST = window.JST || {};
 
 window.JST['list'] = Mustache.template('{{#list}}\n<li class="{{className}}"><a href="{{url}}">{{name}}</a></li>\n{{/list}}\n');
 window.JST['tabs'] = Mustache.template('{{#tabs}}\n<li class="{{className}}"><a href="{{link}}">{{text}}</a></li>\n{{/tabs}}\n');
-window.JST['task'] = Mustache.template('<div class="data">\n  <div>\n    <a class="btn btn-info btn-disable">{{number}}</a>\n  </div>\n  {{#context}}\n  <div class="context">@{{context}}</div>\n  {{/context}}\n</div>\n<div class="spacer">\n</div>\n<div class="right">\n  <div class="action">{{{action}}}</div>\n  {{#projectName}}\n  <div class="project">\n    <span>{{projectName}}</span>\n  </div>\n  {{/projectName}}\n</div>\n');
+window.JST['task'] = Mustache.template('<div class="data">\n  <div>\n    <a class="btn btn-info btn-disabled">{{number}}</a>\n  </div>\n  {{#context}}\n  <div class="context">@{{context}}</div>\n  {{/context}}\n</div>\n<div class="right">\n  <div class="action">{{{action}}}</div>\n  {{#projectName}}\n  <div class="project">\n    <span>{{projectName}}</span>\n  </div>\n  {{/projectName}}\n</div>\n');
 })();

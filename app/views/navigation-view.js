@@ -36,13 +36,7 @@
       listView.select(selection);
     };
 
-    initialize();
-
     return self;
-
-    function initialize() {
-      tabsView.bind('tabsUpdated', self.renderTabs);
-    }
   };
 
 }(jQuery, bulldog));

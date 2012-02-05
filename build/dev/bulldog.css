@@ -64,7 +64,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
-/* line 29, ../../app/stylesheets/bulldog.scss */
+/* line 7, ../../app/stylesheets/bulldog.scss */
+body {
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+/* line 11, ../../app/stylesheets/bulldog.scss */
 .main {
   display: -moz-box;
   display: -webkit-box;
@@ -78,10 +83,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   -webkit-box-orient: horizontal;
   -ms-box-orient: horizontal;
   box-orient: horizontal;
-  /*margin: 10px 10px 0;*/
   padding-top: 44px;
 }
-/* line 36, ../../app/stylesheets/bulldog.scss */
+/* line 17, ../../app/stylesheets/bulldog.scss */
 .main nav, .main section {
   display: -moz-box;
   display: -webkit-box;
@@ -92,66 +96,17 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   -ms-box-pack: start;
   box-pack: start;
 }
-/* line 41, ../../app/stylesheets/bulldog.scss */
+/* line 22, ../../app/stylesheets/bulldog.scss */
 .main nav {
-  margin: 8px;
+  margin-left: 8px;
+  margin-top: 4px;
 }
-/* line 45, ../../app/stylesheets/bulldog.scss */
+/* line 27, ../../app/stylesheets/bulldog.scss */
 .main section {
   -moz-box-flex: 1;
   -webkit-box-flex: 1;
   -ms-box-flex: 1;
   box-flex: 1;
-}
-
-/*body {*/
-/*@include display-box;*/
-/*@include box-pack(start);*/
-/*@include background-carbon-fiber();*/
-/*font-family: "Open Sans", "Helvetica Neue", sans-serif;*/
-/*}*/
-/*nav {*/
-/*@include display-box;*/
-/*@include box-pack(start);*/
-/*margin: 10px 0 10px 10px;*/
-/*.navigation {*/
-/*@include display-box;*/
-/*@include box-pack(start);*/
-/*@include box-orient(horizontal);*/
-/*.tabs {*/
-/*@include display-box;*/
-/*@include box-pack(start);*/
-/*@include box-orient(horizontal);*/
-/*}*/
-/*.projects, .contexts {*/
-/*@include display-box;*/
-/*@include box-pack(center);*/
-/*@include box-flex(1);*/
-/*padding: 4px;*/
-/*text-align: center;*/
-/*font-size: 24px;*/
-/*color: #a9a9a9;*/
-/*&.selected {*/
-/*color: black;*/
-/*font-weight: bold;*/
-/*}*/
-/*}*/
-/*.projects {*/
-/*&.selected {*/
-/*border-right: 1px solid black;*/
-/*}*/
-/*border-right: 1px solid #d3d3d3;*/
-/*}*/
-/*.contexts {*/
-/*&.selected {*/
-/*border-left: 1px solid black;*/
-/*}*/
-/*border-left: 1px solid #d3d3d3;*/
-/*}*/
-/*}*/
-/*}*/
-/* line 109, ../../app/stylesheets/bulldog.scss */
-section {
   display: -moz-box;
   display: -webkit-box;
   display: -ms-box;
@@ -160,37 +115,9 @@ section {
   -webkit-box-pack: start;
   -ms-box-pack: start;
   box-pack: start;
-  -moz-box-flex: 1;
-  -webkit-box-flex: 1;
-  -ms-box-flex: 1;
-  box-flex: 1;
-  margin: 10px 10px 0;
 }
 
-/*.project-list {*/
-/*background-color: white;*/
-/*border-radius: 4px;*/
-/*margin: 4px;*/
-/*.project {*/
-/*padding: 10px;*/
-/*border-top: 1px solid #a9a9a9;*/
-/*border-bottom: 1px solid #d3d3d3;*/
-/*&.heading {*/
-/*border-top: none;*/
-/*font-weight: bold;*/
-/*&:hover {*/
-/*background-color: white;*/
-/*color: black;*/
-/*border-radius-top: 4px;*/
-/*}*/
-/*}*/
-/*&.selected, &:hover {*/
-/*color: white;*/
-/*background-color: #c7c7c7;*/
-/*}*/
-/*}*/
-/*}*/
-/* line 145, ../../app/stylesheets/bulldog.scss */
+/* line 34, ../../app/stylesheets/bulldog.scss */
 .task-list {
   display: -moz-box;
   display: -webkit-box;
@@ -209,7 +136,7 @@ section {
   -ms-box-flex: 1;
   box-flex: 1;
 }
-/* line 151, ../../app/stylesheets/bulldog.scss */
+/* line 40, ../../app/stylesheets/bulldog.scss */
 .task-list .task {
   display: -moz-box;
   display: -webkit-box;
@@ -219,15 +146,12 @@ section {
   -webkit-box-pack: start;
   -ms-box-pack: start;
   box-pack: start;
-  /*background-color: white;*/
-  /*margin: 4px;*/
-  /*border-radius: 4px;*/
 }
-/* line 159, ../../app/stylesheets/bulldog.scss */
+/* line 44, ../../app/stylesheets/bulldog.scss */
 .task-list .task div {
-  padding: 6px;
+  padding: 4px;
 }
-/* line 163, ../../app/stylesheets/bulldog.scss */
+/* line 48, ../../app/stylesheets/bulldog.scss */
 .task-list .task .data, .task-list .task .right, .task-list .task .spacer {
   display: -moz-box;
   display: -webkit-box;
@@ -242,35 +166,20 @@ section {
   -ms-box-pack: start;
   box-pack: start;
 }
-/* line 169, ../../app/stylesheets/bulldog.scss */
-.task-list .task .data .number {
-  /*border-radius: 12px;*/
-  /*margin: 4px 8px;*/
-  /*padding: 4px 8px;*/
-  /*background-color: black;*/
-  /*color: white;*/
-  /*font-weight: bold;*/
-}
-/* line 178, ../../app/stylesheets/bulldog.scss */
+/* line 54, ../../app/stylesheets/bulldog.scss */
 .task-list .task .context {
   text-align: center;
-  /*color: #006400;*/
-  /*font-weight: bold;*/
 }
-/* line 183, ../../app/stylesheets/bulldog.scss */
-.task-list .task .spacer {
-  width: 8px;
-}
-/* line 187, ../../app/stylesheets/bulldog.scss */
+/* line 58, ../../app/stylesheets/bulldog.scss */
 .task-list .task .right {
   -moz-box-flex: 1;
   -webkit-box-flex: 1;
   -ms-box-flex: 1;
   box-flex: 1;
 }
-/* line 190, ../../app/stylesheets/bulldog.scss */
+/* line 61, ../../app/stylesheets/bulldog.scss */
 .task-list .task .right .project {
   text-align: right;
-  /*font-size: 10px;*/
-  /*color: #6d6d6d;*/
+  font-size: 10px;
+  color: #6d6d6d;
 }

@@ -11,14 +11,9 @@
     self.render = function() {
       var $el = $(self.el);
 
-      $el.unbind('click', self.select);
       $el.empty();
 
-      var locals = agent.getLocals();
-      var dom = JST["list"](locals);
-      $el.append(dom);
-
-      $el.bind('click', self.selectItem);
+      $el.append(JST["list"](agent.getLocals()));
 
       return self;
     };
