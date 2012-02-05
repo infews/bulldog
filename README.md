@@ -7,6 +7,12 @@ Bulldog is a single-page HTML view of your [todo.txt](http://http://todotxt.com/
 
 ## Installation
 
+Bulldog is released as a single HTML file, called `index.html`, that needs to live in the same directory as your `todo.txt` file.
+
+You will also need to set up a web server to point to this directory or configure your browser to allow AJAX requests from a `file://` URL. Bulldog makes an AJAX request to read in `todo.txt`
+
+This isn't very user-friendly at this point in time. 
+
 ## Usage
 
 Bulldog is a read-only view of your tasks. It is not meant as a replacement for the command line interface. Use the CLI for operations on tasks and then view the new state in Bulldog.
@@ -19,7 +25,8 @@ If you've updated or added any tasks, just reload your browser to refresh the ta
 
 ## Roadmap?
 
-* Display priority
+* Make it easier to install
+* Display priority of a task
 * Add some concept of "Next Action" - is this a syntax addition? Or is priority 'A' enough?
 * Editing tasks & storing back to `todo.txt`? Maybe, but this would require a server...
 
