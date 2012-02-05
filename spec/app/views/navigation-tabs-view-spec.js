@@ -11,12 +11,12 @@ describe("bulldog.NavigationTabsView", function() {
 
     beforeEach(function () {
       $content.append(view.render().el);
-      $tabs = $('.tabs', $content);
+      $tabs = $('.nav-tabs', $content);
     });
 
     it("should render the tabs for projects and contexts", function() {
       expect($tabs.length).toEqual(1);
-      expect($('.projects.selected', $tabs).length).toEqual(1);
+      expect($('.projects.active', $tabs).length).toEqual(1);
       expect($('.contexts', $tabs).length).toEqual(1);
     });
   });
@@ -28,8 +28,8 @@ describe("bulldog.NavigationTabsView", function() {
     });
 
     it("should select the contexts tab", function() {
-      expect($('.tabs .projects.selected', $content).length).toEqual(0);
-      expect($('.tabs .contexts.selected', $content).length).toEqual(1);
+      expect($('.nav-tabs .projects.active', $content).length).toEqual(0);
+      expect($('.nav-tabs .contexts.active', $content).length).toEqual(1);
     });
   });
 });

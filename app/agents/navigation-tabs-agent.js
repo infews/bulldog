@@ -16,13 +16,13 @@
 
     self.getLocals = function() {
       var tabs = [
-        {text: '+', className: 'projects'},
-        {text: '@', className: 'contexts'}
+        {text: '+', className: 'projects', link: '#/'},
+        {text: '@', className: 'contexts', link: '#/contexts'}
       ];
 
       var selectedIndex = _(validValues).indexOf(selectedTab);
       selectedIndex = selectedIndex >= 0 ? selectedIndex : 0;
-      tabs[selectedIndex].className += ' selected';
+      tabs[selectedIndex].className += ' active';
 
       return {
         tabs: tabs

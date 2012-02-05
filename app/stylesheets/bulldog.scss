@@ -26,62 +26,85 @@ $base-color: #222 !default;
     background-size: $spacing-size $spacing-size;
 }
 
-body {
+.main {
   @include display-box;
   @include box-pack(start);
-  @include background-carbon-fiber();
-
-  font-family: "Open Sans", "Helvetica Neue", sans-serif;
-}
-
-nav {
-  @include display-box;
-  @include box-pack(start);
-  margin: 10px 0 10px 10px;
-
-  .navigation {
+  @include box-orient(horizontal);
+  /*margin: 10px 10px 0;*/
+  padding-top: 44px;
+      
+  nav, section {
     @include display-box;
     @include box-pack(start);
-    @include box-orient(horizontal);
-
-    .tabs {
-      @include display-box;
-      @include box-pack(start);
-      @include box-orient(horizontal);
-    }
-
-    .projects, .contexts {
-      @include display-box;
-      @include box-pack(center);
-      @include box-flex(1);
-      padding: 4px;
-      text-align: center;
-      font-size: 24px;
-      color: #a9a9a9;
-
-      &.selected {
-        color: black;
-        font-weight: bold;
-      }
-    }
-
-    .projects {
-      &.selected {
-        border-right: 1px solid black;
-      }
-
-      border-right: 1px solid #d3d3d3;
-    }
-
-    .contexts {
-      &.selected {
-        border-left: 1px solid black;
-      }
-
-      border-left: 1px solid #d3d3d3;
-    }
   }
+
+  nav {
+    margin: 8px;
+  }
+
+  section {
+    @include box-flex(1);
+  }
+    
+        
 }
+
+/*body {*/
+  /*@include display-box;*/
+  /*@include box-pack(start);*/
+  /*@include background-carbon-fiber();*/
+
+  /*font-family: "Open Sans", "Helvetica Neue", sans-serif;*/
+/*}*/
+
+/*nav {*/
+  /*@include display-box;*/
+  /*@include box-pack(start);*/
+  /*margin: 10px 0 10px 10px;*/
+
+  /*.navigation {*/
+    /*@include display-box;*/
+    /*@include box-pack(start);*/
+    /*@include box-orient(horizontal);*/
+
+    /*.tabs {*/
+      /*@include display-box;*/
+      /*@include box-pack(start);*/
+      /*@include box-orient(horizontal);*/
+    /*}*/
+
+    /*.projects, .contexts {*/
+      /*@include display-box;*/
+      /*@include box-pack(center);*/
+      /*@include box-flex(1);*/
+      /*padding: 4px;*/
+      /*text-align: center;*/
+      /*font-size: 24px;*/
+      /*color: #a9a9a9;*/
+
+      /*&.selected {*/
+        /*color: black;*/
+        /*font-weight: bold;*/
+      /*}*/
+    /*}*/
+
+    /*.projects {*/
+      /*&.selected {*/
+        /*border-right: 1px solid black;*/
+      /*}*/
+
+      /*border-right: 1px solid #d3d3d3;*/
+    /*}*/
+
+    /*.contexts {*/
+      /*&.selected {*/
+        /*border-left: 1px solid black;*/
+      /*}*/
+
+      /*border-left: 1px solid #d3d3d3;*/
+    /*}*/
+  /*}*/
+/*}*/
 
 section {
   @include display-box;
@@ -90,34 +113,34 @@ section {
   margin: 10px 10px 0;
 }
 
-.project-list {
-   background-color: white;
-   border-radius: 4px;
+/*.project-list {*/
+   /*background-color: white;*/
+   /*border-radius: 4px;*/
 
-   margin: 4px;
+   /*margin: 4px;*/
 
-   .project {
-      padding: 10px;
-      border-top: 1px solid #a9a9a9;
-      border-bottom: 1px solid #d3d3d3;
+   /*.project {*/
+      /*padding: 10px;*/
+      /*border-top: 1px solid #a9a9a9;*/
+      /*border-bottom: 1px solid #d3d3d3;*/
 
-      &.heading {
-        border-top: none;
-        font-weight: bold;
+      /*&.heading {*/
+        /*border-top: none;*/
+        /*font-weight: bold;*/
 
-        &:hover {
-          background-color: white;
-          color: black;
-          border-radius-top: 4px;
-        }
-      }
+        /*&:hover {*/
+          /*background-color: white;*/
+          /*color: black;*/
+          /*border-radius-top: 4px;*/
+        /*}*/
+      /*}*/
 
-      &.selected, &:hover {
-        color: white;
-        background-color: #c7c7c7;
-      }
-   }
-}
+      /*&.selected, &:hover {*/
+        /*color: white;*/
+        /*background-color: #c7c7c7;*/
+      /*}*/
+   /*}*/
+/*}*/
 
 .task-list {
   @include display-box;
@@ -129,9 +152,9 @@ section {
     @include display-box;
     @include box-pack(start);
 
-    background-color: white;
-    margin: 4px;
-    border-radius: 4px;
+    /*background-color: white;*/
+    /*margin: 4px;*/
+    /*border-radius: 4px;*/
 
     div {
       padding: 6px;
@@ -144,18 +167,18 @@ section {
     }
 
     .data .number {
-      border-radius: 12px;
-      margin: 4px 8px;
-      padding: 4px 8px;
-      background-color: black;
-      color: white;
-      font-weight: bold;
+      /*border-radius: 12px;*/
+      /*margin: 4px 8px;*/
+      /*padding: 4px 8px;*/
+      /*background-color: black;*/
+      /*color: white;*/
+      /*font-weight: bold;*/
     }
 
     .context {
       text-align: center;
-      color: #006400;
-      font-weight: bold;
+      /*color: #006400;*/
+      /*font-weight: bold;*/
     }
     .spacer {
       width: 8px;
@@ -166,8 +189,8 @@ section {
 
       .project {
         text-align: right;
-        font-size: 10px;
-        color: #6d6d6d;
+        /*font-size: 10px;*/
+        /*color: #6d6d6d;*/
       }
     }
   }

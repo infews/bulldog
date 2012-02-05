@@ -2,8 +2,8 @@
 
   namespace.NavigationListView = function(options) {
     var baseOptions = {
-      tagName: 'div',
-      className: 'list'
+      tagName: 'ul',
+      className: 'nav nav-pills nav-stacked list'
     };
     var self = new (Backbone.View.extend(baseOptions))(options);
     var agent = new bulldog.NavigationListAgent(self, options);
@@ -15,7 +15,8 @@
       $el.empty();
 
       var locals = agent.getLocals();
-      $el.append(JST["list"](locals));
+      var dom = JST["list"](locals);
+      $el.append(dom);
 
       $el.bind('click', self.selectItem);
 

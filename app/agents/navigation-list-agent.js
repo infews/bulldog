@@ -42,7 +42,7 @@
         var itemType = currentList.substring(0, currentList.length - 1);
         var classes = [itemType];
         if (name === selectedItem.get('name')) {
-          classes.push('selected');
+          classes.push('active');
         }
 
         var url = _.template("#/<%=list%>/<%=name%>");

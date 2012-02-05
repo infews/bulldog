@@ -4,7 +4,8 @@
     routes: {
       '/':               'root',
       '/projects/:name': 'project',
-      '/contexts/:name': 'context'
+      '/contexts/:name': 'context',
+      '/contexts': 'firstContext'
     },
 
     initialize: function(tasks) {
@@ -89,15 +90,21 @@
       this.select(taskList, 'contexts', name);
     },
 
+    firstContext: function() {
+      var contextName = this.contextList.first().get('name');
+      var tasks = this.taskList.filter(function(task) {
+        return task.get('context') == contextName;
+      });
+      var taskList = new bulldog.TaskList(tasks);
+
+      this.select(taskList, 'contexts', contextName);
+    },
+
     select: function(taskList, listName, itemName) {
       this.navigationView.select({list: listName, name: itemName});
       delete this.tasksView;
       this.tasksView = new bulldog.TaskListView({collection: taskList});
       $('section.tasks').html(this.tasksView.render().el);
     }
-
-
-
-
   });
 }(jQuery));

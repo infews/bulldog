@@ -35,10 +35,10 @@
       var tabs = [{text: '+', className: 'projects'}, {text: '@', className: 'contexts'}];
       var list = [];
       if (selectedTab == '+') {
-        tabs[0].className += ' selected';
+        tabs[0].className += ' active';
         list = options.projects.map(projectsForLocals);
       } else {
-        tabs[1].className += ' selected';
+        tabs[1].className += ' active';
         list = options.contexts.map(contextsForLocals)
       }
 
@@ -65,7 +65,7 @@
 
       var classes = ['project'];
       if (name === selectedProject) {
-        classes.push('selected');
+        classes.push('active');
       }
 
       return {
@@ -80,7 +80,7 @@
 
       var classes = ['context'];
       if (name === selectedContext) {
-        classes.push('selected');
+        classes.push('active');
       }
 
       return {

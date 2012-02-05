@@ -1,8 +1,8 @@
 (function($, namespace) {
   namespace.NavigationTabsView = function() {
     var baseOptions = {
-      tagName: 'div',
-      className: 'tabs'
+      tagName: 'ul',
+      className: 'nav nav-tabs tabs'
     };
     var self = new (Backbone.View.extend(baseOptions))();
     var agent = new bulldog.NavigationTabsAgent(self);

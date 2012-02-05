@@ -32,7 +32,7 @@ describe("bulldog.NavigationView", function() {
     });
 
     it("should render the tabs for projects and contexts", function() {
-      var $tabs = $('.tabs', $navigationNode);
+      var $tabs = $('.nav-tabs.tabs', $navigationNode);
       expect($tabs.length).toEqual(1);
     });
 
@@ -48,8 +48,8 @@ describe("bulldog.NavigationView", function() {
     });
 
     it("should select the projects tab", function() {
-      expect($('.tabs .projects.selected').length).toEqual(1);
-      expect($('.tabs .contexts.selected').length).toEqual(0);
+      expect($('.nav-tabs .projects.active').length).toEqual(1);
+      expect($('.nav-tabs .contexts.active').length).toEqual(0);
     });
 
     it("should render the project list", function() {
@@ -57,7 +57,7 @@ describe("bulldog.NavigationView", function() {
     });
 
     it("should select the correct project in the list", function() {
-      expect($('.list .project.selected').text()).toMatch(/Baz/);
+      expect($('.list .project.active').text()).toMatch(/Baz/);
     });
   });
 
@@ -72,8 +72,8 @@ describe("bulldog.NavigationView", function() {
     });
 
     it("should select the contexts tab", function() {
-      expect($('.tabs .projects.selected').length).toEqual(0);
-      expect($('.tabs .contexts.selected').length).toEqual(1);
+      expect($('.nav-tabs .projects.active').length).toEqual(0);
+      expect($('.nav-tabs .contexts.active').length).toEqual(1);
     });
 
     it("should remove the project list", function() {

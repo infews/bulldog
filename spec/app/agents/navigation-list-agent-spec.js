@@ -49,7 +49,7 @@ describe("bulldog.NavigationListAgent", function() {
       });
 
       it("should have the default list item selected", function() {
-        expect(locals.list[0].className.match(/selected/)).toBeTruthy();
+        expect(locals.list[0].className.match(/active/)).toBeTruthy();
       });
     });
   });
@@ -73,7 +73,7 @@ describe("bulldog.NavigationListAgent", function() {
       });
 
       it("should have the requested list item selected", function() {
-        expect(locals.list[1].className.match(/selected/)).toBeTruthy();
+        expect(locals.list[1].className.match(/active/)).toBeTruthy();
       });
     });
   });
@@ -108,7 +108,7 @@ describe("bulldog.NavigationListAgent", function() {
       });
 
       it("should have the default list item selected", function() {
-        expect(locals.list[0].className.match(/selected/)).toBeTruthy();
+        expect(locals.list[0].className.match(/active/)).toBeTruthy();
       });
     });
 
@@ -126,7 +126,7 @@ describe("bulldog.NavigationListAgent", function() {
       });
 
       it("should have the correct list item selected", function() {
-        expect(locals.list[2].className.match(/selected/)).toBeTruthy();
+        expect(locals.list[2].className.match(/active/)).toBeTruthy();
       });
     });
   });

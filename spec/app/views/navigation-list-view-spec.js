@@ -40,7 +40,7 @@ describe("bulldog.NavigationListView", function() {
     beforeEach(function() {
       $content.append(view.render().el);
       view.select({list: "projects", name: "Baz"});
-      $selected = $('.selected');
+      $selected = $('.active');
     });
 
     it("should move the selection", function() {

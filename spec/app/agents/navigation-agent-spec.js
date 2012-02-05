@@ -151,7 +151,7 @@ describe("bulldog.NavigationAgent", function() {
       it("should show 'contexts' selected", function() {
         expect(locals.tabs.length).toEqual(2);
         expect(locals.tabs[0]).toEqual({text: '+', className: 'projects'});
-        expect(locals.tabs[1]).toEqual({text: '@', className: 'contexts selected'});
+        expect(locals.tabs[1]).toEqual({text: '@', className: 'contexts active'});
       });
 
       describe("the list", function() {
@@ -164,7 +164,7 @@ describe("bulldog.NavigationAgent", function() {
         });
 
         it("should have the fist item selected", function() {
-          expect(_(locals.list).first().className).toEqual('context selected');
+          expect(_(locals.list).first().className).toEqual('context active');
         });
 
         it("should return '(none)' as the last item", function() {
@@ -187,7 +187,7 @@ describe("bulldog.NavigationAgent", function() {
 
         it("should show 'projects' selected", function() {
           expect(locals.tabs.length).toEqual(2);
-          expect(locals.tabs[0]).toEqual({text: '+', className: 'projects selected'});
+          expect(locals.tabs[0]).toEqual({text: '+', className: 'projects active'});
           expect(locals.tabs[1]).toEqual({text: '@', className: 'contexts'});
         });
       });
@@ -201,7 +201,7 @@ describe("bulldog.NavigationAgent", function() {
 
         it("should have the correct project selected", function() {
           expect(item.name).toEqual('Thank You Notes');
-          expect(item.className).toEqual('project selected');
+          expect(item.className).toEqual('project active');
           expect(item.url).toEqual('project/ThankYouNotes');
         });
       });
@@ -220,7 +220,7 @@ describe("bulldog.NavigationAgent", function() {
         });
 
         it("should have the 'All' item selected", function() {
-          expect(_(locals.list).first().className).toEqual('project selected');
+          expect(_(locals.list).first().className).toEqual('project active');
         });
 
         it("should return '(none)' as the last project", function() {

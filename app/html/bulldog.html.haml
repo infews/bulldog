@@ -20,7 +20,14 @@
       }(jQuery));
 
     %link{:href => 'bulldog.css', :rel => 'stylesheet', :type => 'text/css'}
+    %link{:href => 'bootstrap.css', :rel => 'stylesheet', :type => 'text/css'}
   %body
-    %nav.projects
-    %section.tasks
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          %a.brand{:href => "#"} Bulldog
+          an HTML view for todo.txt
+    .main
+      %nav
+      %section.tasks
 

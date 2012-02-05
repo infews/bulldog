@@ -105,10 +105,10 @@
       var tabs = [{text: '+', className: 'projects'}, {text: '@', className: 'contexts'}];
       var list = [];
       if (selectedTab == '+') {
-        tabs[0].className += ' selected';
+        tabs[0].className += ' active';
         list = options.projects.map(projectsForLocals);
       } else {
-        tabs[1].className += ' selected';
+        tabs[1].className += ' active';
         list = options.contexts.map(contextsForLocals)
       }
 
@@ -135,7 +135,7 @@
 
       var classes = ['project'];
       if (name === selectedProject) {
-        classes.push('selected');
+        classes.push('active');
       }
 
       return {
@@ -150,7 +150,7 @@
 
       var classes = ['context'];
       if (name === selectedContext) {
-        classes.push('selected');
+        classes.push('active');
       }
 
       return {
@@ -222,7 +222,7 @@
         var itemType = currentList.substring(0, currentList.length - 1);
         var classes = [itemType];
         if (name === selectedItem.get('name')) {
-          classes.push('selected');
+          classes.push('active');
         }
 
         var url = _.template("#/<%=list%>/<%=name%>");
@@ -263,13 +263,13 @@
 
     self.getLocals = function() {
       var tabs = [
-        {text: '+', className: 'projects'},
-        {text: '@', className: 'contexts'}
+        {text: '+', className: 'projects', link: '#/'},
+        {text: '@', className: 'contexts', link: '#/contexts'}
       ];
 
       var selectedIndex = _(validValues).indexOf(selectedTab);
       selectedIndex = selectedIndex >= 0 ? selectedIndex : 0;
-      tabs[selectedIndex].className += ' selected';
+      tabs[selectedIndex].className += ' active';
 
       return {
         tabs: tabs
@@ -318,8 +318,8 @@
 
   namespace.NavigationListView = function(options) {
     var baseOptions = {
-      tagName: 'div',
-      className: 'list'
+      tagName: 'ul',
+      className: 'nav nav-pills nav-stacked list'
     };
     var self = new (Backbone.View.extend(baseOptions))(options);
     var agent = new bulldog.NavigationListAgent(self, options);
@@ -331,7 +331,8 @@
       $el.empty();
 
       var locals = agent.getLocals();
-      $el.append(JST["list"](locals));
+      var dom = JST["list"](locals);
+      $el.append(dom);
 
       $el.bind('click', self.selectItem);
 
@@ -350,8 +351,8 @@
 (function($, namespace) {
   namespace.NavigationTabsView = function() {
     var baseOptions = {
-      tagName: 'div',
-      className: 'tabs'
+      tagName: 'ul',
+      className: 'nav nav-tabs tabs'
     };
     var self = new (Backbone.View.extend(baseOptions))();
     var agent = new bulldog.NavigationTabsAgent(self);
@@ -490,7 +491,8 @@
     routes: {
       '/':               'root',
       '/projects/:name': 'project',
-      '/contexts/:name': 'context'
+      '/contexts/:name': 'context',
+      '/contexts': 'firstContext'
     },
 
     initialize: function(tasks) {
@@ -575,21 +577,27 @@
       this.select(taskList, 'contexts', name);
     },
 
+    firstContext: function() {
+      var contextName = this.contextList.first().get('name');
+      var tasks = this.taskList.filter(function(task) {
+        return task.get('context') == contextName;
+      });
+      var taskList = new bulldog.TaskList(tasks);
+
+      this.select(taskList, 'contexts', contextName);
+    },
+
     select: function(taskList, listName, itemName) {
       this.navigationView.select({list: listName, name: itemName});
       delete this.tasksView;
       this.tasksView = new bulldog.TaskListView({collection: taskList});
       $('section.tasks').html(this.tasksView.render().el);
     }
-
-
-
-
   });
 }(jQuery));(function(){
 window.JST = window.JST || {};
 
-window.JST['list'] = Mustache.template('{{#list}}\n<div class="{{className}}">\n  <a href="{{url}}">{{name}}<a/>\n</div>\n{{/list}}\n');
-window.JST['tabs'] = Mustache.template('{{#tabs}}\n<div class="{{className}}">{{text}}</div>\n{{/tabs}}');
-window.JST['task'] = Mustache.template('<div class="data">\n  <div>\n    <span class="number">{{number}}</span>\n  </div>\n  {{#context}}\n  <div class="context">{{context}}</div>\n  {{/context}}\n</div>\n<div class="spacer">\n</div>\n<div class="right">\n  <div class="action">{{{action}}}</div>\n  {{#projectName}}\n  <div class="project">\n    <span>{{projectName}}</span>\n  </div>\n  {{/projectName}}\n</div>\n');
+window.JST['list'] = Mustache.template('{{#list}}\n<li class="{{className}}"><a href="{{url}}">{{name}}</a></li>\n{{/list}}\n');
+window.JST['tabs'] = Mustache.template('{{#tabs}}\n<li class="{{className}}"><a href="{{link}}">{{text}}</a></li>\n{{/tabs}}\n');
+window.JST['task'] = Mustache.template('<div class="data">\n  <div>\n    <a class="btn btn-info btn-disable">{{number}}</a>\n  </div>\n  {{#context}}\n  <div class="context">@{{context}}</div>\n  {{/context}}\n</div>\n<div class="spacer">\n</div>\n<div class="right">\n  <div class="action">{{{action}}}</div>\n  {{#projectName}}\n  <div class="project">\n    <span>{{projectName}}</span>\n  </div>\n  {{/projectName}}\n</div>\n');
 })();

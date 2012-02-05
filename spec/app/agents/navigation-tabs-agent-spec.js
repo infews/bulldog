@@ -59,8 +59,8 @@ describe("bulldog.NavigationTabsAgent", function() {
 
       it("should show 'contexts' selected", function() {
         expect(locals.tabs.length).toEqual(2);
-        expect(locals.tabs[0]).toEqual({text: '+', className: 'projects'});
-        expect(locals.tabs[1]).toEqual({text: '@', className: 'contexts selected'});
+        expect(locals.tabs[0]).toEqual({text: '+', className: 'projects', link: '#/'});
+        expect(locals.tabs[1]).toEqual({text: '@', className: 'contexts active', link: '#/contexts'});
       });
     });
 
@@ -74,8 +74,8 @@ describe("bulldog.NavigationTabsAgent", function() {
 
         it("should show 'projects' selected", function() {
           expect(locals.tabs.length).toEqual(2);
-          expect(locals.tabs[0]).toEqual({text: '+', className: 'projects selected'});
-          expect(locals.tabs[1]).toEqual({text: '@', className: 'contexts'});
+          expect(locals.tabs[0]).toEqual({text: '+', className: 'projects active', link: '#/'});
+          expect(locals.tabs[1]).toEqual({text: '@', className: 'contexts', link: '#/contexts'});
         });
       });
     });

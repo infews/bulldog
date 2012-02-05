@@ -61,12 +61,12 @@ describe("bulldog.Router", function() {
     });
 
     it("should select the 'projects' tab", function() {
-      expect($('nav .navigation .projects.selected').length).toEqual(1);
-      expect($('nav .navigation .contexts.selected').length).toEqual(0);
+      expect($('nav .navigation .projects.active').length).toEqual(1);
+      expect($('nav .navigation .contexts.active').length).toEqual(0);
     });
 
     it("should select the correct project in the navigation", function() {
-      expect($('nav .navigation .project.selected').text()).toMatch(/Zip/);
+      expect($('nav .navigation .project.active').text()).toMatch(/Zip/);
     });
 
     it("should render the tasks UI", function() {
@@ -89,12 +89,12 @@ describe("bulldog.Router", function() {
     });
 
     it("should select the 'contexts' tab", function() {
-      expect($('nav .navigation .projects.selected').length).toEqual(0);
-      expect($('nav .navigation .contexts.selected').length).toEqual(1);
+      expect($('nav .navigation .projects.active').length).toEqual(0);
+      expect($('nav .navigation .contexts.active').length).toEqual(1);
     });
 
     it("should select the correct context in the navigation", function() {
-      expect($('nav .navigation .context.selected').text()).toMatch(/pc/i);
+      expect($('nav .navigation .context.active').text()).toMatch(/pc/i);
     });
 
     it("should render the tasks UI", function() {
