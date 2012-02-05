@@ -2,6 +2,8 @@
 %html
   %head
     %title Bulldog | Todo.txt
+    %link{:href => 'bootstrap.css', :rel => 'stylesheet', :type => 'text/css'}
+    %link{:href => 'bulldog.css', :rel => 'stylesheet', :type => 'text/css'}
     %script{:src => 'lib.js', :type => 'text/javascript'}
     %script{:src => 'app.js', :type => 'text/javascript'}
     :javascript
@@ -11,22 +13,18 @@
         function startApp() {
           localStorage.clear();
 
-          todoTxt.build(function(tasks){
+          todoTxt.build(function(tasks) {
             window.app = new bulldog.Router(tasks);
             Backbone.history.start();
             app.navigate('/');
           });
         }
       }(jQuery));
-
-    %link{:href => 'bulldog.css', :rel => 'stylesheet', :type => 'text/css'}
-    %link{:href => 'bootstrap.css', :rel => 'stylesheet', :type => 'text/css'}
   %body
     .navbar.navbar-fixed-top
       .navbar-inner
         .container
           %a.brand{:href => "#"} Bulldog
-          an HTML view for todo.txt
     .main
       %nav
       %section.tasks

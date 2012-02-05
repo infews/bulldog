@@ -1,0 +1,29 @@
+!!! 5
+%html
+  %head
+    %title Bulldog | Todo.txt
+    / Bullldog HTML viewer for Todo.txt. Built with jQuery, Backbone, and Bootstrap.
+  %body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          %a.brand{:href => "#"} Bulldog
+    .main
+      %nav
+      %section.tasks
+  %style{:type => 'text/css'}= css
+  %script{:type => 'text/javascript'}= js
+  :javascript
+    (function($) {
+      $(startApp);
+
+      function startApp() {
+        localStorage.clear();
+
+        todoTxt.build(function(tasks) {
+          window.app = new bulldog.Router(tasks);
+          Backbone.history.start();
+          app.navigate('/');
+        });
+      }
+    }(jQuery));

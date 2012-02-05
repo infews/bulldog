@@ -4,7 +4,7 @@
   todoTxt.load = function(onSuccess) {
     $.ajax({
       type: "GET",
-      url: "http://localhost/bulldog/build/dev/todo.txt",
+      url: "./todo.txt",
       dataType: "html",
       success: splitTasks
     });

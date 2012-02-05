@@ -21,13 +21,6 @@ namespace :build do
 
   desc "build CSS"
   task :dev_css do
-    #Compass.configuration do |config|
-    #  config.project_path = root
-    #  config.sass_dir = 'app/stylesheets'
-    #  config.css_dir = 'build/dev'
-    #end
-
-
     system "compass compile ."
   end
 
@@ -41,6 +34,30 @@ namespace :build do
 
     File.open(bulldog_dev, 'w') do |f|
       f << single_page.render
+    end
+  end
+
+
+  desc "build assets for release"
+  task :rel_assets => :dev_css do
+    del_file "#{root}/build/rel/all.js"
+    del_file "#{root}/build/rel/all.css"
+    system "cp #{root}/config/release_assets.yml #{root}/config/assets.yml"
+
+    system "jammit -o #{root}/build/release"
+  end
+
+  desc "build HTML for release"
+  task :rel => :rel_assets do
+    context = OpenStruct.new(
+      :js => File.read("#{root}/build/release/all.js"),
+      :css => File.read("#{root}/build/release/all.css")
+    )
+
+    del_file "#{root}/build/release/index.html"
+    bulldog_release = Tilt.new("#{root}/app/html/bulldog_release.html.haml")
+    File.open("#{root}/build/release/index.html", 'w') do |f|
+      f << bulldog_release.render(context)
     end
   end
 
