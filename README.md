@@ -7,11 +7,30 @@ Bulldog is a single-page HTML view of your [todo.txt](http://http://todotxt.com/
 
 ## Installation
 
-Bulldog is released as a single HTML file, called `index.html`, that needs to live in the same directory as your `todo.txt` file.
+Bulldog is released as a single HTML file via the [Downloads page](http://github.com/infews/bulldog/downloads), called `index.html`, that needs to live in the same directory as your `todo.txt` file.
 
 You will also need to set up a web server to point to this directory or configure your browser to allow AJAX requests from a `file://` URL. Bulldog makes an AJAX request to read in `todo.txt`
 
 This isn't very user-friendly at this point in time. 
+
+For these examples, I keep my `todo.txt` file (and all of my Todo.txt stuff) in `/Users/dwf/Dropbox/todo`.
+
+### Via HTTP and a Local Web Server
+
+These steps work on MacOS 10.7 (Lion), serving Bulldog via the built-in web server (Apache 2). Please look up the equivalent steps for your operating system and web server.
+
+1. Make a symlink from Apache's directory to your ToDo.txt directory: `ln -s /Users/dwf/Dropbox/todo /Library/WebServer/Documents/todo`
+1. Restart Apache by visiting the `Sharing` pane under `System Preferences`, and turning `Web Sharing` off (if it's on) and then on
+1. Copy Bulldog's `index.html` to `/Users/dwf/Dropbox/todo`
+1. Visit `http://localhost/todo`
+
+### Via the Local File Protocol
+
+With some tweaking of your browser settings, `file://path/to/index.html` will work
+
+* Safari: no change needed
+* Firefox: enable "cross domain AJAX requests" via config settings; this differs across versions of Firefox, so you'll need to Google it
+* Chrome/Chromium: launch the executable with the `--disable-web-security` flag set
 
 ## Usage
 
@@ -26,15 +45,15 @@ If you've updated or added any tasks, just reload your browser to refresh the ta
 ## Roadmap?
 
 * Make it easier to install
-* Display priority of a task
 * Add some concept of "Next Action" - is this a syntax addition? Or is priority 'A' enough?
-* Editing tasks & storing back to `todo.txt`? Maybe, but this would require a server...
+* Display priority of a task
+* Editing tasks & storing back to `todo.txt` - this would require a server, which may be out of scope
 
 ## Implementation
 
 Bulldog is a single-page HTML application. It uses jQuery and Backbone.js (which means it also uses Underscore.js) to read in the todo.txt file via AJAX, build out local data objects (Backbone models & collections), and then display the tasks and UI.
 
-The base CSS and navigation UI from Twitter's Bootstrap.
+The base CSS and navigation UI are from Twitter's Bootstrap.
 
 All of the CSS and JavaScript is included inline so that no server is required.
 
