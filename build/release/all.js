@@ -1115,9 +1115,9 @@ _.mixin(_.str.exports());
       });
 
       function projectsFrom(tasks) {
-        var names = tasks.reduce(toUniqueProjectNames, ['All']);
-
+        var names = tasks.reduce(toUniqueProjectNames, []).sort();
         moveEmptyToEnd(names);
+        names.unshift('All');
 
         return _(names).map(function(n) {
           return new Backbone.Model({name: n});
@@ -1130,7 +1130,7 @@ _.mixin(_.str.exports());
       }
 
       function contextsFrom(tasks) {
-        var names = tasks.reduce(toUniqueContextNames, []);
+        var names = tasks.reduce(toUniqueContextNames, []).sort();
 
         moveEmptyToEnd(names);
 

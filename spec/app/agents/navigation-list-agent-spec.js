@@ -5,6 +5,7 @@ describe("bulldog.NavigationListAgent", function() {
     var projectCollection = new Backbone.Collection([
       new Backbone.Model({name: 'All'}),
       new Backbone.Model({name: 'ThankYouNotes'}),
+      new Backbone.Model({name: 'Emails'}),
       new Backbone.Model({name: ''})
     ]);
 
@@ -34,7 +35,7 @@ describe("bulldog.NavigationListAgent", function() {
       });
 
       it("should have the correct number of list items", function() {
-        expect(locals.list.length).toEqual(3);
+        expect(locals.list.length).toEqual(4);
       });
 
       it("should have the items of default list", function() {
@@ -69,7 +70,7 @@ describe("bulldog.NavigationListAgent", function() {
       });
 
       it("should have the correct number of list items", function() {
-        expect(locals.list.length).toEqual(3);
+        expect(locals.list.length).toEqual(4);
       });
 
       it("should have the requested list item selected", function() {

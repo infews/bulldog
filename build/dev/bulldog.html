@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Bulldog | Todo.txt</title>
-    <link href='../../lib/dev/bootstrap.css' rel='stylesheet' type='text/css' />
+    <link href='bootstrap.css' rel='stylesheet' type='text/css' />
     <link href='bulldog.css' rel='stylesheet' type='text/css' />
     <script src='lib.js' type='text/javascript'></script>
     <script src='app.js' type='text/javascript'></script>
@@ -14,7 +14,7 @@
           function startApp() {
             localStorage.clear();
         
-            todoTxt.build(function(tasks){
+            todoTxt.build(function(tasks) {
               window.app = new bulldog.Router(tasks);
               Backbone.history.start();
               app.navigate('/');

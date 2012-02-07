@@ -8,7 +8,7 @@
   todoTxt.load = function(onSuccess) {
     $.ajax({
       type: "GET",
-      url: "http://localhost/bulldog/build/dev/todo.txt",
+      url: "./todo.txt",
       dataType: "html",
       success: splitTasks
     });
@@ -492,9 +492,9 @@
       });
 
       function projectsFrom(tasks) {
-        var names = tasks.reduce(toUniqueProjectNames, ['All']);
-
+        var names = tasks.reduce(toUniqueProjectNames, []).sort();
         moveEmptyToEnd(names);
+        names.unshift('All');
 
         return _(names).map(function(n) {
           return new Backbone.Model({name: n});
@@ -507,7 +507,7 @@
       }
 
       function contextsFrom(tasks) {
-        var names = tasks.reduce(toUniqueContextNames, []);
+        var names = tasks.reduce(toUniqueContextNames, []).sort();
 
         moveEmptyToEnd(names);
 
