@@ -83,9 +83,13 @@ body {
   -webkit-box-orient: horizontal;
   -ms-box-orient: horizontal;
   box-orient: horizontal;
-  padding-top: 44px;
+  padding-top: 40px;
 }
 /* line 17, ../../app/stylesheets/bulldog.scss */
+.main .navigation {
+  margin-right: 8px;
+}
+/* line 21, ../../app/stylesheets/bulldog.scss */
 .main nav, .main section {
   display: -moz-box;
   display: -webkit-box;
@@ -96,12 +100,12 @@ body {
   -ms-box-pack: start;
   box-pack: start;
 }
-/* line 22, ../../app/stylesheets/bulldog.scss */
+/* line 26, ../../app/stylesheets/bulldog.scss */
 .main nav {
   margin-left: 8px;
-  margin-top: 4px;
+  margin-top: 8px;
 }
-/* line 27, ../../app/stylesheets/bulldog.scss */
+/* line 31, ../../app/stylesheets/bulldog.scss */
 .main section {
   -moz-box-flex: 1;
   -webkit-box-flex: 1;
@@ -117,7 +121,7 @@ body {
   box-pack: start;
 }
 
-/* line 34, ../../app/stylesheets/bulldog.scss */
+/* line 38, ../../app/stylesheets/bulldog.scss */
 .task-list {
   display: -moz-box;
   display: -webkit-box;
@@ -135,24 +139,78 @@ body {
   -webkit-box-flex: 1;
   -ms-box-flex: 1;
   box-flex: 1;
+  background-color: #a9a9a9;
 }
-/* line 40, ../../app/stylesheets/bulldog.scss */
+/* line 46, ../../app/stylesheets/bulldog.scss */
 .task-list .task {
   display: -moz-box;
   display: -webkit-box;
   display: -ms-box;
   display: box;
+  -moz-box-orient: horizontal;
+  -webkit-box-orient: horizontal;
+  -ms-box-orient: horizontal;
+  box-orient: horizontal;
   -moz-box-pack: start;
   -webkit-box-pack: start;
   -ms-box-pack: start;
   box-pack: start;
+  margin: 12px 12px 0;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: white;
 }
-/* line 44, ../../app/stylesheets/bulldog.scss */
-.task-list .task div {
-  padding: 4px;
+/* line 57, ../../app/stylesheets/bulldog.scss */
+.task-list .task .action {
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-box;
+  display: box;
+  -moz-box-orient: horizontal;
+  -webkit-box-orient: horizontal;
+  -ms-box-orient: horizontal;
+  box-orient: horizontal;
+  -moz-box-pack: start;
+  -webkit-box-pack: start;
+  -ms-box-pack: start;
+  box-pack: start;
+  -moz-box-flex: 1;
+  -webkit-box-flex: 1;
+  -ms-box-flex: 1;
+  box-flex: 1;
+  padding: 0 12px 8px 0;
 }
-/* line 48, ../../app/stylesheets/bulldog.scss */
-.task-list .task .data, .task-list .task .right, .task-list .task .spacer {
+/* line 65, ../../app/stylesheets/bulldog.scss */
+.task-list .task .data, .task-list .task .meta {
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-box;
+  display: box;
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
+  -ms-box-orient: vertical;
+  box-orient: vertical;
+}
+/* line 70, ../../app/stylesheets/bulldog.scss */
+.task-list .task .data {
+  -moz-box-pack: start;
+  -webkit-box-pack: start;
+  -ms-box-pack: start;
+  box-pack: start;
+  -moz-box-flex: 1;
+  -webkit-box-flex: 1;
+  -ms-box-flex: 1;
+  box-flex: 1;
+}
+/* line 75, ../../app/stylesheets/bulldog.scss */
+.task-list .task .meta {
+  -moz-box-align: center;
+  -webkit-box-align: center;
+  -ms-box-align: center;
+  box-align: center;
+}
+/* line 78, ../../app/stylesheets/bulldog.scss */
+.task-list .task .meta div {
   display: -moz-box;
   display: -webkit-box;
   display: -ms-box;
@@ -165,21 +223,17 @@ body {
   -webkit-box-pack: start;
   -ms-box-pack: start;
   box-pack: start;
+  -moz-box-align: center;
+  -webkit-box-align: center;
+  -ms-box-align: center;
+  box-align: center;
 }
-/* line 54, ../../app/stylesheets/bulldog.scss */
-.task-list .task .context {
-  text-align: center;
+/* line 85, ../../app/stylesheets/bulldog.scss */
+.task-list .task .meta .number {
+  margin-bottom: 8px;
 }
-/* line 58, ../../app/stylesheets/bulldog.scss */
-.task-list .task .right {
-  -moz-box-flex: 1;
-  -webkit-box-flex: 1;
-  -ms-box-flex: 1;
-  box-flex: 1;
-}
-/* line 61, ../../app/stylesheets/bulldog.scss */
-.task-list .task .right .project {
-  text-align: right;
-  font-size: 10px;
-  color: #6d6d6d;
+/* line 91, ../../app/stylesheets/bulldog.scss */
+.task-list .task .footer h6 {
+  display: inline;
+  font-size: 11px;
 }

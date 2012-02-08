@@ -2,15 +2,15 @@
   window.bulldog = {};
   bulldog.version = "0.1.0";
 }(jQuery));
-(function ($) {
+(function($) {
 
   todoTxt = {};
   todoTxt.load = function(onSuccess) {
     $.ajax({
-      type: "GET",
-      url: "./todo.txt",
+      type:     "GET",
+      url:      "./todo.txt",
       dataType: "html",
-      success: splitTasks
+      success:  splitTasks
     });
 
     function splitTasks(data) {
@@ -19,7 +19,7 @@
     }
   };
 
-  todoTxt.build = function(onSuccess)  {
+  todoTxt.build = function(onSuccess) {
     todoTxt.load(parseData);
 
     function parseData(actions) {
@@ -40,23 +40,39 @@
     }
 
     function taskPropertiesFrom(taskText) {
-      var projectRE = /\+(\w+)/,
-          contextRE = /@(\w+)/,
-          project, context;
+      var priorityRE = /\(([A-Z])\)/,
+        projectRE = /\+(\w+)/,
+        contextRE = /@(\w+)/,
+        priority, project, context;
 
+      priority = extract(priorityRE);
       project = extract(projectRE);
       context = extract(contextRE);
 
-      return {
-        action: _.clean(taskText.replace(projectRE, '').replace(contextRE, '')),
-        context: context,
-        projectName: project
+      var properties = {
+        action:      clean(taskText),
+        context:     context,
+        projectName: project,
       };
+
+      if (priority) {
+        properties.priority = priority;
+      }
+
+      return properties;
 
       function extract(re) {
         var match = taskText.match(re);
         return match ? match[1] : ''
       }
+
+      function clean(str) {
+        var action = str.replace(priorityRE, '')
+          .replace(projectRE, '')
+          .replace(contextRE, '');
+        return _.clean(action);
+      }
+
     }
   };
 
@@ -295,7 +311,8 @@
         action: decorateLinks(task.get('action')),
         number: task.get('number'),
         context: task.get('context'),
-        projectName: task.get('projectName')
+        projectName: task.get('projectName'),
+        priority: task.get('priority')
       };
     };
 
@@ -452,7 +469,10 @@
 (function($, namespace) {
 
   namespace.TaskView = function(task) {
-    var tagOptions = {tagName: 'div', className: 'task'};
+    var tagOptions = {
+      tagName: 'div',
+      className: 'task'
+    };
     var self = new (Backbone.View.extend(tagOptions))(task);
 
     var agent = new bulldog.TaskAgent(self, task);
@@ -591,5 +611,5 @@ window.JST = window.JST || {};
 
 window.JST['list'] = Mustache.template('{{#list}}\n<li class="{{className}}"><a href="{{url}}">{{name}}</a></li>\n{{/list}}\n');
 window.JST['tabs'] = Mustache.template('{{#tabs}}\n<li class="{{className}}"><a href="{{link}}">{{text}}</a></li>\n{{/tabs}}\n');
-window.JST['task'] = Mustache.template('<div class="data">\n  <div>\n    <a class="btn btn-info btn-disabled">{{number}}</a>\n  </div>\n  {{#context}}\n  <div class="context">@{{context}}</div>\n  {{/context}}\n</div>\n<div class="right">\n  <div class="action">{{{action}}}</div>\n  {{#projectName}}\n  <div class="project">\n    <span>{{projectName}}</span>\n  </div>\n  {{/projectName}}\n</div>\n');
+window.JST['task'] = Mustache.template('<div class="data">\n  <div class="action">{{{action}}}</div>\n  <div class="footer">\n    {{#projectName}}\n    <h6 class="project">+{{projectName}}</h6>\n    {{/projectName}}\n    {{#context}}\n    <h6 class="context">@{{context}}</h6>\n    {{/context}}\n  </div>\n</div>\n<div class="meta">\n  <div class="number">\n    <a class="btn btn-info disabled">{{number}}</a>\n  </div>\n  {{#priority}}\n  <div class="priority">\n    <a class="btn btn-success disabled">{{priority}}</a>\n  </div>\n  {{/priority}}\n</div>');
 })();

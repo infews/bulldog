@@ -2,7 +2,7 @@
   <div class="action">{{{action}}}</div>
   <div class="footer">
     {{#projectName}}
-    <h6 class="project">{{projectName}}</h6>
+    <h6 class="project">+{{projectName}}</h6>
     {{/projectName}}
     {{#context}}
     <h6 class="context">@{{context}}</h6>
@@ -13,7 +13,9 @@
   <div class="number">
     <a class="btn btn-info disabled">{{number}}</a>
   </div>
-  <div>
-    <a class="btn btn-success disabled">A</a>
+  {{#priority}}
+  <div class="priority">
+    <a class="btn btn-success disabled">{{priority}}</a>
   </div>
+  {{/priority}}
 </div>

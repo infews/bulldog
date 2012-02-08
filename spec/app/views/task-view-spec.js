@@ -1,12 +1,12 @@
 describe("bulldog.TaskView", function() {
-  var view, $content;
+  var view, $content, $task;
 
   beforeEach(function() {
     var task = new bulldog.Task({
-      action:  "Call mom for wishes",
-      number:  "17",
-      context: "calls",
-      projectName: "Happy Birthday"
+      action:      "Call mom for wishes",
+      number:      "17",
+      context:     "calls",
+      projectName: "HappyBirthday"
     });
 
     view = new bulldog.TaskView(task);
@@ -14,7 +14,6 @@ describe("bulldog.TaskView", function() {
   });
 
   describe("#render", function() {
-    var $task;
     beforeEach(function() {
       $content.append(view.render().el);
       $task = $('div.task', $content);
@@ -29,15 +28,39 @@ describe("bulldog.TaskView", function() {
     });
 
     it("should render the task number", function() {
-      expect($('span.number', $task).text()).toEqual('17');
+      expect($('.number', $task).html()).toMatch(/17/)
     });
 
     it("should render the task context", function() {
-      expect($('div.context', $task).text()).toEqual('calls');
+      expect($('.context', $task).html()).toMatch(/@calls/);
     });
 
     it("should render the task project", function() {
-      expect($('div.project', $task).text()).toMatch('Happy Birthday');
+      expect($('.project', $task).html()).toMatch(/\+HappyBirthday/);
+    });
+
+    it("should not render a priority", function() {
+      expect($('.priority').length).toEqual(0);
+    });
+  });
+
+  describe("when a task has prirority", function() {
+    beforeEach(function() {
+      var task = new bulldog.Task({
+        action:      "Call mom for wishes",
+        number:      "17",
+        context:     "calls",
+        projectName: "HappyBirthday",
+        priority:    "A"
+      });
+
+      view = new bulldog.TaskView(task);
+      $content.append(view.render().el);
+      $task = $('div.task', $content);
+    });
+
+    it("should render a prirority", function() {
+      expect($('.priority').length).toEqual(1);
     });
   });
 });

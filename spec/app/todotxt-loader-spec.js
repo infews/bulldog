@@ -57,12 +57,21 @@ describe("todoTxt", function () {
       expect(tasks[2].get('action')).not.toMatch(/\+Vacation/);
     });
 
+    it("should strip the priority from the action", function() {
+      expect(tasks[1].get('action')).not.toMatch(/\(A\)/);
+    });
+
     it("should strip the context from the action", function () {
       expect(tasks[2].get('action')).not.toMatch(/@pc/);
     });
 
     it("should clean up extra whitespace from task actions", function () {
       expect(tasks[2].get('action')).toEqual('Google Maui restaurant reviews');
+    });
+
+    it("should set the task priority", function() {
+      expect(tasks[0].get('priority')).toBeUndefined();
+      expect(tasks[1].get('priority')).toEqual('A');
     });
 
     it("should set the task number", function () {

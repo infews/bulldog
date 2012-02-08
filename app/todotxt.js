@@ -1,12 +1,12 @@
-(function ($) {
+(function($) {
 
   todoTxt = {};
   todoTxt.load = function(onSuccess) {
     $.ajax({
-      type: "GET",
-      url: "./todo.txt",
+      type:     "GET",
+      url:      "./todo.txt",
       dataType: "html",
-      success: splitTasks
+      success:  splitTasks
     });
 
     function splitTasks(data) {
@@ -15,7 +15,7 @@
     }
   };
 
-  todoTxt.build = function(onSuccess)  {
+  todoTxt.build = function(onSuccess) {
     todoTxt.load(parseData);
 
     function parseData(actions) {
@@ -36,23 +36,39 @@
     }
 
     function taskPropertiesFrom(taskText) {
-      var projectRE = /\+(\w+)/,
-          contextRE = /@(\w+)/,
-          project, context;
+      var priorityRE = /\(([A-Z])\)/,
+        projectRE = /\+(\w+)/,
+        contextRE = /@(\w+)/,
+        priority, project, context;
 
+      priority = extract(priorityRE);
       project = extract(projectRE);
       context = extract(contextRE);
 
-      return {
-        action: _.clean(taskText.replace(projectRE, '').replace(contextRE, '')),
-        context: context,
-        projectName: project
+      var properties = {
+        action:      clean(taskText),
+        context:     context,
+        projectName: project,
       };
+
+      if (priority) {
+        properties.priority = priority;
+      }
+
+      return properties;
 
       function extract(re) {
         var match = taskText.match(re);
         return match ? match[1] : ''
       }
+
+      function clean(str) {
+        var action = str.replace(priorityRE, '')
+          .replace(projectRE, '')
+          .replace(contextRE, '');
+        return _.clean(action);
+      }
+
     }
   };
 

@@ -1,7 +1,10 @@
 (function($, namespace) {
 
   namespace.TaskView = function(task) {
-    var tagOptions = {tagName: 'div', className: 'task'};
+    var tagOptions = {
+      tagName: 'div',
+      className: 'task'
+    };
     var self = new (Backbone.View.extend(tagOptions))(task);
 
     var agent = new bulldog.TaskAgent(self, task);

@@ -1,7 +1,7 @@
 (function(){
 window.JST = window.JST || {};
 
-window.JST['list'] = Mustache.template('{{#list}}\n<div class="{{className}}">\n  <a href="{{url}}">{{name}}<a/>\n</div>\n{{/list}}\n');
-window.JST['tabs'] = Mustache.template('{{#tabs}}\n<div class="{{className}}">{{text}}</div>\n{{/tabs}}');
-window.JST['task'] = Mustache.template('<div class="data">\n  <div>\n    <span class="number">{{number}}</span>\n  </div>\n  {{#context}}\n  <div class="context">{{context}}</div>\n  {{/context}}\n</div>\n<div class="spacer">\n</div>\n<div class="right">\n  <div class="action">{{{action}}}</div>\n  {{#projectName}}\n  <div class="project">\n    <span>{{projectName}}</span>\n  </div>\n  {{/projectName}}\n</div>\n');
+window.JST['list'] = Mustache.template('{{#list}}\n<li class="{{className}}"><a href="{{url}}">{{name}}</a></li>\n{{/list}}\n');
+window.JST['tabs'] = Mustache.template('{{#tabs}}\n<li class="{{className}}"><a href="{{link}}">{{text}}</a></li>\n{{/tabs}}\n');
+window.JST['task'] = Mustache.template('<div class="data">\n  <div class="action">{{{action}}}</div>\n  <div class="footer">\n    {{#projectName}}\n    <h6 class="project">+{{projectName}}</h6>\n    {{/projectName}}\n    {{#context}}\n    <h6 class="context">@{{context}}</h6>\n    {{/context}}\n  </div>\n</div>\n<div class="meta">\n  <div class="number">\n    <a class="btn btn-info disabled">{{number}}</a>\n  </div>\n  {{#priority}}\n  <div class="priority">\n    <a class="btn btn-success disabled">{{priority}}</a>\n  </div>\n  {{/priority}}\n</div>');
 })();
