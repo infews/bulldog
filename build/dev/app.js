@@ -14,7 +14,7 @@
     });
 
     function splitTasks(data) {
-      var tasks = _(data.split("\n")).reject(function(item) { return item.length == 0; });
+      var tasks = data.split("\n");
       onSuccess(tasks);
     }
   };
@@ -24,15 +24,22 @@
 
     function parseData(actions) {
       var i = 0;
-      var tasks = _(actions).map(function(desc) {
-        i++;
-        return new bulldog.Task(taskProperties(desc, i));
-      });
+      var tasks = _(actions).reduce(toOnlyNonEmptyTasks, []);
 
       onSuccess(tasks);
+
+      function toOnlyNonEmptyTasks(tasks, taskline) {
+        i++;
+        if (taskline.length) {
+          var properties = taskPropertiesFrom(taskline);
+          properties.number = i;
+          tasks.push(new bulldog.Task(properties));
+        }
+        return tasks;
+      }
     }
 
-    function taskProperties(taskText, number) {
+    function taskPropertiesFrom(taskText) {
       var projectRE = /\+(\w+)/,
           contextRE = /@(\w+)/,
           project, context;
@@ -43,7 +50,6 @@
       return {
         action: _.clean(taskText.replace(projectRE, '').replace(contextRE, '')),
         context: context,
-        number: number,
         projectName: project
       };
 

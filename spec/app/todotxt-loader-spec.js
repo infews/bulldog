@@ -18,8 +18,8 @@ describe("todoTxt", function () {
         request.response(testResponses.localTodos);
       });
 
-      it("should send the file split into task lines, ignoring blank lines", function () {
-        expect(tasksLines.length).toEqual(7);
+      it("should send the file split into task lines", function () {
+        expect(tasksLines.length).toEqual(8);
       });
     });
   });
@@ -69,5 +69,9 @@ describe("todoTxt", function () {
       expect(tasks[2].get('number')).toEqual(3);
     });
 
+    it("should skip a task number when there is a blank line", function() {
+      expect(tasks[5].get('number')).toEqual(6);
+      expect(tasks[6].get('number')).toEqual(8);
+    });
   });
 });
