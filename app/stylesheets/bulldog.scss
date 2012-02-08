@@ -12,8 +12,12 @@ body {
   @include display-box;
   @include box-pack(start);
   @include box-orient(horizontal);
-  padding-top: 44px;
-      
+  padding-top: 40px;
+
+  .navigation {
+    margin-right: 8px;
+  }
+
   nav, section {
     @include display-box;
     @include box-pack(start);
@@ -21,7 +25,7 @@ body {
 
   nav {
     margin-left: 8px;
-    margin-top: 4px;
+    margin-top: 8px;
   }
 
   section {
@@ -37,31 +41,56 @@ body {
   @include box-orient(vertical);
   @include box-flex(1);
 
+  background-color: #a9a9a9;
+
   .task {
     @include display-box;
+    @include box-orient(horizontal);
     @include box-pack(start);
 
-    div {
-      padding: 4px;
+    margin: 12px 12px 0;
+    padding: 8px;
+    border-radius: 8px;
+
+    background-color: white;
+
+    .action {
+      @include display-box;
+      @include box-orient(horizontal);
+      @include box-pack(start);
+      @include box-flex(1);
+      padding: 0 12px 8px 0;
     }
 
-    .data, .right, .spacer {
+    .data, .meta {
       @include display-box;
       @include box-orient(vertical);
+    }
+
+    .data {
       @include box-pack(start);
-    }
-
-    .context {
-      text-align: center;
-    }
-
-    .right {
       @include box-flex(1);
+    }
 
-      .project {
-        text-align: right;
-        font-size: 10px;
-        color: #6d6d6d;
+    .meta {
+      @include box-align(center);
+
+      div {
+        @include display-box;
+        @include box-orient(vertical);
+        @include box-pack(start);
+        @include box-align(center);
+      }
+
+      .number {
+        margin-bottom: 8px;
+      }
+    }
+
+    .footer {
+      h6 {
+        display: inline;
+        font-size: 11px;
       }
     }
   }

@@ -1,16 +1,19 @@
 <div class="data">
-  <div>
-    <a class="btn btn-info btn-disabled">{{number}}</a>
-  </div>
-  {{#context}}
-  <div class="context">@{{context}}</div>
-  {{/context}}
-</div>
-<div class="right">
   <div class="action">{{{action}}}</div>
-  {{#projectName}}
-  <div class="project">
-    <span>{{projectName}}</span>
+  <div class="footer">
+    {{#projectName}}
+    <h6 class="project">{{projectName}}</h6>
+    {{/projectName}}
+    {{#context}}
+    <h6 class="context">@{{context}}</h6>
+    {{/context}}
   </div>
-  {{/projectName}}
+</div>
+<div class="meta">
+  <div class="number">
+    <a class="btn btn-info disabled">{{number}}</a>
+  </div>
+  <div>
+    <a class="btn btn-success disabled">A</a>
+  </div>
 </div>
