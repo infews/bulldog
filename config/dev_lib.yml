@@ -4,6 +4,7 @@
     - lib/dev/underscore.string.js
     - lib/dev/backbone.js
     - lib/dev/backbone.localstorage.js
+    - lib/dev/bootstrap.js
     - lib/mustache.js
     - lib/mustache-jammit.js
     - lib/add-underscore-string.js

@@ -1,17 +1,19 @@
 @import "compass";
-@import "compass/reset";
 @import "compass/css3";
 
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
 
 body {
-  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: "Lato", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  line-height: 22px;
 }
 
 .main {
   @include display-box;
   @include box-pack(start);
   @include box-orient(horizontal);
+
   padding-top: 40px;
 
   .navigation {
@@ -30,8 +32,6 @@ body {
 
   section {
     @include box-flex(1);
-    @include display-box;
-    @include box-pack(start);
   }
 }
 
@@ -50,7 +50,7 @@ body {
 
     margin: 12px 12px 0;
     padding: 8px;
-    border-radius: 8px;
+    border-radius: 6px;
 
     background-color: white;
 

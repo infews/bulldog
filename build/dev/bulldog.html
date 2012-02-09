@@ -9,11 +9,11 @@
     <script type='text/javascript'>
       //<![CDATA[
         (function($) {
-          $(startApp);
+          $(document).ready(startApp);
         
           function startApp() {
             localStorage.clear();
-        
+            $('.modal-footer h6').text('v' + bulldog.version)
             todoTxt.build(function(tasks) {
               window.app = new bulldog.Router(tasks);
               Backbone.history.start();
@@ -29,12 +29,28 @@
       <div class='navbar-inner'>
         <div class='container'>
           <a class='brand' href='#'>Bulldog</a>
+          <ul class='nav'>
+            <li>
+              <a data-toggle='modal' href='#about-modal'>About</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
     <div class='main'>
       <nav></nav>
       <section class='tasks'></section>
+    </div>
+    <div class='modal' id='about-modal' style='display:none;'>
+      <div class='modal-header'>
+        <a class='close' data-dismiss='modal'>&times;</a>
+        <h3>Bulldog</h3>
+        <h5>Todo.txt's best HTML friend</h5>
+      </div>
+      <div class='modal-body'>This will be some witty banter</div>
+      <div class='modal-footer'>
+        <h6></h6>
+      </div>
     </div>
   </body>
 </html>

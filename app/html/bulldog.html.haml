@@ -8,11 +8,11 @@
     %script{:src => 'app.js', :type => 'text/javascript'}
     :javascript
       (function($) {
-        $(startApp);
+        $(document).ready(startApp);
 
         function startApp() {
           localStorage.clear();
-
+          $('.modal-footer h6').text('v' + bulldog.version)
           todoTxt.build(function(tasks) {
             window.app = new bulldog.Router(tasks);
             Backbone.history.start();
@@ -25,7 +25,18 @@
       .navbar-inner
         .container
           %a.brand{:href => "#"} Bulldog
+          %ul.nav
+            %li
+              %a{"data-toggle".to_sym => "modal", :href => "#about-modal"} About
     .main
       %nav
       %section.tasks
+    .modal#about-modal{:style => 'display:none;'}
+      .modal-header
+        %a.close{"data-dismiss".to_sym => "modal"} &times;
+        %h3 Bulldog
+        %h5 Todo.txt's best HTML friend
 
+      .modal-body This will be some witty banter
+      .modal-footer
+        %h6
