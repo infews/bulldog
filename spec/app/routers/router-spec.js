@@ -3,10 +3,10 @@ describe("bulldog.Router", function() {
 
   beforeEach(function() {
     var tasks = [
-      new Backbone.Model({action: "foo", projectName: 'Zip', context: 'pc'}),
+      new Backbone.Model({action: "foo", projectName: 'Zip', context: 'pc', priority: 'C'}),
       new Backbone.Model({action: "bar", projectName: '', context: ''}),
       new Backbone.Model({action: "baz", projectName: 'Buzz', context: 'pc'}),
-      new Backbone.Model({action: "quuz", projectName: 'Zip', context: 'home'})
+      new Backbone.Model({action: "quuz", projectName: 'Zip', context: 'home', priority: 'A'})
     ];
     app = new bulldog.Router(tasks);
     $content = $("#jasmine_content");
@@ -16,36 +16,6 @@ describe("bulldog.Router", function() {
   describe("#initialize", function() {
     it("should make a tasklist", function() {
       expect(app.taskList.length).toEqual(4);
-    });
-
-    it("should make a project list", function() {
-      expect(app.projectList.length).toEqual(4);
-    });
-
-    it("should have the project 'All' first", function() {
-      expect(app.projectList.first().get('name')).toEqual('All');
-    });
-
-    it("should have the project '' last", function() {
-      expect(app.projectList.last().get('name')).toEqual('');
-    });
-
-    it("should sort the 'real' projects by name", function() {
-      expect(app.projectList.models[1].get('name')).toEqual('Buzz');
-      expect(app.projectList.models[2].get('name')).toEqual('Zip');
-    });
-
-    it("should have a context list", function() {
-      expect(app.contextList.length).toEqual(3);
-    });
-
-    it("should have the context '' last", function() {
-      expect(app.contextList.last().get('name')).toEqual('');
-    });
-
-    it("should sort the 'real' contexts by name", function() {
-      expect(app.contextList.models[0].get('name')).toEqual('home');
-      expect(app.contextList.models[1].get('name')).toEqual('pc');
     });
   });
 
