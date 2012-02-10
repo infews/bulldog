@@ -34,7 +34,7 @@ With some tweaking of your browser settings, `file://path/to/index.html` will wo
 
 ## Usage
 
-Bulldog is a read-only view of your tasks. It is not meant as a replacement for the command line interface. Use the CLI for operations on tasks and then view the new state in Bulldog.
+Bulldog is a read-only view of your tasks. It is not meant as a replacement for the command line interface. Use the CLI for operations on tasks and then view the new state with Bulldog.
 
 When you open Bulldog, you see all of your tasks in the pane on the right. You should see each task's number, the action of the task, as well as its context and project. Contexts are set with the '@' syntax, and Projects with the '+' syntax.
 

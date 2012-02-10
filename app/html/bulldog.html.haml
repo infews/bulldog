@@ -2,24 +2,9 @@
 %html
   %head
     %title Bulldog | Todo.txt
-    %link{:href => 'bootstrap.css', :rel => 'stylesheet', :type => 'text/css'}
-    %link{:href => 'bulldog.css', :rel => 'stylesheet', :type => 'text/css'}
-    %script{:src => 'lib.js', :type => 'text/javascript'}
-    %script{:src => 'app.js', :type => 'text/javascript'}
-    :javascript
-      (function($) {
-        $(document).ready(startApp);
-
-        function startApp() {
-          localStorage.clear();
-          $('.modal-footer h6').text('v' + bulldog.version)
-          todoTxt.build(function(tasks) {
-            window.app = new bulldog.Router(tasks);
-            Backbone.history.start();
-            app.navigate('/');
-          });
-        }
-      }(jQuery));
+    / Bulldog is an HTML view for Todo.txt (http://todotxt.com).
+    / &copy; Infews LLC - MIT License - more at http://github.com/infews/bulldog
+    = head
   %body
     .navbar.navbar-fixed-top
       .navbar-inner
@@ -36,7 +21,8 @@
         %a.close{"data-dismiss".to_sym => "modal"} &times;
         %h3 Bulldog
         %h5 Todo.txt's best HTML friend
-
-      .modal-body This will be some witty banter
+      .modal-body= about_box
       .modal-footer
-        %h6
+        %h5 &copy; Infews LLC
+        %h6.version
+    = bottom

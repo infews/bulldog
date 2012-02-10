@@ -609,78 +609,15 @@ a.thumbnail:hover{border-color:#0088cc;-webkit-box-shadow:0 1px 4px rgba(0, 105,
 .show{display:block;}
 .invisible{visibility:hidden;}
 
-/* line 17, ../../../../../.rvm/gems/ruby-1.9.2-p290@bulldog/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-
-/* line 20, ../../../../../.rvm/gems/ruby-1.9.2-p290@bulldog/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
+/* line 6, ../../app/stylesheets/bulldog.scss */
 body {
-  line-height: 1;
+  font-family: "Lato", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  line-height: 22px;
 }
 
-/* line 22, ../../../../../.rvm/gems/ruby-1.9.2-p290@bulldog/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-ol, ul {
-  list-style: none;
-}
-
-/* line 24, ../../../../../.rvm/gems/ruby-1.9.2-p290@bulldog/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-/* line 26, ../../../../../.rvm/gems/ruby-1.9.2-p290@bulldog/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-caption, th, td {
-  text-align: left;
-  font-weight: normal;
-  vertical-align: middle;
-}
-
-/* line 28, ../../../../../.rvm/gems/ruby-1.9.2-p290@bulldog/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-q, blockquote {
-  quotes: none;
-}
-/* line 101, ../../../../../.rvm/gems/ruby-1.9.2-p290@bulldog/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-q:before, q:after, blockquote:before, blockquote:after {
-  content: "";
-  content: none;
-}
-
-/* line 30, ../../../../../.rvm/gems/ruby-1.9.2-p290@bulldog/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-a img {
-  border: none;
-}
-
-/* line 114, ../../../../../.rvm/gems/ruby-1.9.2-p290@bulldog/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
-  display: block;
-}
-
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
-/* line 7, ../../app/stylesheets/bulldog.scss */
-body {
-  font-family: "Open Sans", "Helvetica Neue", sans-serif;
-}
-
-/* line 11, ../../app/stylesheets/bulldog.scss */
+/* line 12, ../../app/stylesheets/bulldog.scss */
 .main {
   display: -moz-box;
   display: -webkit-box;
@@ -694,9 +631,13 @@ body {
   -webkit-box-orient: horizontal;
   -ms-box-orient: horizontal;
   box-orient: horizontal;
-  padding-top: 44px;
+  padding-top: 40px;
 }
-/* line 17, ../../app/stylesheets/bulldog.scss */
+/* line 19, ../../app/stylesheets/bulldog.scss */
+.main .navigation {
+  margin-right: 8px;
+}
+/* line 23, ../../app/stylesheets/bulldog.scss */
 .main nav, .main section {
   display: -moz-box;
   display: -webkit-box;
@@ -707,28 +648,20 @@ body {
   -ms-box-pack: start;
   box-pack: start;
 }
-/* line 22, ../../app/stylesheets/bulldog.scss */
+/* line 28, ../../app/stylesheets/bulldog.scss */
 .main nav {
   margin-left: 8px;
-  margin-top: 4px;
+  margin-top: 8px;
 }
-/* line 27, ../../app/stylesheets/bulldog.scss */
+/* line 33, ../../app/stylesheets/bulldog.scss */
 .main section {
   -moz-box-flex: 1;
   -webkit-box-flex: 1;
   -ms-box-flex: 1;
   box-flex: 1;
-  display: -moz-box;
-  display: -webkit-box;
-  display: -ms-box;
-  display: box;
-  -moz-box-pack: start;
-  -webkit-box-pack: start;
-  -ms-box-pack: start;
-  box-pack: start;
 }
 
-/* line 34, ../../app/stylesheets/bulldog.scss */
+/* line 38, ../../app/stylesheets/bulldog.scss */
 .task-list {
   display: -moz-box;
   display: -webkit-box;
@@ -746,24 +679,78 @@ body {
   -webkit-box-flex: 1;
   -ms-box-flex: 1;
   box-flex: 1;
+  background-color: #a9a9a9;
 }
-/* line 40, ../../app/stylesheets/bulldog.scss */
+/* line 46, ../../app/stylesheets/bulldog.scss */
 .task-list .task {
   display: -moz-box;
   display: -webkit-box;
   display: -ms-box;
   display: box;
+  -moz-box-orient: horizontal;
+  -webkit-box-orient: horizontal;
+  -ms-box-orient: horizontal;
+  box-orient: horizontal;
   -moz-box-pack: start;
   -webkit-box-pack: start;
   -ms-box-pack: start;
   box-pack: start;
+  margin: 12px 12px 0;
+  padding: 8px;
+  border-radius: 6px;
+  background-color: white;
 }
-/* line 44, ../../app/stylesheets/bulldog.scss */
-.task-list .task div {
-  padding: 4px;
+/* line 57, ../../app/stylesheets/bulldog.scss */
+.task-list .task .action {
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-box;
+  display: box;
+  -moz-box-orient: horizontal;
+  -webkit-box-orient: horizontal;
+  -ms-box-orient: horizontal;
+  box-orient: horizontal;
+  -moz-box-pack: start;
+  -webkit-box-pack: start;
+  -ms-box-pack: start;
+  box-pack: start;
+  -moz-box-flex: 1;
+  -webkit-box-flex: 1;
+  -ms-box-flex: 1;
+  box-flex: 1;
+  padding: 0 12px 8px 0;
 }
-/* line 48, ../../app/stylesheets/bulldog.scss */
-.task-list .task .data, .task-list .task .right, .task-list .task .spacer {
+/* line 65, ../../app/stylesheets/bulldog.scss */
+.task-list .task .data, .task-list .task .meta {
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-box;
+  display: box;
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
+  -ms-box-orient: vertical;
+  box-orient: vertical;
+}
+/* line 70, ../../app/stylesheets/bulldog.scss */
+.task-list .task .data {
+  -moz-box-pack: start;
+  -webkit-box-pack: start;
+  -ms-box-pack: start;
+  box-pack: start;
+  -moz-box-flex: 1;
+  -webkit-box-flex: 1;
+  -ms-box-flex: 1;
+  box-flex: 1;
+}
+/* line 75, ../../app/stylesheets/bulldog.scss */
+.task-list .task .meta {
+  -moz-box-align: center;
+  -webkit-box-align: center;
+  -ms-box-align: center;
+  box-align: center;
+}
+/* line 78, ../../app/stylesheets/bulldog.scss */
+.task-list .task .meta div {
   display: -moz-box;
   display: -webkit-box;
   display: -ms-box;
@@ -776,21 +763,17 @@ body {
   -webkit-box-pack: start;
   -ms-box-pack: start;
   box-pack: start;
+  -moz-box-align: center;
+  -webkit-box-align: center;
+  -ms-box-align: center;
+  box-align: center;
 }
-/* line 54, ../../app/stylesheets/bulldog.scss */
-.task-list .task .context {
-  text-align: center;
+/* line 85, ../../app/stylesheets/bulldog.scss */
+.task-list .task .meta .number {
+  margin-bottom: 8px;
 }
-/* line 58, ../../app/stylesheets/bulldog.scss */
-.task-list .task .right {
-  -moz-box-flex: 1;
-  -webkit-box-flex: 1;
-  -ms-box-flex: 1;
-  box-flex: 1;
-}
-/* line 61, ../../app/stylesheets/bulldog.scss */
-.task-list .task .right .project {
-  text-align: right;
-  font-size: 10px;
-  color: #6d6d6d;
+/* line 91, ../../app/stylesheets/bulldog.scss */
+.task-list .task .footer h6 {
+  display: inline;
+  font-size: 11px;
 }
