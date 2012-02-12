@@ -1,6 +1,9 @@
 <div class="data">
   <div class="action">{{{action}}}</div>
   <div class="footer">
+    {{#nextAction}}
+    <span class="label label-success">next action</span>
+    {{/nextAction}}
     {{#projectName}}
     <span class="project">+{{projectName}}</span>
     {{/projectName}}

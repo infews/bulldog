@@ -72,6 +72,12 @@ describe("todoTxt", function () {
     it("should set the task priority", function() {
       expect(tasks[0].get('priority')).toBeUndefined();
       expect(tasks[1].get('priority')).toEqual('A');
+      expect(tasks[2].get('priority')).toEqual('N');
+    });
+
+    it("should determine if a task is a Next Action", function() {
+      expect(tasks[1].get('nextAction')).toBeUndefined();
+      expect(tasks[2].get('nextAction')).toEqual(true);
     });
 
     it("should set the task number", function () {

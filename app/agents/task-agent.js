@@ -8,7 +8,8 @@
         number: task.get('number'),
         context: task.get('context'),
         projectName: task.get('projectName'),
-        priority: task.get('priority')
+        priority: task.get('priority'),
+        nextAction: task.get('nextAction')
       };
     };
 

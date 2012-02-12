@@ -38,21 +38,21 @@
     function taskPropertiesFrom(taskText) {
       var priorityRE = /\(([A-Z])\)/,
         projectRE = /\+(\w+)/,
-        contextRE = /@(\w+)/,
-        priority, project, context;
-
-      priority = extract(priorityRE);
-      project = extract(projectRE);
-      context = extract(contextRE);
+        contextRE = /@(\w+)/;
 
       var properties = {
         action:      clean(taskText),
-        context:     context,
-        projectName: project,
+        context:     extract(contextRE),
+        projectName: extract(projectRE)
       };
+
+      var priority = extract(priorityRE);
 
       if (priority) {
         properties.priority = priority;
+        if (priority == 'N') {
+          properties.nextAction = true;
+        }
       }
 
       return properties;

@@ -60,6 +60,38 @@ describe("bulldog.TaskAgent", function() {
     });
   });
 
+  describe("for a task that is a Next Action", function() {
+    beforeEach(function() {
+      var task = new bulldog.Task({
+        action:      "Call mom for wishes",
+        number:      "17",
+        context:     "calls",
+        projectName: "Happy Birthday",
+        priority: "N",
+        nextAction: true
+      });
+
+      agent = new bulldog.TaskAgent(view, task);
+    });
+
+    describe("#getTaskLocals", function() {
+      var locals;
+
+      beforeEach(function() {
+        locals = agent.getTaskLocals();
+      });
+
+      it("should return all the task fields", function() {
+        expect(locals.action).toEqual('Call mom for wishes');
+        expect(locals.number).toEqual('17');
+        expect(locals.context).toEqual('calls');
+        expect(locals.projectName).toEqual('Happy Birthday');
+        expect(locals.priority).toEqual('N');
+        expect(locals.nextAction).toEqual(true);
+      });
+    });
+  });
+
   describe("URL shortening & linking", function() {
 
     describe("with a single link", function() {
