@@ -3,8 +3,10 @@
 
 body {
   font-family: "Lato", "Helvetica Neue", sans-serif;
-  font-size: 16px;
-  line-height: 20px;
+}
+            
+a.brand {
+  font-variant: small-caps;
 }
 
 .main {
@@ -48,7 +50,7 @@ body {
 
     margin: 12px 12px 0;
     padding: 8px;
-    border-radius: 6px;
+    border-radius: 4px;
 
     background-color: white;
 
@@ -58,6 +60,8 @@ body {
       @include box-pack(start);
       @include box-flex(1);
       padding: 0 12px 8px 0;
+      font-size: 16px;
+      line-height: 20px;
     }
 
     .data, .meta {
