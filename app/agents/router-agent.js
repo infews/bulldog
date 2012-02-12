@@ -81,7 +81,12 @@
       }
     }
 
-    function priority(task) { return task.get('priority') || "ZZ"; }
+    function priority(task) {
+      if (task.get('nextAction') == true) {
+        return "0";
+      }
+      return task.get('priority') || "ZZ";
+    }
 
   };
 }(jQuery));

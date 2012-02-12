@@ -6,8 +6,8 @@ describe("bulldog.RouterAgent", function() {
     var tasks = [
       new Backbone.Model({action: "foo", projectName: 'Zip', context: 'pc', priority: 'C'}),
       new Backbone.Model({action: "bar", projectName: '', context: ''}),
-      new Backbone.Model({action: "baz", projectName: 'Buzz', context: 'pc', priority: 'B'}),
-      new Backbone.Model({action: "quux", projectName: 'Zip', context: 'home', priority: 'A'}),
+      new Backbone.Model({action: "baz", projectName: 'Buzz', context: 'pc', priority: 'N', nextAction: true}),
+      new Backbone.Model({action: "quux", projectName: 'Zip', context: 'home', priority: 'N', nextAction: true}),
       new Backbone.Model({action: "corge", projectName: 'Zip', context: ''})
     ];
     var taskList = new bulldog.TaskList(tasks);
@@ -107,7 +107,7 @@ describe("bulldog.RouterAgent", function() {
         expect(args[1]).toEqual('Zip');
       });
 
-      it("should give the router all of the tasks, in priority order", function() {
+      it("should give the router all of the tasks, in priority order, with next actions at the top", function() {
         expect(taskList.length).toEqual(3);
         expect(taskList.first().get('action')).toEqual('quux');
         expect(taskList.last().get('action')).toEqual('corge');
@@ -162,7 +162,7 @@ describe("bulldog.RouterAgent", function() {
         expect(args[1]).toEqual('pc');
       });
 
-      it("should give the router all of the tasks, in priority order", function() {
+      it("should give the router all of the tasks, in priority order, with next actions first", function() {
         expect(taskList.length).toEqual(2);
         expect(taskList.first().get('action')).toEqual('baz');
         expect(taskList.last().get('action')).toEqual('foo');
