@@ -3,10 +3,10 @@ describe("bulldog.Router", function() {
 
   beforeEach(function() {
     var tasks = [
-      new Backbone.Model({action: "foo", projectName: 'Zip', context: 'pc', priority: 'C'}),
-      new Backbone.Model({action: "bar", projectName: '', context: ''}),
-      new Backbone.Model({action: "baz", projectName: 'Buzz', context: 'pc'}),
-      new Backbone.Model({action: "quuz", projectName: 'Zip', context: 'home', priority: 'A'})
+      new bulldog.Task({action: "foo", projectName: 'Zip', context: 'pc', priority: 'C'}),
+      new bulldog.Task({action: "bar", projectName: '', context: ''}),
+      new bulldog.Task({action: "baz", projectName: 'Buzz', context: 'pc'}),
+      new bulldog.Task({action: "quuz", projectName: 'Zip', context: 'home', priority: 'A'})
     ];
     app = new bulldog.Router(tasks);
     $content = $("#jasmine_content");

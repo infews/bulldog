@@ -82,7 +82,7 @@
     }
 
     function priority(task) {
-      if (task.get('nextAction') == true) {
+      if (task.isNextAction()) {
         return "0";
       }
       return task.get('priority') || "ZZ";

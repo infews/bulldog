@@ -4,11 +4,11 @@ describe("bulldog.RouterAgent", function() {
   beforeEach(function() {
     router = jasmine.createSpyObj('FakeRouter', ['select']);
     var tasks = [
-      new Backbone.Model({action: "foo", projectName: 'Zip', context: 'pc', priority: 'C'}),
-      new Backbone.Model({action: "bar", projectName: '', context: ''}),
-      new Backbone.Model({action: "baz", projectName: 'Buzz', context: 'pc', priority: 'N', nextAction: true}),
-      new Backbone.Model({action: "quux", projectName: 'Zip', context: 'home', priority: 'N', nextAction: true}),
-      new Backbone.Model({action: "corge", projectName: 'Zip', context: ''})
+      new bulldog.Task({action: "foo", projectName: 'Zip', context: 'pc', priority: 'C'}),
+      new bulldog.Task({action: "bar", projectName: '', context: ''}),
+      new bulldog.Task({action: "baz", projectName: 'Buzz', context: 'pc', priority: 'N'}),
+      new bulldog.Task({action: "quux", projectName: 'Zip', context: 'home', priority: 'N'}),
+      new bulldog.Task({action: "corge", projectName: 'Zip', context: ''})
     ];
     var taskList = new bulldog.TaskList(tasks);
 

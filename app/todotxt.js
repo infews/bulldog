@@ -50,9 +50,6 @@
 
       if (priority) {
         properties.priority = priority;
-        if (priority == 'N') {
-          properties.nextAction = true;
-        }
       }
 
       return properties;
@@ -68,7 +65,6 @@
           .replace(contextRE, '');
         return _.clean(action);
       }
-
     }
   };
 

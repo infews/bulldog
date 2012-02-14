@@ -76,8 +76,8 @@ describe("todoTxt", function () {
     });
 
     it("should determine if a task is a Next Action", function() {
-      expect(tasks[1].get('nextAction')).toBeUndefined();
-      expect(tasks[2].get('nextAction')).toEqual(true);
+      expect(tasks[1].isNextAction()).toBeFalsy();
+      expect(tasks[2].isNextAction()).toBeTruthy();
     });
 
     it("should set the task number", function () {
