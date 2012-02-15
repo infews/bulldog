@@ -4,8 +4,8 @@
     routes: {
       '/':               'firstProject',
       '/projects/:name': 'project',
-      '/contexts/:name': 'context',
-      '/contexts': 'firstContext'
+      '/contexts':       'firstContext',
+      '/contexts/:name': 'context'
     },
 
     initialize: function(tasks) {
@@ -27,12 +27,12 @@
       this.agent.selectProject(name);
     },
 
-    context: function(name) {
-      this.agent.selectContext(name);
-    },
-
     firstContext: function() {
       this.agent.selectContext();
+    },
+
+    context: function(name) {
+      this.agent.selectContext(name);
     },
 
     select: function(listName, itemName, taskList) {
