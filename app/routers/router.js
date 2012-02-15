@@ -2,7 +2,7 @@
   bulldog.Router = Backbone.Router.extend({
 
     routes: {
-      '/':               'root',
+      '/':               'firstProject',
       '/projects/:name': 'project',
       '/contexts/:name': 'context',
       '/contexts': 'firstContext'
@@ -16,10 +16,10 @@
         projects: this.agent.getProjectList(),
         contexts: this.agent.getContextList()
       });
+      $('nav').append(this.navigationView.render().el);
     },
 
-    root: function() {
-      $('nav').append(this.navigationView.render().el);
+    firstProject: function() {
       this.agent.selectProject('All');
     },
 

@@ -8,9 +8,9 @@ describe("bulldog.Router", function() {
       new bulldog.Task({action: "baz", projectName: 'Buzz', context: 'pc'}),
       new bulldog.Task({action: "quuz", projectName: 'Zip', context: 'home', priority: 'A'})
     ];
-    app = new bulldog.Router(tasks);
     $content = $("#jasmine_content");
     $content.append('<nav></nav><section class="tasks"></section>');
+    app = new bulldog.Router(tasks);
   });
 
   describe("#initialize", function() {
@@ -19,9 +19,9 @@ describe("bulldog.Router", function() {
     });
   });
 
-  describe("#root", function() {
+  describe("#firstProject", function() {
     beforeEach(function() {
-      app.root();
+      app.firstProject();
     });
 
     it("should render the navigation UI", function() {
@@ -36,7 +36,7 @@ describe("bulldog.Router", function() {
 
   describe("#project", function() {
     beforeEach(function() {
-      app.root();
+      app.firstProject();
       app.project("Zip");
     });
 
@@ -60,7 +60,7 @@ describe("bulldog.Router", function() {
 
   describe("#context", function() {
     beforeEach(function() {
-      app.root();
+      app.firstProject();
       app.context("pc");
     });
 
