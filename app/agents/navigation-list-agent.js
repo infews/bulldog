@@ -2,7 +2,7 @@
   bulldog.NavigationListAgent = function(view, options) {
     var self = this;
 
-    var validLists = ['projects', 'contexts'];
+    var validLists = ['projects', 'contexts', 'nextActions'];
     var currentList = validLists[0];
 
     self.selectList = function(value) {

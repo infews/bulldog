@@ -15,10 +15,17 @@ describe("bulldog.NavigationListView", function() {
       new Backbone.Model({name: ''})
     ]);
 
+    var contextsWithNextActionsCollection = new Backbone.Collection([
+      new Backbone.Model({name: 'home'}),
+      new Backbone.Model({name: ''})
+    ]);
+
     view = new bulldog.NavigationListView({
       projects: projectCollection,
-      contexts: contextCollection
+      contexts: contextCollection,
+      nextActions: contextsWithNextActionsCollection
     });
+
     spyOn(view, 'trigger');
     $content = $("#jasmine_content");
   });
@@ -50,7 +57,7 @@ describe("bulldog.NavigationListView", function() {
     });
   });
 
-  describe("when a new list is selected", function() {
+  describe("when the context list is selected", function() {
     beforeEach(function() {
       $content.append(view.render().el);
       view.select({list: "contexts", name: "Home"});
@@ -59,6 +66,18 @@ describe("bulldog.NavigationListView", function() {
 
     it("should replace the list", function() {
       expect($('.context', $list).length).toEqual(4);
+    });
+  });
+
+  describe("when the nextActions list is selected", function() {
+    beforeEach(function() {
+      $content.append(view.render().el);
+      view.select({list: "nextActions", name: "Home"});
+      $list = $('.list');
+    });
+
+    it("should replace the list", function() {
+      expect($('.nextAction', $list).length).toEqual(2);
     });
   });
 });

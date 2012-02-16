@@ -16,12 +16,18 @@ describe("bulldog.NavigationListAgent", function() {
       new Backbone.Model({name: ''})
     ]);
 
+    var contextsWithNextActionsCollection = new Backbone.Collection([
+      new Backbone.Model({name: 'home'}),
+      new Backbone.Model({name: ''})
+    ]);
+
     view = { render: jasmine.createSpy('view.render') };
     agent = new bulldog.NavigationListAgent(
       view,
       {
         projects: projectCollection,
-        contexts: contextCollection
+        contexts: contextCollection,
+        nextActions: contextsWithNextActionsCollection
       }
     );
   });
@@ -79,7 +85,7 @@ describe("bulldog.NavigationListAgent", function() {
     });
   });
 
-  describe("on selecting a new list", function() {
+  describe("on selecting the context list", function() {
     beforeEach(function() {
       agent.selectList("contexts");
     });
@@ -115,7 +121,7 @@ describe("bulldog.NavigationListAgent", function() {
 
     describe("and then selecting a new item", function() {
       beforeEach(function() {
-        agent.selectItem('Calls');
+        agent.selectItem('');
         locals = agent.getLocals();
       });
 
@@ -127,7 +133,60 @@ describe("bulldog.NavigationListAgent", function() {
       });
 
       it("should have the correct list item selected", function() {
-        expect(locals.list[2].className.match(/active/)).toBeTruthy();
+        expect(locals.list[3].className.match(/active/)).toBeTruthy();
+      });
+    });
+  });
+
+  describe("on selecting the nextAction list", function() {
+    beforeEach(function() {
+      agent.selectList("nextActions");
+    });
+
+    it("should tell the view to render", function() {
+      expect(view.render).toHaveBeenCalled();
+    });
+
+    describe("#getLocals", function() {
+      beforeEach(function() {
+        locals = agent.getLocals();
+      });
+
+      it("should have the correct number of list items", function() {
+        expect(locals.list.length).toEqual(2);
+      });
+
+      it("should have the items of new list", function() {
+        var eachIsContenxt = _(locals.list).all(function(item) {
+          return item.className.match(/nextAction/);
+        });
+        expect(eachIsContenxt).toEqual(true);
+      });
+
+      it("should build the correct URLs", function() {
+        expect(locals.list[0].url).toEqual('#/nextActions/home');
+      });
+
+      it("should have the default list item selected", function() {
+        expect(locals.list[0].className.match(/active/)).toBeTruthy();
+      });
+    });
+
+    describe("and then selecting a new item", function() {
+      beforeEach(function() {
+        agent.selectItem('');
+        locals = agent.getLocals();
+      });
+
+      it("should have the items of new list", function() {
+        var eachIsContenxt = _(locals.list).all(function(item) {
+          return item.className.match(/nextAction/);
+        });
+        expect(eachIsContenxt).toEqual(true);
+      });
+
+      it("should have the correct list item selected", function() {
+        expect(locals.list[1].className.match(/active/)).toBeTruthy();
       });
     });
   });

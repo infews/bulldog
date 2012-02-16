@@ -8,7 +8,7 @@ describe("bulldog.RouterAgent", function() {
       new bulldog.Task({action: "bar", projectName: '', context: ''}),
       new bulldog.Task({action: "baz", projectName: 'Buzz', context: 'pc', priority: 'N'}),
       new bulldog.Task({action: "quux", projectName: 'Zip', context: 'home', priority: 'N'}),
-      new bulldog.Task({action: "corge", projectName: 'Zip', context: ''})
+      new bulldog.Task({action: "corge", projectName: 'Zip', context: '', priority: 'N'})
     ];
     var taskList = new bulldog.TaskList(tasks);
 
@@ -43,6 +43,26 @@ describe("bulldog.RouterAgent", function() {
     var contextList;
     beforeEach(function() {
       contextList = agent.getContextList();
+    });
+
+    it("should have a context list", function() {
+      expect(contextList.length).toEqual(3);
+    });
+
+    it("should have the context '' last", function() {
+      expect(contextList.last().get('name')).toEqual('');
+    });
+
+    it("should sort the 'real' contexts by name", function() {
+      expect(contextList.models[0].get('name')).toEqual('home');
+      expect(contextList.models[1].get('name')).toEqual('pc');
+    });
+  });
+
+  describe("#getContextsWithNextActionsList", function() {
+    var contextList;
+    beforeEach(function() {
+      contextList = agent.getContextsWithNextActionsList();
     });
 
     it("should have a context list", function() {
@@ -110,7 +130,7 @@ describe("bulldog.RouterAgent", function() {
       it("should give the router all of the tasks, in priority order, with next actions at the top", function() {
         expect(taskList.length).toEqual(3);
         expect(taskList.first().get('action')).toEqual('quux');
-        expect(taskList.last().get('action')).toEqual('corge');
+        expect(taskList.last().get('action')).toEqual('foo');
       });
     });
   });
@@ -156,6 +176,61 @@ describe("bulldog.RouterAgent", function() {
 
       it("should tell the router to select a context", function() {
         expect(args[0]).toEqual('contexts');
+      });
+
+      it("should tell the router to select the correct context'", function() {
+        expect(args[1]).toEqual('pc');
+      });
+
+      it("should give the router all of the tasks, in priority order, with next actions first", function() {
+        expect(taskList.length).toEqual(2);
+        expect(taskList.first().get('action')).toEqual('baz');
+        expect(taskList.last().get('action')).toEqual('foo');
+      });
+    });
+  });
+
+  describe("#selectContextWithNextActions", function() {
+    var args, taskList;
+
+    describe("when no context list is selected", function() {
+      beforeEach(function() {
+        agent.selectContextsWithNextActions();
+        args = router.select.mostRecentCall.args;
+        taskList = args[2];
+      });
+
+      it("should tell the router to select a new task list", function() {
+        expect(router.select).toHaveBeenCalled();
+      });
+
+      it("should tell the router to select a context with next actions", function() {
+        expect(args[0]).toEqual('nextActions');
+      });
+
+      it("should tell the router to select the first context (alphabetically)", function() {
+        expect(args[1]).toEqual('home');
+      });
+
+      it("should give the router all of the tasks, in task order", function() {
+        expect(taskList.length).toEqual(1);
+        expect(taskList.first().get('action')).toEqual('quux');
+      });
+    });
+
+    describe("when a context is selected", function() {
+      beforeEach(function() {
+        agent.selectContextsWithNextActions('pc');
+        args = router.select.mostRecentCall.args;
+        taskList = args[2];
+      });
+
+      it("should tell the router to select a new task list", function() {
+        expect(router.select).toHaveBeenCalled();
+      });
+
+      it("should tell the router to select a context", function() {
+        expect(args[0]).toEqual('nextActions');
       });
 
       it("should tell the router to select the correct context'", function() {

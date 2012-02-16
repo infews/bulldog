@@ -5,7 +5,9 @@
       '/':               'firstProject',
       '/projects/:name': 'project',
       '/contexts':       'firstContext',
-      '/contexts/:name': 'context'
+      '/contexts/:name': 'context',
+      '/nextActions': 'firstNextActions',
+      '/nextActions/:name': 'nextActions'
     },
 
     initialize: function(tasks) {
@@ -14,7 +16,8 @@
 
       this.navigationView = new bulldog.NavigationView({
         projects: this.agent.getProjectList(),
-        contexts: this.agent.getContextList()
+        contexts: this.agent.getContextList(),
+        nextActions: this.agent.getContextsWithNextActionsList()
       });
       $('nav').append(this.navigationView.render().el);
     },
@@ -33,6 +36,14 @@
 
     context: function(name) {
       this.agent.selectContext(name);
+    },
+
+    firstNextActions: function() {
+      this.agent.selectContextsWithNextActions();
+    },
+
+    nextActions: function(name) {
+      this.agent.selectContextsWithNextActions(name);
     },
 
     select: function(listName, itemName, taskList) {

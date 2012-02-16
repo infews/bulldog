@@ -21,15 +21,51 @@ describe("bulldog.NavigationTabsView", function() {
     });
   });
 
-  describe("when a tab is selected", function() {
+  describe("when projects is selected", function() {
+    beforeEach(function () {
+      $content.append(view.render().el);
+      view.selectTab('projects');
+    });
+
+    it("should select the projects tab", function() {
+      expect($('.nav-tabs .active', $content).length).toEqual(1);
+      expect($('.nav-tabs .projects.active', $content).length).toEqual(1);
+    });
+  });
+
+  describe("when contexts is selected", function() {
     beforeEach(function () {
       $content.append(view.render().el);
       view.selectTab('contexts');
     });
 
     it("should select the contexts tab", function() {
-      expect($('.nav-tabs .projects.active', $content).length).toEqual(0);
+      expect($('.nav-tabs .active', $content).length).toEqual(1);
       expect($('.nav-tabs .contexts.active', $content).length).toEqual(1);
+    });
+  });
+
+  describe("when nextActions is selected", function() {
+    beforeEach(function () {
+      $content.append(view.render().el);
+      view.selectTab('nextActions');
+    });
+
+    it("should select the nextActions tab", function() {
+      expect($('.nav-tabs .active', $content).length).toEqual(1);
+      expect($('.nav-tabs .nextActions.active', $content).length).toEqual(1);
+    });
+  });
+
+  describe("when something random is selected", function() {
+    beforeEach(function () {
+      $content.append(view.render().el);
+      view.selectTab('random');
+    });
+
+    it("should select the projects tab", function() {
+      expect($('.nav-tabs .active', $content).length).toEqual(1);
+      expect($('.nav-tabs .projects.active', $content).length).toEqual(1);
     });
   });
 });

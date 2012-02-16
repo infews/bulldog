@@ -2,7 +2,7 @@
   bulldog.NavigationTabsAgent = function(view) {
     var self = this;
 
-    var validValues = ['projects', 'contexts'];
+    var validValues = ['projects', 'contexts', 'nextActions'];
     var selectedTab = validValues[0];
 
     self.selectTab = function(value) {
@@ -17,7 +17,8 @@
     self.getLocals = function() {
       var tabs = [
         {text: '+', className: 'projects', link: '#/'},
-        {text: '@', className: 'contexts', link: '#/contexts'}
+        {text: '@', className: 'contexts', link: '#/contexts'},
+        {text: '\u2794', className: 'nextActions', link: '#/nextActions' }
       ];
 
       var selectedIndex = _(validValues).indexOf(selectedTab);

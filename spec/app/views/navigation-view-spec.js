@@ -15,10 +15,17 @@ describe("bulldog.NavigationView", function() {
       new Backbone.Model({name: ''})
     ]);
 
+    var contextsWithNextActionsCollection = new Backbone.Collection([
+      new Backbone.Model({name: 'home'}),
+      new Backbone.Model({name: ''})
+    ]);
+
     view = new bulldog.NavigationView({
       projects: projectCollection,
-      contexts: contextCollection
+      contexts: contextCollection,
+      nextActions: contextsWithNextActionsCollection
     });
+
     spyOn(view, 'trigger');
     $content = $("#jasmine_content");
   });
@@ -48,8 +55,8 @@ describe("bulldog.NavigationView", function() {
     });
 
     it("should select the projects tab", function() {
+      expect($('.nav-tabs .active').length).toEqual(1);
       expect($('.nav-tabs .projects.active').length).toEqual(1);
-      expect($('.nav-tabs .contexts.active').length).toEqual(0);
     });
 
     it("should render the project list", function() {
@@ -72,7 +79,7 @@ describe("bulldog.NavigationView", function() {
     });
 
     it("should select the contexts tab", function() {
-      expect($('.nav-tabs .projects.active').length).toEqual(0);
+      expect($('.nav-tabs .active').length).toEqual(1);
       expect($('.nav-tabs .contexts.active').length).toEqual(1);
     });
 
@@ -82,6 +89,30 @@ describe("bulldog.NavigationView", function() {
 
     it("should render the context list", function() {
       expect($('.list .context').length).toEqual(4);
+    });
+  });
+
+  describe("when nextActions is clicked", function() {
+    var $navigationNode;
+
+    beforeEach(function () {
+      $content.append(view.render().el);
+      view.select({list: 'nextActions', name: ''});
+
+      $navigationNode = $('.navigation', $content);
+    });
+
+    it("should select the contexts tab", function() {
+      expect($('.nav-tabs .active').length).toEqual(1);
+      expect($('.nav-tabs .nextActions.active').length).toEqual(1);
+    });
+
+    it("should remove the project list", function() {
+      expect($('.list .project').length).toEqual(0);
+    });
+
+    it("should render the context list", function() {
+      expect($('.list .nextAction').length).toEqual(2);
     });
   });
 });
