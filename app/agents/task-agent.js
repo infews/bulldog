@@ -9,7 +9,7 @@
         context: task.get('context'),
         projectName: task.get('projectName'),
         priority: task.get('priority'),
-        nextAction: task.get('nextAction')
+        nextAction: task.isNextAction()
       };
     };
 

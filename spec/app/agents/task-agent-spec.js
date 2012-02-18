@@ -67,8 +67,7 @@ describe("bulldog.TaskAgent", function() {
         number:      "17",
         context:     "calls",
         projectName: "Happy Birthday",
-        priority: "N",
-        nextAction: true
+        priority: "N"
       });
 
       agent = new bulldog.TaskAgent(view, task);
