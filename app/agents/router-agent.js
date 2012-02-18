@@ -2,23 +2,21 @@
   bulldog.RouterAgent = function(router, taskList) {
     var self = this;
 
-    var projectList = new Backbone.Collection(projectsFrom(taskList));
-    var contextList = new Backbone.Collection(contextsFrom(taskList));
-    var contextsWithNextActionsList = new Backbone.Collection(contextsWithNextActions(taskList));
-
-    self.getProjectList = function() {
-      return projectList;
+    var navigationLists = {
+      projects:       new Backbone.Collection(projectsFrom(taskList)),
+      contexts:       new Backbone.Collection(contextsFrom(taskList)),
+      'next-actions': new Backbone.Collection(contextsWithNextActions(taskList))
     };
 
-    self.getContextList = function() {
-      return contextList;
-    };
-
-    self.getContextsWithNextActionsList = function() {
-      return contextsWithNextActionsList;
-    };
+    var validNavigationTabs = ['projects', 'contexts', 'next-actions'];
+    var currentTab = validNavigationTabs[0];
+    var currentItem = navigationLists[currentTab].first().get('name');
 
     self.selectProject = function(name) {
+      currentTab = 'projects';
+
+      setCurrentItem(name);
+
       var list = taskList;
 
       if (name != 'All') {
@@ -26,31 +24,54 @@
         list = new bulldog.TaskList(tasks);
       }
 
-      router.select('projects', name, list);
+      router.updateNavigationView();
+      router.updateTaskListView(list);
 
-      function byName(task) { return task.get('projectName') == name; }
+      function byName(task) {
+        return task.get('projectName') == name;
+      }
     };
 
     self.selectContext = function(name) {
-      var contextName = name ? name : contextList.first().get('name');
-      var tasks = _(taskList.filter(byContextName(contextName))).sortBy(priority);
+      currentTab = 'contexts';
+      setCurrentItem(name);
+      var tasks = _(taskList.filter(byContextName(currentItem))).sortBy(priority);
 
-      router.select('contexts', contextName, new bulldog.TaskList(tasks));
+      router.updateNavigationView();
+      router.updateTaskListView(new bulldog.TaskList(tasks));
     };
 
     self.selectContextsWithNextActions = function(name) {
-      var contextName = name ? name : contextsWithNextActionsList.first().get('name');
-      var tasks = _(taskList.filter(byContextName(contextName))).sortBy(priority);
+      currentTab = 'next-actions';
+      setCurrentItem(name);
+      var tasks = _(taskList.filter(byContextName(currentItem))).select(onlyNextActions);
 
-      router.select('nextActions', contextName, new bulldog.TaskList(tasks));
+      router.updateNavigationView();
+      router.updateTaskListView(new bulldog.TaskList(tasks));
+    };
+
+    self.getCurrentSelection = function() {
+      return {
+        currentList:  currentTab,
+        collection: navigationLists[currentTab],
+        currentItem: currentItem
+      };
     };
 
     return self;
 
+    function setCurrentItem(name) {
+      currentItem =  name ? name : navigationLists[currentTab].first().get('name');
+    }
+
     function byContextName(name) {
-      return function (task) {
+      return function(task) {
         return task.get('context') == name;
       };
+    }
+
+    function onlyNextActions(task) {
+      return task.isNextAction();
     }
 
     function projectsFrom(tasks) {

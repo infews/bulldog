@@ -18,9 +18,8 @@
       return self;
     };
 
-    self.select = function(selection) {
-      agent.selectList(selection.list);
-      agent.selectItem(selection.name);
+    self.select = function() {
+      agent.select();
     };
 
     return self;

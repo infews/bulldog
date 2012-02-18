@@ -1,29 +1,23 @@
 (function($) {
-  bulldog.NavigationTabsAgent = function(view) {
+  bulldog.NavigationTabsAgent = function(view, options) {
     var self = this;
 
-    var validValues = ['projects', 'contexts', 'nextActions'];
-    var selectedTab = validValues[0];
-
-    self.selectTab = function(value) {
-      selectedTab = _(validValues).include(value) ? value: validValues[0];
+    self.select = function() {
       view.render();
-    };
-
-    self.getSelectedTab = function() {
-      return selectedTab;
     };
 
     self.getLocals = function() {
       var tabs = [
         {text: '+', className: 'projects', link: '#/'},
         {text: '@', className: 'contexts', link: '#/contexts'},
-        {text: '\u2794', className: 'nextActions', link: '#/nextActions' }
+        {text: '\u2794', className: 'next-actions', link: '#/next-actions' }
       ];
 
-      var selectedIndex = _(validValues).indexOf(selectedTab);
-      selectedIndex = selectedIndex >= 0 ? selectedIndex : 0;
-      tabs[selectedIndex].className += ' active';
+      _(tabs).each(function(tab) {
+        if (tab.className === options.app.getCurrentSelection().currentList) {
+          tab.className += ' active';
+        }
+      });
 
       return {
         tabs: tabs

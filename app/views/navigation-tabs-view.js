@@ -1,11 +1,11 @@
 (function($, namespace) {
-  namespace.NavigationTabsView = function() {
+  namespace.NavigationTabsView = function(options) {
     var baseOptions = {
       tagName: 'ul',
       className: 'nav nav-tabs tabs'
     };
     var self = new (Backbone.View.extend(baseOptions))();
-    var agent = new bulldog.NavigationTabsAgent(self);
+    var agent = new bulldog.NavigationTabsAgent(self, options);
 
     var $el;
 
@@ -20,9 +20,8 @@
       return self;
     };
 
-    self.selectTab = function(newTab) {
-      agent.selectTab(newTab);
-      self.trigger('tabsUpdated');
+    self.select = function(newTab) {
+      agent.select(newTab);
     };
 
     return self;

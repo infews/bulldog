@@ -31,9 +31,9 @@
       }
     };
 
-    self.select = function(selection) {
-      tabsView.selectTab(selection.list);
-      listView.select(selection);
+    self.select = function() {
+      tabsView.select();
+      listView.select();
     };
 
     return self;

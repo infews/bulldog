@@ -1,71 +1,55 @@
 describe("bulldog.NavigationTabsView", function() {
-  var view, $content, $tabs;
+  var view, $content, $tabs, routerAgent;
 
   beforeEach(function() {
-    view = new bulldog.NavigationTabsView();
+    var router = jasmine.createSpyObj('FakeRouter', ['updateNavigationView', 'updateTaskListView']);
+    var tasks = [
+      new bulldog.Task({action: "foo", projectName: 'Zip', context: 'pc', priority: 'C'}),
+      new bulldog.Task({action: "bar", projectName: '', context: ''}),
+      new bulldog.Task({action: "baz", projectName: 'Buzz', context: 'pc', priority: 'N'}),
+      new bulldog.Task({action: "quux", projectName: 'Zip', context: 'home', priority: 'N'}),
+      new bulldog.Task({action: "corge", projectName: 'Zip', context: '', priority: 'N'})
+    ];
+    var taskList = new bulldog.TaskList(tasks);
+    routerAgent = new bulldog.RouterAgent(router, taskList);
+
+    view = new bulldog.NavigationTabsView({app: routerAgent});
     spyOn(view, 'trigger');
     $content = $("#jasmine_content");
   });
 
-  describe("#render", function () {
-
-    beforeEach(function () {
+  describe("#render", function() {
+    beforeEach(function() {
       $content.append(view.render().el);
       $tabs = $('.nav-tabs', $content);
     });
 
-    it("should render the tabs for projects and contexts", function() {
+    it("should render all of the tabs", function() {
       expect($tabs.length).toEqual(1);
       expect($('.projects.active', $tabs).length).toEqual(1);
       expect($('.contexts', $tabs).length).toEqual(1);
+      expect($('.next-actions', $tabs).length).toEqual(1);
     });
   });
 
-  describe("when projects is selected", function() {
-    beforeEach(function () {
-      $content.append(view.render().el);
-      view.selectTab('projects');
+  describe("when the selection changes", function() {
+    beforeEach(function() {
+      routerAgent.selectContextsWithNextActions('home');
+      view.select();
     });
 
-    it("should select the projects tab", function() {
-      expect($('.nav-tabs .active', $content).length).toEqual(1);
-      expect($('.nav-tabs .projects.active', $content).length).toEqual(1);
-    });
-  });
+    describe("#render", function() {
+      beforeEach(function() {
+        $content.append(view.render().el);
+        $tabs = $('.nav-tabs', $content);
+      });
 
-  describe("when contexts is selected", function() {
-    beforeEach(function () {
-      $content.append(view.render().el);
-      view.selectTab('contexts');
-    });
-
-    it("should select the contexts tab", function() {
-      expect($('.nav-tabs .active', $content).length).toEqual(1);
-      expect($('.nav-tabs .contexts.active', $content).length).toEqual(1);
-    });
-  });
-
-  describe("when nextActions is selected", function() {
-    beforeEach(function () {
-      $content.append(view.render().el);
-      view.selectTab('nextActions');
-    });
-
-    it("should select the nextActions tab", function() {
-      expect($('.nav-tabs .active', $content).length).toEqual(1);
-      expect($('.nav-tabs .nextActions.active', $content).length).toEqual(1);
-    });
-  });
-
-  describe("when something random is selected", function() {
-    beforeEach(function () {
-      $content.append(view.render().el);
-      view.selectTab('random');
-    });
-
-    it("should select the projects tab", function() {
-      expect($('.nav-tabs .active', $content).length).toEqual(1);
-      expect($('.nav-tabs .projects.active', $content).length).toEqual(1);
+      it("should render all of the tabs", function() {
+        expect($tabs.length).toEqual(1);
+        expect($('.projects', $tabs).length).toEqual(1);
+        expect($('.contexts', $tabs).length).toEqual(1);
+        expect($('.next-actions.active', $tabs).length).toEqual(1);
+      });
     });
   });
 });

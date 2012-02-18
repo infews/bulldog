@@ -1,33 +1,21 @@
 describe("bulldog.NavigationView", function() {
-  var view, $content;
+  var view, $content, routerAgent;
 
   beforeEach(function() {
-    var projectCollection = new Backbone.Collection([
-      new Backbone.Model({name: 'All'}),
-      new Backbone.Model({name: 'baz'}),
-      new Backbone.Model({name: ''})
-    ]);
-
-    var contextCollection = new Backbone.Collection([
-      new Backbone.Model({name: 'home'}),
-      new Backbone.Model({name: 'pc'}),
-      new Backbone.Model({name: 'calls'}),
-      new Backbone.Model({name: ''})
-    ]);
-
-    var contextsWithNextActionsCollection = new Backbone.Collection([
-      new Backbone.Model({name: 'home'}),
-      new Backbone.Model({name: ''})
-    ]);
-
-    view = new bulldog.NavigationView({
-      projects: projectCollection,
-      contexts: contextCollection,
-      nextActions: contextsWithNextActionsCollection
-    });
-
-    spyOn(view, 'trigger');
     $content = $("#jasmine_content");
+
+    var router = jasmine.createSpyObj('FakeRouter', ['updateNavigationView', 'updateTaskListView']);
+    var tasks = [
+      new bulldog.Task({action: "foo", projectName: 'Zip', context: 'pc', priority: 'C'}),
+      new bulldog.Task({action: "bar", projectName: '', context: ''}),
+      new bulldog.Task({action: "baz", projectName: 'Buzz', context: 'pc', priority: 'N'}),
+      new bulldog.Task({action: "quux", projectName: 'Zip', context: 'home', priority: 'N'}),
+      new bulldog.Task({action: "corge", projectName: 'Zip', context: '', priority: 'N'})
+    ];
+    var taskList = new bulldog.TaskList(tasks);
+    routerAgent = new bulldog.RouterAgent(router, taskList);
+
+    view = new bulldog.NavigationView({ app: routerAgent });
   });
 
   describe("#render", function () {
@@ -51,7 +39,7 @@ describe("bulldog.NavigationView", function() {
   describe("#select", function() {
     beforeEach(function() {
       $content.append(view.render().el);
-      view.select({list: 'projects', name: 'Baz'});
+      view.select();
     });
 
     it("should select the projects tab", function() {
@@ -64,55 +52,28 @@ describe("bulldog.NavigationView", function() {
     });
 
     it("should select the correct project in the list", function() {
-      expect($('.list .project.active').text()).toMatch(/Baz/);
+      expect($('.list .project.active').text()).toMatch(/All/);
     });
   });
 
-  describe("when contexts is clicked", function() {
+  describe("when the selection is updated", function() {
     var $navigationNode;
 
     beforeEach(function () {
+      routerAgent.selectContext('home');
       $content.append(view.render().el);
-      view.select({list: 'contexts', name: ''});
+      view.select();
 
       $navigationNode = $('.navigation', $content);
     });
 
-    it("should select the contexts tab", function() {
+    it("should select the correct tab", function() {
       expect($('.nav-tabs .active').length).toEqual(1);
       expect($('.nav-tabs .contexts.active').length).toEqual(1);
     });
 
-    it("should remove the project list", function() {
-      expect($('.list .project').length).toEqual(0);
-    });
-
-    it("should render the context list", function() {
-      expect($('.list .context').length).toEqual(4);
-    });
-  });
-
-  describe("when nextActions is clicked", function() {
-    var $navigationNode;
-
-    beforeEach(function () {
-      $content.append(view.render().el);
-      view.select({list: 'nextActions', name: ''});
-
-      $navigationNode = $('.navigation', $content);
-    });
-
-    it("should select the contexts tab", function() {
-      expect($('.nav-tabs .active').length).toEqual(1);
-      expect($('.nav-tabs .nextActions.active').length).toEqual(1);
-    });
-
-    it("should remove the project list", function() {
-      expect($('.list .project').length).toEqual(0);
-    });
-
-    it("should render the context list", function() {
-      expect($('.list .nextAction').length).toEqual(2);
+    it("should render the correct list", function() {
+      expect($('.list .context').length).toEqual(3);
     });
   });
 });

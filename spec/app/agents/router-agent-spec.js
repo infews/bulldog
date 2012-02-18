@@ -2,7 +2,7 @@ describe("bulldog.RouterAgent", function() {
   var agent, router;
 
   beforeEach(function() {
-    router = jasmine.createSpyObj('FakeRouter', ['select']);
+    router = jasmine.createSpyObj('FakeRouter', ['updateNavigationView', 'updateTaskListView']);
     var tasks = [
       new bulldog.Task({action: "foo", projectName: 'Zip', context: 'pc', priority: 'C'}),
       new bulldog.Task({action: "bar", projectName: '', context: ''}),
@@ -15,93 +15,25 @@ describe("bulldog.RouterAgent", function() {
     agent = new bulldog.RouterAgent(router, taskList);
   });
 
-  describe("#getProjectList", function() {
-    var projectList;
-    beforeEach(function() {
-      projectList = agent.getProjectList();
-    });
-
-    it("should make a full project list", function() {
-      expect(projectList.length).toEqual(4);
-    });
-
-    it("should have the project 'All' first", function() {
-      expect(projectList.first().get('name')).toEqual('All');
-    });
-
-    it("should have the project '' last", function() {
-      expect(projectList.last().get('name')).toEqual('');
-    });
-
-    it("should sort the 'real' projects by name", function() {
-      expect(projectList.models[1].get('name')).toEqual('Buzz');
-      expect(projectList.models[2].get('name')).toEqual('Zip');
-    });
-  });
-
-  describe("#getContextList", function() {
-    var contextList;
-    beforeEach(function() {
-      contextList = agent.getContextList();
-    });
-
-    it("should have a context list", function() {
-      expect(contextList.length).toEqual(3);
-    });
-
-    it("should have the context '' last", function() {
-      expect(contextList.last().get('name')).toEqual('');
-    });
-
-    it("should sort the 'real' contexts by name", function() {
-      expect(contextList.models[0].get('name')).toEqual('home');
-      expect(contextList.models[1].get('name')).toEqual('pc');
-    });
-  });
-
-  describe("#getContextsWithNextActionsList", function() {
-    var contextList;
-    beforeEach(function() {
-      contextList = agent.getContextsWithNextActionsList();
-    });
-
-    it("should have a context list", function() {
-      expect(contextList.length).toEqual(3);
-    });
-
-    it("should have the context '' last", function() {
-      expect(contextList.last().get('name')).toEqual('');
-    });
-
-    it("should sort the 'real' contexts by name", function() {
-      expect(contextList.models[0].get('name')).toEqual('home');
-      expect(contextList.models[1].get('name')).toEqual('pc');
-    });
-  });
-
   describe("#selectProject", function() {
     var args, taskList;
 
     describe("when the project list 'All' is selected", function() {
       beforeEach(function() {
         agent.selectProject('All');
-        args = router.select.mostRecentCall.args;
-        taskList = args[2];
       });
 
-      it("should tell the router to select a new task list", function() {
-        expect(router.select).toHaveBeenCalled();
+      it("should tell the router to update the navigation UI", function() {
+        expect(router.updateNavigationView).toHaveBeenCalled();
       });
 
-      it("should tell the router to select a project", function() {
-        expect(args[0]).toEqual('projects');
-      });
-
-      it("should tell the router to select the list 'All'", function() {
-        expect(args[1]).toEqual('All');
+      it("should tellt he router to update the Tasks", function() {
+        expect(router.updateTaskListView).toHaveBeenCalled();
       });
 
       it("should give the router all of the tasks, in task order", function() {
+        taskList = router.updateTaskListView.mostRecentCall.args[0];
+
         expect(taskList.length).toEqual(5);
         expect(taskList.first().get('action')).toEqual('foo');
         expect(taskList.last().get('action')).toEqual('corge');
@@ -111,53 +43,45 @@ describe("bulldog.RouterAgent", function() {
     describe("when a project is selected", function() {
       beforeEach(function() {
         agent.selectProject('Zip');
-        args = router.select.mostRecentCall.args;
-        taskList = args[2];
       });
 
-      it("should tell the router to select a new task list", function() {
-        expect(router.select).toHaveBeenCalled();
+      it("should tell the router to update the navigation UI", function() {
+        expect(router.updateNavigationView).toHaveBeenCalled();
       });
 
-      it("should tell the router to select a project", function() {
-        expect(args[0]).toEqual('projects');
-      });
-
-      it("should tell the router to select the list 'All'", function() {
-        expect(args[1]).toEqual('Zip');
+      it("should tellt he router to update the Tasks", function() {
+        expect(router.updateTaskListView).toHaveBeenCalled();
       });
 
       it("should give the router all of the tasks, in priority order, with next actions at the top", function() {
+        taskList = router.updateTaskListView.mostRecentCall.args[0];
+
         expect(taskList.length).toEqual(3);
         expect(taskList.first().get('action')).toEqual('quux');
         expect(taskList.last().get('action')).toEqual('foo');
       });
     });
   });
-  
+
   describe("#selectContext", function() {
     var args, taskList;
 
     describe("when no context list is selected", function() {
       beforeEach(function() {
         agent.selectContext();
-        args = router.select.mostRecentCall.args;
-        taskList = args[2];
       });
 
-      it("should tell the router to select a new task list", function() {
-        expect(router.select).toHaveBeenCalled();
+      it("should tell the router to update the navigation UI", function() {
+        expect(router.updateNavigationView).toHaveBeenCalled();
       });
 
-      it("should tell the router to select a context", function() {
-        expect(args[0]).toEqual('contexts');
-      });
-
-      it("should tell the router to select the first context (alphabetically)", function() {
-        expect(args[1]).toEqual('home');
+      it("should tellt he router to update the Tasks", function() {
+        expect(router.updateTaskListView).toHaveBeenCalled();
       });
 
       it("should give the router all of the tasks, in task order", function() {
+        taskList = router.updateTaskListView.mostRecentCall.args[0];
+
         expect(taskList.length).toEqual(1);
         expect(taskList.first().get('action')).toEqual('quux');
       });
@@ -166,23 +90,19 @@ describe("bulldog.RouterAgent", function() {
     describe("when a context is selected", function() {
       beforeEach(function() {
         agent.selectContext('pc');
-        args = router.select.mostRecentCall.args;
-        taskList = args[2];
       });
 
-      it("should tell the router to select a new task list", function() {
-        expect(router.select).toHaveBeenCalled();
+      it("should tell the router to update the navigation UI", function() {
+        expect(router.updateNavigationView).toHaveBeenCalled();
       });
 
-      it("should tell the router to select a context", function() {
-        expect(args[0]).toEqual('contexts');
-      });
-
-      it("should tell the router to select the correct context'", function() {
-        expect(args[1]).toEqual('pc');
+      it("should tellt he router to update the Tasks", function() {
+        expect(router.updateTaskListView).toHaveBeenCalled();
       });
 
       it("should give the router all of the tasks, in priority order, with next actions first", function() {
+        taskList = router.updateTaskListView.mostRecentCall.args[0];
+
         expect(taskList.length).toEqual(2);
         expect(taskList.first().get('action')).toEqual('baz');
         expect(taskList.last().get('action')).toEqual('foo');
@@ -190,29 +110,25 @@ describe("bulldog.RouterAgent", function() {
     });
   });
 
-  describe("#selectContextWithNextActions", function() {
+  describe("#selectNextActions", function() {
     var args, taskList;
 
     describe("when no context list is selected", function() {
       beforeEach(function() {
         agent.selectContextsWithNextActions();
-        args = router.select.mostRecentCall.args;
-        taskList = args[2];
       });
 
-      it("should tell the router to select a new task list", function() {
-        expect(router.select).toHaveBeenCalled();
+      it("should tell the router to update the navigation UI", function() {
+        expect(router.updateNavigationView).toHaveBeenCalled();
       });
 
-      it("should tell the router to select a context with next actions", function() {
-        expect(args[0]).toEqual('nextActions');
-      });
-
-      it("should tell the router to select the first context (alphabetically)", function() {
-        expect(args[1]).toEqual('home');
+      it("should tellt he router to update the Tasks", function() {
+        expect(router.updateTaskListView).toHaveBeenCalled();
       });
 
       it("should give the router all of the tasks, in task order", function() {
+        taskList = router.updateTaskListView.mostRecentCall.args[0];
+
         expect(taskList.length).toEqual(1);
         expect(taskList.first().get('action')).toEqual('quux');
       });
@@ -221,26 +137,88 @@ describe("bulldog.RouterAgent", function() {
     describe("when a context is selected", function() {
       beforeEach(function() {
         agent.selectContextsWithNextActions('pc');
-        args = router.select.mostRecentCall.args;
-        taskList = args[2];
       });
 
-      it("should tell the router to select a new task list", function() {
-        expect(router.select).toHaveBeenCalled();
+      it("should tell the router to update the navigation UI", function() {
+        expect(router.updateNavigationView).toHaveBeenCalled();
       });
 
-      it("should tell the router to select a context", function() {
-        expect(args[0]).toEqual('nextActions');
-      });
-
-      it("should tell the router to select the correct context'", function() {
-        expect(args[1]).toEqual('pc');
+      it("should tellt he router to update the Tasks", function() {
+        expect(router.updateTaskListView).toHaveBeenCalled();
       });
 
       it("should give the router all of the tasks, in priority order, with next actions first", function() {
-        expect(taskList.length).toEqual(2);
+        taskList = router.updateTaskListView.mostRecentCall.args[0];
+
+        expect(taskList.length).toEqual(1);
         expect(taskList.first().get('action')).toEqual('baz');
-        expect(taskList.last().get('action')).toEqual('foo');
+      });
+    });
+  });
+
+  describe("#getCurrentSelection", function() {
+    var list;
+
+    describe("by default", function() {
+      beforeEach(function() {
+        list = agent.getCurrentSelection();
+      });
+
+      it("should return the project list", function() {
+        expect(list.collection.length).toEqual(4);
+        expect(list.currentList).toEqual('projects');
+      });
+
+      it("should return the 'All' item", function() {
+        expect(list.currentItem).toEqual('All');
+      });
+    });
+
+    describe("when a project is selected", function() {
+      beforeEach(function() {
+        agent.selectProject('Zip');
+        list = agent.getCurrentSelection();
+      });
+
+      it("should return the project list", function() {
+        expect(list.collection.length).toEqual(4);
+        expect(list.currentList).toEqual('projects');
+      });
+
+      it("should return the correct item selected", function() {
+        expect(list.currentItem).toEqual('Zip');
+      });
+    });
+
+    describe("when a context is selected", function() {
+      beforeEach(function() {
+        agent.selectContext('home');
+        list = agent.getCurrentSelection();
+      });
+
+      it("should return the context list", function() {
+        expect(list.collection.length).toEqual(3);
+        expect(list.currentList).toEqual('contexts');
+      });
+
+      it("should return the correct item selected", function() {
+        expect(list.currentItem).toEqual('home');
+      });
+    });
+
+    describe("when nextActions (cor a context) is selected", function() {
+      beforeEach(function() {
+        agent.selectContextsWithNextActions('home');
+        list = agent.getCurrentSelection();
+      });
+
+      it("should return the context list", function() {
+        expect(list.collection.length).toEqual(3);
+        expect(list.currentList).toEqual('next-actions');
+      });
+
+      it("should return the correct item selected", function() {
+        expect(list.currentItem).toEqual('home');
       });
     });
   });

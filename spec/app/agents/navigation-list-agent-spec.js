@@ -1,41 +1,38 @@
 describe("bulldog.NavigationListAgent", function() {
-  var agent, view, locals;
+  var agent, view, locals, routerAgent;
 
   beforeEach(function() {
-    var projectCollection = new Backbone.Collection([
-      new Backbone.Model({name: 'All'}),
-      new Backbone.Model({name: 'ThankYouNotes'}),
-      new Backbone.Model({name: 'Emails'}),
-      new Backbone.Model({name: ''})
-    ]);
-
-    var contextCollection = new Backbone.Collection([
-      new Backbone.Model({name: 'home'}),
-      new Backbone.Model({name: 'pc'}),
-      new Backbone.Model({name: 'calls'}),
-      new Backbone.Model({name: ''})
-    ]);
-
-    var contextsWithNextActionsCollection = new Backbone.Collection([
-      new Backbone.Model({name: 'home'}),
-      new Backbone.Model({name: ''})
-    ]);
+    router = jasmine.createSpyObj('FakeRouter', ['updateNavigationView', 'updateTaskListView']);
+    var tasks = [
+      new bulldog.Task({action: "foo", projectName: 'Zip', context: 'pc', priority: 'C'}),
+      new bulldog.Task({action: "bar", projectName: '', context: ''}),
+      new bulldog.Task({action: "baz", projectName: 'Buzz', context: 'pc', priority: 'N'}),
+      new bulldog.Task({action: "quux", projectName: 'Zip', context: 'home', priority: 'N'}),
+      new bulldog.Task({action: "corge", projectName: 'Zip', context: '', priority: 'N'})
+    ];
+    var taskList = new bulldog.TaskList(tasks);
+    routerAgent = new bulldog.RouterAgent(router, taskList);
 
     view = { render: jasmine.createSpy('view.render') };
     agent = new bulldog.NavigationListAgent(
       view,
       {
-        projects: projectCollection,
-        contexts: contextCollection,
-        nextActions: contextsWithNextActionsCollection
+        app: routerAgent
       }
     );
   });
 
+  describe("#select", function() {
+    beforeEach(function() {
+      agent.select();
+    });
+    it("should tell the view to render", function() {
+      expect(view.render).toHaveBeenCalled();
+    });
+  });
+
   describe("on initialize", function() {
-
     describe("#getLocals", function() {
-
       beforeEach(function() {
         locals = agent.getLocals();
       });
@@ -61,166 +58,30 @@ describe("bulldog.NavigationListAgent", function() {
     });
   });
 
-  describe("on item selection", function() {
-    beforeEach(function() {
-      agent.selectItem('Thank You Notes');
-    });
-
-    it("should tell the view to render", function() {
-      expect(view.render).toHaveBeenCalled();
-    });
-
+  describe("when the selection changes", function() {
     describe("#getLocals", function() {
       beforeEach(function() {
+        routerAgent.selectContext('pc');
         locals = agent.getLocals();
       });
 
       it("should have the correct number of list items", function() {
-        expect(locals.list.length).toEqual(4);
+        expect(locals.list.length).toEqual(3);
       });
 
-      it("should have the requested list item selected", function() {
-        expect(locals.list[1].className.match(/active/)).toBeTruthy();
-      });
-    });
-  });
-
-  describe("on selecting the context list", function() {
-    beforeEach(function() {
-      agent.selectList("contexts");
-    });
-
-    it("should tell the view to render", function() {
-      expect(view.render).toHaveBeenCalled();
-    });
-
-    describe("#getLocals", function() {
-      beforeEach(function() {
-        locals = agent.getLocals();
-      });
-
-      it("should have the correct number of list items", function() {
-        expect(locals.list.length).toEqual(4);
-      });
-
-      it("should have the items of new list", function() {
-        var eachIsContenxt = _(locals.list).all(function(item) {
+      it("should have the items of default list", function() {
+        var eachIsAProject = _(locals.list).all(function(item) {
           return item.className.match(/context/);
         });
-        expect(eachIsContenxt).toEqual(true);
+        expect(eachIsAProject).toEqual(true);
       });
 
       it("should build the correct URLs", function() {
-        expect(locals.list[0].url).toEqual('#/contexts/home');
-      });
-
-      it("should have the default list item selected", function() {
-        expect(locals.list[0].className.match(/active/)).toBeTruthy();
-      });
-    });
-
-    describe("and then selecting a new item", function() {
-      beforeEach(function() {
-        agent.selectItem('');
-        locals = agent.getLocals();
-      });
-
-      it("should have the items of new list", function() {
-        var eachIsContenxt = _(locals.list).all(function(item) {
-          return item.className.match(/context/);
-        });
-        expect(eachIsContenxt).toEqual(true);
-      });
-
-      it("should have the correct list item selected", function() {
-        expect(locals.list[3].className.match(/active/)).toBeTruthy();
-      });
-    });
-  });
-
-  describe("on selecting the nextAction list", function() {
-    beforeEach(function() {
-      agent.selectList("nextActions");
-    });
-
-    it("should tell the view to render", function() {
-      expect(view.render).toHaveBeenCalled();
-    });
-
-    describe("#getLocals", function() {
-      beforeEach(function() {
-        locals = agent.getLocals();
-      });
-
-      it("should have the correct number of list items", function() {
-        expect(locals.list.length).toEqual(2);
-      });
-
-      it("should have the items of new list", function() {
-        var eachIsContenxt = _(locals.list).all(function(item) {
-          return item.className.match(/nextAction/);
-        });
-        expect(eachIsContenxt).toEqual(true);
-      });
-
-      it("should build the correct URLs", function() {
-        expect(locals.list[0].url).toEqual('#/nextActions/home');
-      });
-
-      it("should have the default list item selected", function() {
-        expect(locals.list[0].className.match(/active/)).toBeTruthy();
-      });
-    });
-
-    describe("and then selecting a new item", function() {
-      beforeEach(function() {
-        agent.selectItem('');
-        locals = agent.getLocals();
-      });
-
-      it("should have the items of new list", function() {
-        var eachIsContenxt = _(locals.list).all(function(item) {
-          return item.className.match(/nextAction/);
-        });
-        expect(eachIsContenxt).toEqual(true);
+        expect(locals.list[1].url).toEqual('#/contexts/pc');
       });
 
       it("should have the correct list item selected", function() {
         expect(locals.list[1].className.match(/active/)).toBeTruthy();
-      });
-    });
-  });
-
-  describe("#getSelection", function() {
-    var selection;
-
-    beforeEach(function() {
-      selection = agent.getSelection();
-    });
-
-    it("should return the current selection", function() {
-      expect(selection).toEqual({list: 'projects', name: "All"});
-    });
-
-    describe("after a new list item is selected", function() {
-      beforeEach(function() {
-        agent.selectItem('Thank You Notes');
-        selection = agent.getSelection();
-      });
-
-      it("should return the current selection", function() {
-        expect(selection).toEqual({list: 'projects', name: "ThankYouNotes"});
-      });
-    });
-
-    describe("after a new list is selected", function() {
-      beforeEach(function() {
-        agent.selectList("contexts");
-        selection = agent.getSelection();
-      });
-
-      it("should return the current selection", function() {
-        expect(selection).toEqual({list: 'contexts', name: "home"});
       });
     });
   });

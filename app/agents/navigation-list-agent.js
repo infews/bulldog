@@ -2,46 +2,23 @@
   bulldog.NavigationListAgent = function(view, options) {
     var self = this;
 
-    var validLists = ['projects', 'contexts', 'nextActions'];
-    var currentList = validLists[0];
-
-    self.selectList = function(value) {
-      currentList = _(validLists).include(value) ? value : validLists[0];
-      selectedItem = options[currentList].first();
-
+    self.select = function() {
       view.render();
-    };
-
-    var selectedItem = options[currentList].first();
-
-    self.selectItem = function(name) {
-      var currentCollection = options[currentList];
-
-      selectedItem = currentCollection.find(function(model) {
-        var modelName = model.get('name');
-        return modelName == name || prettyNameFor(modelName) === name;
-      });
-
-      selectedItem = selectedItem || currentCollection.first();
-
-      view.render();
-    };
-
-    self.getSelection = function() {
-      return { list: currentList, name: selectedItem.get('name') };
     };
 
     self.getLocals = function() {
+      var currentSelection = options.app.getCurrentSelection();
+      var currentItem = currentSelection.currentItem;
+
       return {
-        list: options[currentList].map(forLocals)
+        list: currentSelection.collection.map(forLocals)
       };
 
       function forLocals(model) {
         var name = model.get('name');
 
-        var itemType = currentList.substring(0, currentList.length - 1);
-        var classes = [itemType];
-        if (name === selectedItem.get('name')) {
+        var classes = [itemClassNameFrom(currentSelection.currentList)];
+        if (name === currentItem) {
           classes.push('active');
         }
 
@@ -49,12 +26,16 @@
         return {
           name:      prettyNameFor(name),
           className: classes.join(' '),
-          url:       url({list: currentList, name: name})
+          url:       url({list: currentSelection.currentList, name: name})
         };
       }
     };
 
     return self;
+
+    function itemClassNameFrom(listName) {
+      return listName.substring(0, listName.length - 1);
+    }
 
     function prettyNameFor(str) {
       if (str == '') {

@@ -2,12 +2,12 @@
   bulldog.Router = Backbone.Router.extend({
 
     routes: {
-      '/':               'firstProject',
-      '/projects/:name': 'project',
-      '/contexts':       'firstContext',
-      '/contexts/:name': 'context',
-      '/nextActions': 'firstNextActions',
-      '/nextActions/:name': 'nextActions'
+      '/':                  'firstProject',
+      '/projects/:name':    'project',
+      '/contexts':          'firstContext',
+      '/contexts/:name':    'context',
+      '/next-actions':       'firstNextActions',
+      '/next-actions/:name': 'nextActions'
     },
 
     initialize: function(tasks) {
@@ -15,9 +15,7 @@
       this.agent = new bulldog.RouterAgent(this, this.taskList);
 
       this.navigationView = new bulldog.NavigationView({
-        projects: this.agent.getProjectList(),
-        contexts: this.agent.getContextList(),
-        nextActions: this.agent.getContextsWithNextActionsList()
+        app: this.agent
       });
       $('nav').append(this.navigationView.render().el);
     },
@@ -42,12 +40,15 @@
       this.agent.selectContextsWithNextActions();
     },
 
-    nextActions: function(name) {
-      this.agent.selectContextsWithNextActions(name);
+    nextActions: function(contextName) {
+      this.agent.selectContextsWithNextActions(contextName);
     },
 
-    select: function(listName, itemName, taskList) {
-      this.navigationView.select({list: listName, name: itemName});
+    updateNavigationView: function() {
+      this.navigationView.select();
+    },
+
+    updateTaskListView: function(taskList) {
       delete this.tasksView;
       this.tasksView = new bulldog.TaskListView({collection: taskList});
       $('section.tasks').html(this.tasksView.render().el);

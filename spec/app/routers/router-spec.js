@@ -151,13 +151,13 @@ describe("bulldog.Router", function() {
       expect($('nav .navigation').length).toEqual(1)
     });
 
-    it("should select the 'contexts' tab", function() {
+    it("should select the 'next-actions' tab", function() {
       expect($('nav .navigation .tabs .active').length).toEqual(1);
-      expect($('nav .navigation .tabs .nextActions.active').length).toEqual(1);
+      expect($('nav .navigation .tabs .next-actions.active').length).toEqual(1);
     });
 
     it("should select the correct context in the navigation", function() {
-      expect($('nav .navigation .list .nextAction.active').text()).toMatch(/pc/i);
+      expect($('nav .navigation .list .next-action.active').text()).toMatch(/pc/i);
     });
 
     it("should render the tasks UI", function() {
@@ -165,7 +165,7 @@ describe("bulldog.Router", function() {
     });
 
     it("should render the tasks UI with only tasks from from the selected context", function() {
-      expect($("section.tasks .task", $content).length).toEqual(3);
+      expect($("section.tasks .task", $content).length).toEqual(1);
     });
   });
 });

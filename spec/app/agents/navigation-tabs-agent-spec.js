@@ -1,135 +1,110 @@
 describe("bulldog.NavigationTabsAgent", function() {
-  var agent, view, locals;
+  var agent, view, locals, routerAgent;
 
   beforeEach(function() {
+    var router = jasmine.createSpyObj('FakeRouter', ['updateNavigationView', 'updateTaskListView']);
+    var tasks = [
+      new bulldog.Task({action: "foo", projectName: 'Zip', context: 'pc', priority: 'C'}),
+      new bulldog.Task({action: "bar", projectName: '', context: ''}),
+      new bulldog.Task({action: "baz", projectName: 'Buzz', context: 'pc', priority: 'N'}),
+      new bulldog.Task({action: "quux", projectName: 'Zip', context: 'home', priority: 'N'}),
+      new bulldog.Task({action: "corge", projectName: 'Zip', context: '', priority: 'N'})
+    ];
+    var taskList = new bulldog.TaskList(tasks);
+    routerAgent = new bulldog.RouterAgent(router, taskList);
+
     view = {
       render: jasmine.createSpy('view.render')
     };
-    agent = new bulldog.NavigationTabsAgent(view);
+    agent = new bulldog.NavigationTabsAgent(view, {app: routerAgent});
   });
 
-  describe("#getLocals", function() {
-
+  describe("#select", function() {
     beforeEach(function() {
-      locals = agent.getLocals();
+      agent.select();
     });
 
-    it("should return the expected number of tabs", function() {
-      expect(locals.tabs.length).toEqual(3);
-    });
-
-    it("should have the tabs in the correct order", function() {
-      var labels = _(locals.tabs).pluck('text');
-      expect(labels).toEqual(['+', '@', '\u2794']);
-    });
-
-    it("should configure the projects tab correctly", function() {
-      var projects = locals.tabs[0];
-      expect(projects.text).toEqual('+');
-      expect(projects.className).toMatch(/projects/);
-      expect(projects.link).toEqual('#/');
-    });
-
-    it("should configure the contexts tab correctly", function() {
-      var contexts = locals.tabs[1];
-      expect(contexts.text).toEqual('@');
-      expect(contexts.className).toMatch(/contexts/);
-      expect(contexts.link).toEqual('#/contexts');
-    });
-
-    it("should configure the nextActions tab correctly", function() {
-      var nextActions = locals.tabs[2];
-      expect(nextActions.text).toEqual('\u2794');
-      expect(nextActions.className).toMatch(/nextActions/);
-      expect(nextActions.link).toEqual('#/nextActions');
-    });
-
-  });
-
-  xdescribe("selected navigation tab", function() {
-    var selection;
-
-    describe("before being set", function() {
-      beforeEach(function() {
-        selection = agent.getSelectedTab();
-      });
-
-      it("should equal 'projects' text", function() {
-        expect(selection).toEqual('projects');
-      });
-    });
-
-    describe("after being set to contexts", function() {
-      beforeEach(function() {
-        agent.selectTab('contexts');
-        selection = agent.getSelectedTab();
-      });
-
-      it("should equal 'contexts' text", function() {
-        expect(selection).toEqual('contexts');
-      });
-
-      it("should tell the view to re-render the navigation", function() {
-        expect(view.render).toHaveBeenCalled();
-      });
-    });
-
-    describe("after being set to nextActions", function() {
-      beforeEach(function() {
-        agent.selectTab('nextActions');
-        selection = agent.getSelectedTab();
-      });
-
-      it("should equal 'contexts' text", function() {
-        expect(selection).toEqual('nextActions');
-      });
-
-      it("should tell the view to re-render the navigation", function() {
-        expect(view.render).toHaveBeenCalled();
-      });
-    });
-
-    describe("when set to something other than projects or contexts", function() {
-      beforeEach(function() {
-        agent.selectTab('zippy');
-        selection = agent.getSelectedTab();
-      });
-
-      it("should return 'projects'", function() {
-        expect(selection).toEqual('projects');
-      });
+    it("should tell the view to render", function() {
+      expect(view.render).toHaveBeenCalled();
     });
   });
 
-  xdescribe("#getLocals", function() {
-    var locals;
+  describe("on initialize", function() {
+    describe("#getLocals", function() {
 
-    describe("when 'contexts' is selected", function() {
       beforeEach(function() {
-        agent.selectTab('contexts');
         locals = agent.getLocals();
       });
 
-      it("should show 'contexts' selected", function() {
-        expect(locals.tabs.length).toEqual(2);
-        expect(locals.tabs[0]).toEqual({text: '+', className: 'projects', link: '#/'});
-        expect(locals.tabs[1]).toEqual({text: '@', className: 'contexts active', link: '#/contexts'});
+      it("should return the expected number of tabs", function() {
+        expect(locals.tabs.length).toEqual(3);
+      });
+
+      it("should have the tabs in the correct order", function() {
+        var labels = _(locals.tabs).pluck('text');
+        expect(labels).toEqual(['+', '@', '\u2794']);
+      });
+
+      it("should configure the projects tab correctly", function() {
+        var projects = locals.tabs[0];
+        expect(projects.text).toEqual('+');
+        expect(projects.className).toMatch(/projects/);
+        expect(projects.className).toMatch(/active/);
+        expect(projects.link).toEqual('#/');
+      });
+
+      it("should configure the contexts tab correctly", function() {
+        var contexts = locals.tabs[1];
+        expect(contexts.text).toEqual('@');
+        expect(contexts.className).toMatch(/contexts/);
+        expect(contexts.link).toEqual('#/contexts');
+      });
+
+      it("should configure the nextActions tab correctly", function() {
+        var nextActions = locals.tabs[2];
+        expect(nextActions.text).toEqual('\u2794');
+        expect(nextActions.className).toMatch(/next-actions/);
+        expect(nextActions.link).toEqual('#/nextActions');
       });
     });
+  });
 
-    describe("when 'projects' is selected", function() {
+  describe("when the selection changes", function() {
+    describe("#getLocals", function() {
+      beforeEach(function() {
+        routerAgent.selectContext('pc');
+        locals = agent.getLocals();
+      });
 
-      describe("the navigation tabs", function() {
+      it("should return the expected number of tabs", function() {
+        expect(locals.tabs.length).toEqual(3);
+      });
 
-        beforeEach(function() {
-          locals = agent.getLocals();
-        });
+      it("should have the tabs in the correct order", function() {
+        var labels = _(locals.tabs).pluck('text');
+        expect(labels).toEqual(['+', '@', '\u2794']);
+      });
 
-        it("should show 'projects' selected", function() {
-          expect(locals.tabs.length).toEqual(2);
-          expect(locals.tabs[0]).toEqual({text: '+', className: 'projects active', link: '#/'});
-          expect(locals.tabs[1]).toEqual({text: '@', className: 'contexts', link: '#/contexts'});
-        });
+      it("should configure the projects tab correctly", function() {
+        var projects = locals.tabs[0];
+        expect(projects.text).toEqual('+');
+        expect(projects.className).toMatch(/projects/);
+        expect(projects.link).toEqual('#/');
+      });
+
+      it("should configure the contexts tab correctly", function() {
+        var contexts = locals.tabs[1];
+        expect(contexts.text).toEqual('@');
+        expect(contexts.className).toMatch(/contexts/);
+        expect(contexts.className).toMatch(/active/);
+        expect(contexts.link).toEqual('#/contexts');
+      });
+
+      it("should configure the nextActions tab correctly", function() {
+        var nextActions = locals.tabs[2];
+        expect(nextActions.text).toEqual('\u2794');
+        expect(nextActions.className).toMatch(/next-actions/);
+        expect(nextActions.link).toEqual('#/nextActions');
       });
     });
   });

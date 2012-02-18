@@ -1,30 +1,19 @@
 describe("bulldog.NavigationListView", function() {
-  var view, $content, $list;
+  var view, $content, $list, routerAgent;
 
   beforeEach(function() {
-    var projectCollection = new Backbone.Collection([
-      new Backbone.Model({name: 'All'}),
-      new Backbone.Model({name: 'baz'}),
-      new Backbone.Model({name: ''})
-    ]);
+    var router = jasmine.createSpyObj('FakeRouter', ['updateNavigationView', 'updateTaskListView']);
+    var tasks = [
+      new bulldog.Task({action: "foo", projectName: 'Zip', context: 'pc', priority: 'C'}),
+      new bulldog.Task({action: "bar", projectName: '', context: ''}),
+      new bulldog.Task({action: "baz", projectName: 'Buzz', context: 'pc', priority: 'N'}),
+      new bulldog.Task({action: "quux", projectName: 'Zip', context: 'home', priority: 'N'}),
+      new bulldog.Task({action: "corge", projectName: 'Zip', context: '', priority: 'N'})
+    ];
+    var taskList = new bulldog.TaskList(tasks);
+    routerAgent = new bulldog.RouterAgent(router, taskList);
 
-    var contextCollection = new Backbone.Collection([
-      new Backbone.Model({name: 'home'}),
-      new Backbone.Model({name: 'pc'}),
-      new Backbone.Model({name: 'calls'}),
-      new Backbone.Model({name: ''})
-    ]);
-
-    var contextsWithNextActionsCollection = new Backbone.Collection([
-      new Backbone.Model({name: 'home'}),
-      new Backbone.Model({name: ''})
-    ]);
-
-    view = new bulldog.NavigationListView({
-      projects: projectCollection,
-      contexts: contextCollection,
-      nextActions: contextsWithNextActionsCollection
-    });
+    view = new bulldog.NavigationListView({ app: routerAgent });
 
     spyOn(view, 'trigger');
     $content = $("#jasmine_content");
@@ -42,42 +31,19 @@ describe("bulldog.NavigationListView", function() {
   });
 
   describe("when the selection changes", function() {
-    var $selected;
+    var $active;
 
     beforeEach(function() {
       $content.append(view.render().el);
-      view.select({list: "projects", name: "Baz"});
-      $selected = $('.active');
+      routerAgent.selectContext('pc');
+      view.select();
+      $active = $('.active');
     });
 
     it("should move the selection", function() {
-      var selectedItemName = $($selected[0]).text();
-      expect(_(selectedItemName).clean()).toEqual('Baz');
-      expect($selected.length).toEqual(1);
-    });
-  });
-
-  describe("when the context list is selected", function() {
-    beforeEach(function() {
-      $content.append(view.render().el);
-      view.select({list: "contexts", name: "Home"});
-      $list = $('.list');
-    });
-
-    it("should replace the list", function() {
-      expect($('.context', $list).length).toEqual(4);
-    });
-  });
-
-  describe("when the nextActions list is selected", function() {
-    beforeEach(function() {
-      $content.append(view.render().el);
-      view.select({list: "nextActions", name: "Home"});
-      $list = $('.list');
-    });
-
-    it("should replace the list", function() {
-      expect($('.nextAction', $list).length).toEqual(2);
+      var selectedItemName = $($active[0]).text();
+      expect(_(selectedItemName).clean()).toEqual('Pc');
+      expect($active.length).toEqual(1);
     });
   });
 });
