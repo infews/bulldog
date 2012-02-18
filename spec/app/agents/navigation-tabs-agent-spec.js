@@ -64,7 +64,7 @@ describe("bulldog.NavigationTabsAgent", function() {
         var nextActions = locals.tabs[2];
         expect(nextActions.text).toEqual('\u2794');
         expect(nextActions.className).toMatch(/next-actions/);
-        expect(nextActions.link).toEqual('#/nextActions');
+        expect(nextActions.link).toEqual('#/next-actions');
       });
     });
   });
@@ -104,7 +104,7 @@ describe("bulldog.NavigationTabsAgent", function() {
         var nextActions = locals.tabs[2];
         expect(nextActions.text).toEqual('\u2794');
         expect(nextActions.className).toMatch(/next-actions/);
-        expect(nextActions.link).toEqual('#/nextActions');
+        expect(nextActions.link).toEqual('#/next-actions');
       });
     });
   });
