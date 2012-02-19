@@ -15,7 +15,7 @@
       };
 
       function forLocals(model) {
-        var name = model.get('name');
+        var name = model.get('name') || '__none';
 
         var classes = [itemClassNameFrom(currentSelection.currentList)];
         if (name === currentItem) {
@@ -38,7 +38,7 @@
     }
 
     function prettyNameFor(str) {
-      if (str == '') {
+      if (str == '__none') {
         return '(none)';
       }
 

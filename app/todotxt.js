@@ -48,7 +48,7 @@
 
       var priority = extract(priorityRE);
 
-      if (priority) {
+      if (priority != '__none') {
         properties.priority = priority;
       }
 
@@ -56,7 +56,7 @@
 
       function extract(re) {
         var match = taskText.match(re);
-        return match ? match[1] : ''
+        return match ? match[1] : '__none'
       }
 
       function clean(str) {

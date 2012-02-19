@@ -1,18 +1,12 @@
 describe("bulldog.Router", function() {
- var router, $content;
+  var router, $content;
 
   beforeEach(function() {
     $content = $("#jasmine_content");
     $content.append('<nav></nav><section class="tasks"></section>');
 
-    var tasks = [
-      new bulldog.Task({action: "foo", projectName: 'Zip', context: 'pc', priority: 'C'}),
-      new bulldog.Task({action: "bar", projectName: '', context: ''}),
-      new bulldog.Task({action: "baz", projectName: 'Buzz', context: 'pc'}),
-      new bulldog.Task({action: "quuz", projectName: 'Zip', context: 'home', priority: 'A'}),
-      new bulldog.Task({action: "corge", projectName: 'Zip', context: 'pc', priority: 'N'}),
-      new bulldog.Task({action: "flint", projectName: 'Fluffy', context: 'home', priority: 'N'})
-    ];
+    var tasks = buildTaskFixtures();
+    tasks.push(new bulldog.Task({action: "flint", projectName: 'Fluffy', context: 'home', priority: 'N'}));
 
     router = new bulldog.Router(tasks);
   });
@@ -38,7 +32,7 @@ describe("bulldog.Router", function() {
     });
 
     it("should label the tasks with the current tab", function() {
-      expect($("section.tasks",$content).attr('class')).toMatch(/projects/);
+      expect($("section.tasks", $content).attr('class')).toMatch(/projects/);
     });
   });
 
@@ -61,7 +55,7 @@ describe("bulldog.Router", function() {
     });
 
     it("should label the tasks with the current tab", function() {
-      expect($("section.tasks",$content).attr('class')).toMatch(/projects/);
+      expect($("section.tasks", $content).attr('class')).toMatch(/projects/);
     });
 
     it("should render the tasks UI with only tasks from from the selected project", function() {
@@ -88,7 +82,7 @@ describe("bulldog.Router", function() {
     });
 
     it("should label the tasks with the current tab", function() {
-      expect($("section.tasks",$content).attr('class')).toMatch(/contexts/);
+      expect($("section.tasks", $content).attr('class')).toMatch(/contexts/);
     });
 
     it("should render the tasks UI", function() {
@@ -119,7 +113,7 @@ describe("bulldog.Router", function() {
     });
 
     it("should label the tasks with the current tab", function() {
-      expect($("section.tasks",$content).attr('class')).toMatch(/contexts/);
+      expect($("section.tasks", $content).attr('class')).toMatch(/contexts/);
     });
 
     it("should render the tasks UI", function() {
@@ -127,7 +121,7 @@ describe("bulldog.Router", function() {
     });
 
     it("should render the tasks UI with only tasks from from the selected context", function() {
-      expect($("section.tasks .task", $content).length).toEqual(3);
+      expect($("section.tasks .task", $content).length).toEqual(2);
     });
   });
 
@@ -150,7 +144,7 @@ describe("bulldog.Router", function() {
     });
 
     it("should label the tasks with the current tab", function() {
-      expect($("section.tasks",$content).attr('class')).toMatch(/next-actions/);
+      expect($("section.tasks", $content).attr('class')).toMatch(/next-actions/);
     });
 
     it("should render the tasks UI", function() {

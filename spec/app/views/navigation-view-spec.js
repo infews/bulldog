@@ -5,13 +5,7 @@ describe("bulldog.NavigationView", function() {
     $content = $("#jasmine_content");
 
     var router = jasmine.createSpyObj('FakeRouter', ['updateNavigationView', 'updateTaskListView']);
-    var tasks = [
-      new bulldog.Task({action: "foo", projectName: 'Zip', context: 'pc', priority: 'C'}),
-      new bulldog.Task({action: "bar", projectName: '', context: ''}),
-      new bulldog.Task({action: "baz", projectName: 'Buzz', context: 'pc', priority: 'N'}),
-      new bulldog.Task({action: "quux", projectName: 'Zip', context: 'home', priority: 'N'}),
-      new bulldog.Task({action: "corge", projectName: 'Zip', context: '', priority: 'N'})
-    ];
+    var tasks = buildTaskFixtures();
     var taskList = new bulldog.TaskList(tasks);
     routerAgent = new bulldog.RouterAgent(router, taskList);
 

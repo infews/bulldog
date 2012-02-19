@@ -41,13 +41,13 @@ describe("todoTxt", function () {
     });
 
     it("should set the project correctly on a Task", function () {
-      expect(tasks[0].get('projectName')).toEqual('');
+      expect(tasks[0].get('projectName')).toEqual('__none');
       expect(tasks[2].get('projectName')).toEqual('Vacation');
       expect(tasks[4].get('projectName')).toEqual('CleanDesk');
     });
 
     it("should set the context correctly on a Task", function () {
-      expect(tasks[0].get('context')).toEqual('');
+      expect(tasks[0].get('context')).toEqual('__none');
       expect(tasks[2].get('context')).toEqual('pc');
       expect(tasks[4].get('context')).toEqual('home');
       expect(tasks[5].get('context')).toEqual('work');

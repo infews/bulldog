@@ -1,23 +1,15 @@
 describe("bulldog.RouterAgent", function() {
-  var agent, router;
+  var agent, router, taskList;
 
   beforeEach(function() {
     router = jasmine.createSpyObj('FakeRouter', ['updateNavigationView', 'updateTaskListView']);
-    var tasks = [
-      new bulldog.Task({action: "foo", projectName: 'Zip', context: 'pc', priority: 'C'}),
-      new bulldog.Task({action: "bar", projectName: '', context: ''}),
-      new bulldog.Task({action: "baz", projectName: 'Buzz', context: 'pc', priority: 'N'}),
-      new bulldog.Task({action: "quux", projectName: 'Zip', context: 'home', priority: 'N'}),
-      new bulldog.Task({action: "corge", projectName: 'Zip', context: '', priority: 'N'})
-    ];
+    var tasks = buildTaskFixtures();
     var taskList = new bulldog.TaskList(tasks);
 
     agent = new bulldog.RouterAgent(router, taskList);
   });
 
   describe("#selectProject", function() {
-    var args, taskList;
-
     describe("when the project list 'All' is selected", function() {
       beforeEach(function() {
         agent.selectProject();
@@ -64,8 +56,6 @@ describe("bulldog.RouterAgent", function() {
   });
 
   describe("#selectContext", function() {
-    var args, taskList;
-
     describe("when no context list is selected", function() {
       beforeEach(function() {
         agent.selectContext();
@@ -111,8 +101,6 @@ describe("bulldog.RouterAgent", function() {
   });
 
   describe("#selectNextActions", function() {
-    var args, taskList;
-
     describe("when no context list is selected", function() {
       beforeEach(function() {
         agent.selectContextsWithNextActions();

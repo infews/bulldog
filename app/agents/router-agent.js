@@ -36,7 +36,6 @@
       currentTab = 'contexts';
       setCurrentItem(name);
       var tasks = _(taskList.filter(byContextName(currentItem))).sortBy(priority);
-
       router.updateNavigationView();
       router.updateTaskListView(new bulldog.TaskList(tasks));
     };
@@ -115,7 +114,7 @@
     }
 
     function moveEmptyToEnd(list) {
-      var index = _(list).indexOf('');
+      var index = _(list).indexOf('__none');
 
       if (index >= 0) {
         list.splice(list.length - 1, 0, list.splice(index, 1)[0]);
