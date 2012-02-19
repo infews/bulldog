@@ -1,5 +1,5 @@
 describe("bulldog.Router", function() {
- var app, $content;
+ var router, $content;
 
   beforeEach(function() {
     $content = $("#jasmine_content");
@@ -14,18 +14,18 @@ describe("bulldog.Router", function() {
       new bulldog.Task({action: "flint", projectName: 'Fluffy', context: 'home', priority: 'N'})
     ];
 
-    app = new bulldog.Router(tasks);
+    router = new bulldog.Router(tasks);
   });
 
   describe("#initialize", function() {
     it("should make a tasklist", function() {
-      expect(app.taskList.length).toEqual(6);
+      expect(router.taskList.length).toEqual(6);
     });
   });
 
   describe("#firstProject", function() {
     beforeEach(function() {
-      app.firstProject();
+      router.firstProject();
     });
 
     it("should render the navigation UI", function() {
@@ -36,11 +36,15 @@ describe("bulldog.Router", function() {
       expect($("section.tasks .task-list", $content).length).toEqual(1);
       expect($("section.tasks .task", $content).length).toEqual(6);
     });
+
+    it("should label the tasks with the current tab", function() {
+      expect($("section.tasks",$content).attr('class')).toMatch(/projects/);
+    });
   });
 
   describe("#project", function() {
     beforeEach(function() {
-      app.project("Zip");
+      router.project("Zip");
     });
 
     it("should select the 'projects' tab", function() {
@@ -56,6 +60,10 @@ describe("bulldog.Router", function() {
       expect($("section.tasks .task-list", $content).length).toEqual(1);
     });
 
+    it("should label the tasks with the current tab", function() {
+      expect($("section.tasks",$content).attr('class')).toMatch(/projects/);
+    });
+
     it("should render the tasks UI with only tasks from from the selected project", function() {
       expect($("section.tasks .task", $content).length).toEqual(3);
     });
@@ -63,7 +71,7 @@ describe("bulldog.Router", function() {
 
   describe("#firstContext", function() {
     beforeEach(function() {
-      app.firstContext();
+      router.firstContext();
     });
 
     it("should render the navigation UI", function() {
@@ -79,6 +87,10 @@ describe("bulldog.Router", function() {
       expect($('nav .navigation .context.active').text()).toMatch(/home/i);
     });
 
+    it("should label the tasks with the current tab", function() {
+      expect($("section.tasks",$content).attr('class')).toMatch(/contexts/);
+    });
+
     it("should render the tasks UI", function() {
       expect($("section.tasks .task-list", $content).length).toEqual(1);
     });
@@ -90,7 +102,7 @@ describe("bulldog.Router", function() {
 
   describe("#context", function() {
     beforeEach(function() {
-      app.context("pc");
+      router.context("pc");
     });
 
     it("should render the navigation UI", function() {
@@ -106,6 +118,10 @@ describe("bulldog.Router", function() {
       expect($('nav .navigation .context.active').text()).toMatch(/pc/i);
     });
 
+    it("should label the tasks with the current tab", function() {
+      expect($("section.tasks",$content).attr('class')).toMatch(/contexts/);
+    });
+
     it("should render the tasks UI", function() {
       expect($("section.tasks .task-list", $content).length).toEqual(1);
     });
@@ -117,7 +133,7 @@ describe("bulldog.Router", function() {
 
   xdescribe("#firstContextWithNextActions", function() {
     beforeEach(function() {
-      app.firstContextWithNextActions("pc");
+      router.firstContextWithNextActions("pc");
     });
 
     it("should render the navigation UI", function() {
@@ -133,6 +149,10 @@ describe("bulldog.Router", function() {
       expect($('nav .navigation .context.active').text()).toMatch(/pc/i);
     });
 
+    it("should label the tasks with the current tab", function() {
+      expect($("section.tasks",$content).attr('class')).toMatch(/next-actions/);
+    });
+
     it("should render the tasks UI", function() {
       expect($("section.tasks .task-list", $content).length).toEqual(1);
     });
@@ -144,7 +164,7 @@ describe("bulldog.Router", function() {
 
   describe("#nextActions", function() {
     beforeEach(function() {
-      app.nextActions("pc");
+      router.nextActions("pc");
     });
 
     it("should render the navigation UI", function() {
@@ -158,6 +178,10 @@ describe("bulldog.Router", function() {
 
     it("should select the correct context in the navigation", function() {
       expect($('nav .navigation .list .next-action.active').text()).toMatch(/pc/i);
+    });
+
+    it("should label the tasks with the current tab", function() {
+      expect($("section.tasks",$content).attr('class')).toMatch(/next-actions/);
     });
 
     it("should render the tasks UI", function() {

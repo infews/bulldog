@@ -18,6 +18,7 @@
         app: this.agent
       });
       $('nav').append(this.navigationView.render().el);
+      this.$tasks = $('section.tasks');
     },
 
     firstProject: function() {
@@ -51,7 +52,14 @@
     updateTaskListView: function(taskList) {
       delete this.tasksView;
       this.tasksView = new bulldog.TaskListView({collection: taskList});
-      $('section.tasks').html(this.tasksView.render().el);
+      this.$tasks.html(this.tasksView.render().el);
+
+      var currentSelection = this.agent.getCurrentSelection();
+      var taskSectionClasses = ['tasks', currentSelection.currentList];
+      if (currentSelection.currentItem == 'All') {
+        taskSectionClasses.push('all');
+      }
+      this.$tasks.attr('class', taskSectionClasses.join(' '));
     }
   });
 }(jQuery));

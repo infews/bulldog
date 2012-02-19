@@ -4,7 +4,7 @@
 body {
   font-family: "Lato", "Helvetica Neue", sans-serif;
 }
-            
+
 a.brand {
   font-variant: small-caps;
 }
@@ -32,6 +32,26 @@ a.brand {
 
   section {
     @include box-flex(1);
+  }
+}
+
+.tasks.projects {
+
+  &.all {
+    .task .footer .project {
+      display: inline;
+    }
+  }
+
+  .task .footer .project {
+    display: none;
+  }
+}
+
+.tasks.contexts,
+.tasks.next-actions {
+  .task .footer .context {
+    display: none;
   }
 }
 
