@@ -20,7 +20,7 @@ describe("bulldog.RouterAgent", function() {
 
     describe("when the project list 'All' is selected", function() {
       beforeEach(function() {
-        agent.selectProject('All');
+        agent.selectProject();
       });
 
       it("should tell the router to update the navigation UI", function() {

@@ -2,11 +2,11 @@
   bulldog.Router = Backbone.Router.extend({
 
     routes: {
-      '/':                  'firstProject',
-      '/projects/:name':    'project',
-      '/contexts':          'firstContext',
-      '/contexts/:name':    'context',
-      '/next-actions':       'firstNextActions',
+      '/':                   'project',
+      '/projects/:name':     'project',
+      '/contexts':           'context',
+      '/contexts/:name':     'context',
+      '/next-actions':       'nextActions',
       '/next-actions/:name': 'nextActions'
     },
 
@@ -21,24 +21,12 @@
       this.$tasks = $('section.tasks');
     },
 
-    firstProject: function() {
-      this.agent.selectProject('All');
-    },
-
     project: function(name) {
       this.agent.selectProject(name);
     },
 
-    firstContext: function() {
-      this.agent.selectContext();
-    },
-
     context: function(name) {
       this.agent.selectContext(name);
-    },
-
-    firstNextActions: function() {
-      this.agent.selectContextsWithNextActions();
     },
 
     nextActions: function(contextName) {

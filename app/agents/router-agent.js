@@ -19,7 +19,7 @@
 
       var list = taskList;
 
-      if (name != 'All') {
+      if (currentItem != 'All') {
         var tasks = _(taskList.filter(byName)).sortBy(priority);
         list = new bulldog.TaskList(tasks);
       }
