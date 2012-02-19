@@ -13,6 +13,12 @@ a.brand {
   @include display-box;
   @include box-pack(start);
   @include box-orient(horizontal);
+  @include box-align(start);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
   padding-top: 40px;
 
@@ -23,6 +29,7 @@ a.brand {
   nav, section {
     @include display-box;
     @include box-pack(start);
+    @include box-align(stretch);
   }
 
   nav {
@@ -60,6 +67,7 @@ a.brand {
   @include box-pack(start);
   @include box-orient(vertical);
   @include box-flex(1);
+  @include box-align(stretch);
 
   background-color: #a9a9a9;
 
