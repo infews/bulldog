@@ -1,6 +1,6 @@
 (function($) {
   window.bulldog = {};
-  bulldog.version = "0.2.0";
+  bulldog.version = "0.3.0";
   $(document).ready(startApp);
 
   function startApp() {
