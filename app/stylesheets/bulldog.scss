@@ -13,7 +13,7 @@ a.brand {
   @include display-box;
   @include box-pack(start);
   @include box-orient(horizontal);
-  @include box-align(start);
+  @include box-align(stretch);
   position: absolute;
   top: 0;
   right: 0;
@@ -28,8 +28,6 @@ a.brand {
 
   nav, section {
     @include display-box;
-    @include box-pack(start);
-    @include box-align(stretch);
   }
 
   nav {
@@ -39,26 +37,26 @@ a.brand {
 
   section {
     @include box-flex(1);
-  }
-}
 
-.tasks.projects {
+    &.tasks.projects {
 
-  &.all {
-    .task .footer .project {
-      display: inline;
+      .task .footer .project {
+        display: none;
+      }
+
+      &.all {
+        .task .footer .project {
+          display: inline;
+        }
+      }
     }
-  }
 
-  .task .footer .project {
-    display: none;
-  }
-}
-
-.tasks.contexts,
-.tasks.next-actions {
-  .task .footer .context {
-    display: none;
+    &.tasks.contexts,
+    &.tasks.next-actions {
+      .task .footer .context {
+        display: none;
+      }
+    }
   }
 }
 
@@ -68,6 +66,8 @@ a.brand {
   @include box-orient(vertical);
   @include box-flex(1);
   @include box-align(stretch);
+  overflow: auto;
+  position: relative;
 
   background-color: #a9a9a9;
 
