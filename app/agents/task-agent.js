@@ -3,14 +3,24 @@
     var self = this;
 
     self.getTaskLocals = function() {
-      return {
-        action: decorateLinks(task.get('action')),
-        number: task.get('number'),
-        context: task.get('context'),
-        projectName: task.get('projectName'),
-        priority: task.get('priority'),
+      var locals = {
+        action:     decorateLinks(task.get('action')),
+        number:     task.get('number'),
+        priority:   task.get('priority'),
         nextAction: task.isNextAction()
       };
+
+      addIfNotNone('context');
+      addIfNotNone('projectName');
+
+      return locals;
+
+      function addIfNotNone(property) {
+        var prop = task.get(property);
+        if (prop && prop != '__none') {
+          locals[property] = prop;
+        }
+      }
     };
 
     return self;
@@ -25,7 +35,7 @@
 
       var tag = _.template('<a target="_blank" href="<%=url%>">[link<%=count%>]</a>');
 
-      for(var i=0; i < matchData.length; i++) {
+      for (var i = 0; i < matchData.length; i++) {
         var count = matchData.length == 1 ? '' : ' ' + (i + 1);
         text = text.replace(matchData[i], tag({url: matchData[i], count: count}));
       }

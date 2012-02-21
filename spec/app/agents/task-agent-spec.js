@@ -37,7 +37,7 @@ describe("bulldog.TaskAgent", function() {
         number:      "17",
         context:     "calls",
         projectName: "Happy Birthday",
-        priority: "A"
+        priority:    "A"
       });
 
       agent = new bulldog.TaskAgent(view, task);
@@ -60,6 +60,66 @@ describe("bulldog.TaskAgent", function() {
     });
   });
 
+  describe("for a task withpout a project", function() {
+    beforeEach(function() {
+      var task = new bulldog.Task({
+        action:   "Call mom for wishes",
+        number:   "17",
+        context:  "calls",
+        projectName: "__none",
+        priority: "A"
+      });
+
+      agent = new bulldog.TaskAgent(view, task);
+    });
+
+    describe("#getTaskLocals", function() {
+      var locals;
+
+      beforeEach(function() {
+        locals = agent.getTaskLocals();
+      });
+
+      it("should return all the task fields", function() {
+        expect(locals.action).toEqual('Call mom for wishes');
+        expect(locals.number).toEqual('17');
+        expect(locals.context).toEqual('calls');
+        expect(locals.projectName).toBeUndefined();
+        expect(locals.priority).toEqual('A');
+      });
+    });
+  });
+
+  describe("for a task without a context", function() {
+    beforeEach(function() {
+      var task = new bulldog.Task({
+        action:   "Call mom for wishes",
+        number:   "17",
+        context:  "__none",
+        projectName: 'Happy Birthday',
+        priority: "A"
+      });
+
+      agent = new bulldog.TaskAgent(view, task);
+    });
+
+    describe("#getTaskLocals", function() {
+      var locals;
+
+      beforeEach(function() {
+        locals = agent.getTaskLocals();
+      });
+
+      it("should return all the task fields", function() {
+        expect(locals.action).toEqual('Call mom for wishes');
+        expect(locals.number).toEqual('17');
+        expect(locals.context).toBeUndefined();
+        expect(locals.projectName).toEqual('Happy Birthday');
+        expect(locals.priority).toEqual('A');
+      });
+    });
+  });
+
   describe("for a task that is a Next Action", function() {
     beforeEach(function() {
       var task = new bulldog.Task({
@@ -67,7 +127,7 @@ describe("bulldog.TaskAgent", function() {
         number:      "17",
         context:     "calls",
         projectName: "Happy Birthday",
-        priority: "N"
+        priority:    "N"
       });
 
       agent = new bulldog.TaskAgent(view, task);
@@ -130,5 +190,4 @@ describe("bulldog.TaskAgent", function() {
       });
     });
   });
-
 });
