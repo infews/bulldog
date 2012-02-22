@@ -3,6 +3,7 @@
 
 body {
   font-family: "Lato", "Helvetica Neue", sans-serif;
+  background-color: #a9a9a9;
 }
 
 a.brand {
@@ -22,17 +23,15 @@ a.brand {
 
   padding-top: 40px;
 
-  .navigation {
-    margin-right: 8px;
-  }
-
   nav, section {
     @include display-box;
   }
 
   nav {
-    margin-left: 8px;
-    margin-top: 8px;
+    .navigation {
+      padding: 8px;
+      background-color: white;
+    }
   }
 
   section {
@@ -60,6 +59,12 @@ a.brand {
   }
 }
 
+.roundy {
+  padding: 8px;
+  @include border-radius(4px);
+  background-color: white;
+}
+
 .task-list {
   @include display-box;
   @include box-pack(start);
@@ -68,19 +73,18 @@ a.brand {
   @include box-align(stretch);
   overflow: auto;
   position: relative;
-
-  background-color: #a9a9a9;
+  padding: 8px;
 
   .task {
     @include display-box;
     @include box-orient(horizontal);
     @include box-pack(start);
 
-    margin: 12px 12px 0;
-    padding: 8px;
-    border-radius: 4px;
+    margin-bottom: 8px;
 
-    background-color: white;
+    &:last-child {
+      margin: 0;
+    }
 
     .action {
       @include display-box;

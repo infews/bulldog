@@ -3,7 +3,7 @@
   namespace.TaskView = function(task) {
     var tagOptions = {
       tagName: 'div',
-      className: 'task'
+      className: 'task roundy'
     };
     var self = new (Backbone.View.extend(tagOptions))(task);
 
