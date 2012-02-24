@@ -19,13 +19,13 @@ describe("todoTxt", function () {
       });
 
       it("should send the file split into task lines", function () {
-        expect(tasksLines.length).toEqual(8);
+        expect(tasksLines.length).toEqual(9);
       });
     });
   });
 
   describe(".build", function () {
-    var tasks, projects;
+    var tasks;
 
     beforeEach(function () {
       todoTxt.build(function (data) {
@@ -36,21 +36,29 @@ describe("todoTxt", function () {
     });
 
     it("should build the tasks", function () {
-      expect(tasks.length).toEqual(7);
+      expect(tasks.length).toEqual(8);
       expect(tasks[0].get('action')).toEqual('Call Mom for her birthday');
     });
 
-    it("should set the project correctly on a Task", function () {
+    it("should set the projectName on a Task without a project to a special value", function () {
       expect(tasks[0].get('projectName')).toEqual('__none');
-      expect(tasks[2].get('projectName')).toEqual('Vacation');
-      expect(tasks[4].get('projectName')).toEqual('CleanDesk');
     });
 
-    it("should set the context correctly on a Task", function () {
+    it("should extract the projectName for a Task based on whitespace", function() {
+      expect(tasks[2].get('projectName')).toEqual('Vacation');
+      expect(tasks[4].get('projectName')).toEqual('CleanDesk');
+      expect(tasks[7].get('projectName')).toEqual('Release1.2');
+    });
+
+    it("should set the context on a Task without a context to a special value", function () {
       expect(tasks[0].get('context')).toEqual('__none');
+    });
+
+    it("should set the context on a Task based on whitespace", function () {
       expect(tasks[2].get('context')).toEqual('pc');
       expect(tasks[4].get('context')).toEqual('home');
       expect(tasks[5].get('context')).toEqual('work');
+      expect(tasks[7].get('context')).toEqual('House-2');
     });
 
     it("should strip the project from the action", function () {

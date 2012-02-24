@@ -7,5 +7,6 @@ testResponses.localTodos = {
     "File all papers into drawers @home +CleanDesk\n" +
     "Request time off in July for Hawaii @work +Vacation\n" +
     "\n" +
-    "Wipe off top of desk @home +CleanDesk"
+    "Wipe off top of desk @home +CleanDesk\n" +
+    "Add stories for lastest release +Release1.2 @House-2"
 };

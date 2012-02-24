@@ -37,8 +37,8 @@
 
     function taskPropertiesFrom(taskText) {
       var priorityRE = /\(([A-Z])\)/,
-        projectRE = /\+(\w+)/,
-        contextRE = /@(\w+)/;
+        projectRE = /\+([\w\S]+)/,
+        contextRE = /@([\w\S]+)/;
 
       var properties = {
         action:      clean(taskText),
