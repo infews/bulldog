@@ -29,6 +29,8 @@ a.brand {
 
   nav {
     .navigation {
+      overflow: scroll;
+      position: relative;
       padding: 8px;
       background-color: white;
     }
