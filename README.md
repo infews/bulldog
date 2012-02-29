@@ -17,12 +17,22 @@ For these examples, I keep my `todo.txt` file (and all of my Todo.txt stuff) in 
 
 ### Via HTTP and a Local Web Server
 
+#### Using Apache on MacOS
+
 These steps work on MacOS 10.7 (Lion), serving Bulldog via the built-in web server (Apache 2). Please look up the equivalent steps for your operating system and web server.
 
 1. Make a symlink from Apache's directory to your ToDo.txt directory: `ln -s /Users/dwf/Dropbox/todo /Library/WebServer/Documents/todo`
 1. Restart Apache by visiting the `Sharing` pane under `System Preferences`, and turning `Web Sharing` off (if it's on) and then on
 1. Copy Bulldog's `index.html` to `/Users/dwf/Dropbox/todo`
 1. Visit `http://localhost/todo`
+
+#### Using an Ad-hoc Web Server (Multiplatform)
+
+An ad-hoc web server can be run with these steps if Python is installed (tested only on Linux but should work in other platforms):
+
+1. _Cd_ into the directory containing `index.html` and `todo.txt`
+1. Run `python -m SimpleHTTPServer`
+1. Visit `http://localhost:8000/`
 
 ### Via the Local File Protocol
 
