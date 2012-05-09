@@ -8,7 +8,6 @@ describe("bulldog.NavigationTabsView", function() {
     routerAgent = new bulldog.RouterAgent(router, taskList);
 
     view = new bulldog.NavigationTabsView({app: routerAgent});
-    spyOn(view, 'trigger');
     $content = $("#jasmine_content");
   });
 

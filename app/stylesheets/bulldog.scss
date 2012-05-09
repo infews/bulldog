@@ -22,41 +22,48 @@ a.brand {
   left: 0;
 
   padding-top: 40px;
+}
 
-  nav, section {
+nav {
+  @include display-box;
+}
+
+.navigation {
+  @include display-box;
+  @include box-pack(start);
+  @include box-orient(vertical);
+
+  padding: 8px;
+  background-color: white;
+
+  .scroll {
     @include display-box;
-  }
-
-  nav {
-    .navigation {
-      overflow: scroll;
-      position: relative;
-      padding: 8px;
-      background-color: white;
-    }
-  }
-
-  section {
     @include box-flex(1);
+    overflow: auto;
+  }
+}
 
-    &.tasks.projects {
+section {
+  @include display-box;
+  @include box-flex(1);
 
-      .task .footer .project {
-        display: none;
-      }
+  &.tasks.projects {
 
-      &.all {
-        .task .footer .project {
-          display: inline;
-        }
-      }
+    .task .footer .project {
+      display: none;
     }
 
-    &.tasks.contexts,
-    &.tasks.next-actions {
-      .task .footer .context {
-        display: none;
+    &.all {
+      .task .footer .project {
+        display: inline;
       }
+    }
+  }
+
+  &.tasks.contexts,
+  &.tasks.next-actions {
+    .task .footer .context {
+      display: none;
     }
   }
 }
@@ -76,60 +83,60 @@ a.brand {
   overflow: auto;
   position: relative;
   padding: 8px;
+}
 
-  .task {
+.task {
+  @include display-box;
+  @include box-orient(horizontal);
+  @include box-pack(start);
+
+  margin-bottom: 8px;
+
+  &:last-child {
+    margin: 0;
+  }
+
+  .action {
     @include display-box;
     @include box-orient(horizontal);
     @include box-pack(start);
+    @include box-flex(1);
+    padding: 0 12px 8px 0;
+    font-size: 16px;
+    line-height: 20px;
+  }
 
-    margin-bottom: 8px;
+  .data, .meta {
+    @include display-box;
+    @include box-orient(vertical);
+  }
 
-    &:last-child {
-      margin: 0;
-    }
+  .data {
+    @include box-pack(start);
+    @include box-flex(1);
+  }
 
-    .action {
-      @include display-box;
-      @include box-orient(horizontal);
-      @include box-pack(start);
-      @include box-flex(1);
-      padding: 0 12px 8px 0;
-      font-size: 16px;
-      line-height: 20px;
-    }
+  .meta {
+    @include box-align(center);
 
-    .data, .meta {
+    div {
       @include display-box;
       @include box-orient(vertical);
-    }
-
-    .data {
       @include box-pack(start);
-      @include box-flex(1);
-    }
-
-    .meta {
       @include box-align(center);
-
-      div {
-        @include display-box;
-        @include box-orient(vertical);
-        @include box-pack(start);
-        @include box-align(center);
-      }
-
-      .number {
-        margin-bottom: 8px;
-      }
     }
 
-    .footer {
-      .context, .project {
-        font-weight: 300;
-        font-size: 12px;
-        color: #999999;
-        text-transform: uppercase;
-      }
+    .number {
+      margin-bottom: 8px;
+    }
+  }
+
+  .footer {
+    .context, .project {
+      font-weight: 300;
+      font-size: 12px;
+      color: #999999;
+      text-transform: uppercase;
     }
   }
 }

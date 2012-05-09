@@ -25,10 +25,13 @@
 
     self.renderList = function() {
       var $el = $(self.el);
-      var $list = $('.list', $el);
-      if (!$list.length) {
-        $el.append(listView.render().el);
+
+      var $scroll = $('.scroll', $el);
+      if (!$scroll.length) {
+        $el.append('<div class="scroll"></div>');
+        $scroll = $('.scroll', $el);
       }
+      $scroll.append(listView.render().el);
     };
 
     self.select = function() {
