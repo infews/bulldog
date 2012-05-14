@@ -2,7 +2,12 @@ describe("bulldog.RouterAgent", function() {
   var agent, router, taskList;
 
   beforeEach(function() {
-    router = jasmine.createSpyObj('FakeRouter', ['updateNavigationView', 'updateTaskListView']);
+    router = jasmine.createSpyObj('FakeRouter',
+      [
+        'updateNavigationView',
+        'updateTaskListView'
+      ]
+    );
     var tasks = buildTaskFixtures();
     var taskList = new bulldog.TaskList(tasks);
 
@@ -19,16 +24,16 @@ describe("bulldog.RouterAgent", function() {
         expect(router.updateNavigationView).toHaveBeenCalled();
       });
 
-      it("should tellt he router to update the Tasks", function() {
+      it("should tell the router to update the Tasks", function() {
         expect(router.updateTaskListView).toHaveBeenCalled();
       });
 
-      it("should give the router all of the tasks, in task order", function() {
+      it("should give the router all of the tasks, in priority order", function() {
         taskList = router.updateTaskListView.mostRecentCall.args[0];
 
         expect(taskList.length).toEqual(5);
-        expect(taskList.first().get('action')).toEqual('foo');
-        expect(taskList.last().get('action')).toEqual('corge');
+        expect(taskList.first().get('action')).toEqual('baz');
+        expect(taskList.last().get('action')).toEqual('bar');
       });
     });
 

@@ -1,26 +1,32 @@
 describe("bulldog.TaskList", function () {
-  var collection, otherCollection;
+  var taskList, otherCollection;
 
   beforeEach(function () {
-    var models = [
-      new Backbone.Model({action: "foo"}),
-      new Backbone.Model({action: "bar"})
-    ];
-    collection = new bulldog.TaskList(models);
-    models[0].save();
-    models[1].save();
-    otherCollection = new bulldog.TaskList();
+    var tasks = buildTaskFixtures();
+    taskList = new bulldog.TaskList(tasks);
   });
 
-  describe("#fetch", function () {
-    beforeEach(function () {
-      otherCollection.fetch();
+  describe("should stay sorted with", function() {
+    var tasks;
+
+    beforeEach(function() {
+      tasks = taskList.models;
     });
 
-    it("should retrieve the previously saved models", function () {
-      expect(otherCollection.length).toEqual(2);
-      expect(otherCollection.models[0].get('action')).toEqual('foo');
-      expect(otherCollection.models[1].get('action')).toEqual('bar');
+    it("priority N first", function() {
+      expect(tasks[0].get('priority')).toEqual('N');
+      expect(tasks[1].get('priority')).toEqual('N');
+      expect(tasks[2].get('priority')).toEqual('N');
+    });
+
+    it("priortity A-Z, less N next", function() {
+      expect(tasks[3].get('priority')).toEqual('C');
+      expect(tasks[3].get('action')).toEqual('foo');
+    });
+
+    it("no priority at the end", function() {
+      expect(tasks[4].get('priority')).toEqual(null);
+      expect(tasks[4].get('action')).toEqual('bar');
     });
   });
 });

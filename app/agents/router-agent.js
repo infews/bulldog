@@ -17,32 +17,39 @@
 
       setCurrentItem(name);
 
-      var list = taskList;
-
-      if (currentItem != 'All') {
-        var tasks = _(taskList.filter(byName)).sortBy(priority);
-        list = new bulldog.TaskList(tasks);
+      var tasks;
+      if (currentItem == 'All') {
+        tasks = taskList.models;
+      } else {
+        tasks = taskList.filter(byProjectName);
       }
+
+      var list = new bulldog.TaskList(tasks);
 
       router.updateNavigationView();
       router.updateTaskListView(list);
 
-      function byName(task) {
+      function byProjectName(task) {
         return task.get('projectName') == name;
       }
     };
 
     self.selectContext = function(name) {
       currentTab = 'contexts';
+
       setCurrentItem(name);
-      var tasks = _(taskList.filter(byContextName(currentItem))).sortBy(priority);
+
+      var tasks = taskList.filter(byContextName(currentItem));
+
       router.updateNavigationView();
       router.updateTaskListView(new bulldog.TaskList(tasks));
     };
 
     self.selectContextsWithNextActions = function(name) {
       currentTab = 'next-actions';
+
       setCurrentItem(name);
+
       var tasks = _(taskList.filter(byContextName(currentItem))).select(onlyNextActions);
 
       router.updateNavigationView();
@@ -125,13 +132,6 @@
       if (!_(list).include(value)) {
         list.push(value);
       }
-    }
-
-    function priority(task) {
-      if (task.isNextAction()) {
-        return "0";
-      }
-      return task.get('priority') || "ZZ";
     }
 
     function buildModels(name) {
