@@ -29,4 +29,33 @@ describe("bulldog.TaskList", function () {
       expect(tasks[4].get('action')).toEqual('bar');
     });
   });
+
+  describe("#actionsForProject", function() {
+    describe("when the project is 'All'", function() {
+      it("should return all tasks", function() {
+        expect(taskList.actionsForProject('All').length).toEqual(5);
+      });
+    });
+
+    describe("when the project is something", function() {
+      it("should return only the tasks for that project", function() {
+        expect(taskList.actionsForProject('Zip').length).toEqual(3);
+        expect(taskList.actionsForProject('Zip')[0].get('action')).toEqual('corge');
+      });
+    });
+  });
+
+  describe("#actionsForContext", function() {
+    it("should return only tasks for the requested context", function() {
+      expect(taskList.actionsForContext('pc').length).toEqual(2);
+      expect(taskList.actionsForContext('pc')[0].get('action')).toEqual('baz');
+    });
+  });
+
+  describe("#nextActionsForContext", function() {
+    it("should return only tasks for the requested context", function() {
+      expect(taskList.nextActionsForContext('pc').length).toEqual(1);
+      expect(taskList.nextActionsForContext('pc')[0].get('action')).toEqual('baz');
+    });
+  });
 });
