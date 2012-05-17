@@ -40,7 +40,7 @@ describe("bulldog.TaskList", function () {
     describe("when the project is something", function() {
       it("should return only the tasks for that project", function() {
         expect(taskList.actionsForProject('Zip').length).toEqual(3);
-        expect(taskList.actionsForProject('Zip')[0].get('action')).toEqual('corge');
+        expect(taskList.actionsForProject('Zip').first().get('action')).toEqual('quux');
       });
     });
   });
@@ -48,14 +48,14 @@ describe("bulldog.TaskList", function () {
   describe("#actionsForContext", function() {
     it("should return only tasks for the requested context", function() {
       expect(taskList.actionsForContext('pc').length).toEqual(2);
-      expect(taskList.actionsForContext('pc')[0].get('action')).toEqual('baz');
+      expect(taskList.actionsForContext('pc').first().get('action')).toEqual('baz');
     });
   });
 
   describe("#nextActionsForContext", function() {
     it("should return only tasks for the requested context", function() {
       expect(taskList.nextActionsForContext('pc').length).toEqual(1);
-      expect(taskList.nextActionsForContext('pc')[0].get('action')).toEqual('baz');
+      expect(taskList.nextActionsForContext('pc').first().get('action')).toEqual('baz');
     });
   });
 });

@@ -10,9 +10,9 @@
 
     self.actionsForProject = function(projectName) {
       if (projectName == 'All') {
-        return this.models;
+        return self;
       } else {
-        return this.filter(byProjectName);
+        return filtered(byProjectName);
       }
 
       function byProjectName(task) {
@@ -21,7 +21,7 @@
     };
 
     self.actionsForContext = function(contextName) {
-      return this.filter(byContextName);
+      return filtered(byContextName);
 
       function byContextName(task) {
         return task.get('context') == contextName;
@@ -29,7 +29,7 @@
     };
 
     self.nextActionsForContext = function(contextName) {
-      return this.filter(forNextActionsByContextName);
+      return filtered(forNextActionsByContextName);
 
       function forNextActionsByContextName(task) {
         return task.get('context') == contextName && task.isNextAction();
@@ -44,5 +44,12 @@
       }
       return task.get('priority') || "ZZ";
     }
+
+    function filtered(filterFn) {
+      var tasks = self.filter(filterFn);
+      return new namespace.TaskList(tasks);
+    }
+
+
   };
 }(jQuery, bulldog));

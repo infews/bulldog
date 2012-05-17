@@ -28,12 +28,10 @@ describe("bulldog.RouterAgent", function() {
         expect(router.updateTaskListView).toHaveBeenCalled();
       });
 
-      it("should give the router all of the tasks, in priority order", function() {
+      it("should give the router all of the tasks", function() {
         taskList = router.updateTaskListView.mostRecentCall.args[0];
 
         expect(taskList.length).toEqual(5);
-        expect(taskList.first().get('action')).toEqual('baz');
-        expect(taskList.last().get('action')).toEqual('bar');
       });
     });
 

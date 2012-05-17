@@ -45,11 +45,8 @@
     }
 
     function updateWith(filterName) {
-      var tasks = taskList[filterName](currentItem);
-      var list = new bulldog.TaskList(tasks);
-
       router.updateNavigationView();
-      router.updateTaskListView(list);
+      router.updateTaskListView(taskList[filterName](currentItem));
     }
 
     function projectsFrom(tasks) {
