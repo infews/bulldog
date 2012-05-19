@@ -9,7 +9,6 @@
     todoTxt.build(function(tasks) {
       window.app = new bulldog.Router(tasks);
       Backbone.history.start();
-      app.navigate('/');
     });
 
     $('.modal-footer .version').text('v' + bulldog.version);

@@ -2,12 +2,12 @@
   bulldog.Router = Backbone.Router.extend({
 
     routes: {
-      '/':                   'project',
-      '/projects/:name':     'project',
-      '/contexts':           'context',
-      '/contexts/:name':     'context',
-      '/next-actions':       'nextActions',
-      '/next-actions/:name': 'nextActions'
+      '':                   'project',
+      'projects/:name':     'project',
+      'contexts':           'context',
+      'contexts/:name':     'context',
+      'next-actions':       'nextActions',
+      'next-actions/:name': 'nextActions'
     },
 
     initialize: function(tasks) {
