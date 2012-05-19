@@ -140,3 +140,18 @@ section {
     }
   }
 }
+
+.two-column {
+  @include display-box;
+  @include box-orient(horizontal);
+}
+
+.column {
+  @include display-box;
+  @include box-orient(vertical);
+
+}
+
+.full {
+  @include box-flex(1);
+}
