@@ -5,6 +5,13 @@ Be tenacious, like a bulldog, on your task list.
 
 Bulldog is a single-page HTML view of your [todo.txt](http://http://todotxt.com/) file. Use the [command line interface](http://https://github.com/ginatrapani/todo.txt-cli/downloads) for capture, editing, and completing tasks. But if you want something a little bit more "app-y" for managing your tasks, Bulldog is for you.
 
+## Browser Compatibility
+
+* Safari 5+
+* Chrome 9+
+* Firefox - unsupported at this time (waiting on a bug fix)
+* Others? Let us know
+
 ## Installation
 
 Bulldog is released as a single HTML file via the [Downloads page](http://github.com/infews/bulldog/downloads), called `index.html`, that needs to live in the same directory as your `todo.txt` file.
@@ -56,16 +63,16 @@ From the left column you can also choose to group tasks by context, or by next a
 
 ### Next Actions
 
-Todo.txt has no built-in concept of [Getting Things Done's]() next actions. So we added it. Setting a task to priority `N` makes it a next action - after all, why would you be using that many priorities? Next actions are labeled as such and are considered higher priority than `A`.
+Todo.txt has no built-in concept of [Getting Things Done's](http://www.davidco.com/about-gtd) next actions. So we added it. Setting a task to priority `N` makes it a next action - after all, why would you be using that many priorities? Next actions are labeled as such and are considered higher priority than `A`.
 
 The next actions tab - labeled &#x2794; - shows only your next actions, grouped by context.
-
 
 ## Roadmap?
 
 * Make it easier to install
 * Support Dropbox installation (hosting via Dropbox's web UI, todo.txt on Dropbox)
 * Editing tasks & storing back to `todo.txt` - this would require a server, which may be out of scope
+* Show "DONE" actions, listed by interesting groupings
 
 ## Implementation
 
