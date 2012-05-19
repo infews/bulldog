@@ -25,9 +25,7 @@ namespace :build do
   desc "build CSS"
   task :dev_css do
     del_file "#{root}/build/dev/*.css"
-
     system "compass compile ."
-    system "cp #{root}/lib/dev/bootstrap.css #{root}/build/dev"
   end
 
   desc "build HTML for development"
