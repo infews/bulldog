@@ -202,7 +202,7 @@ describe("bulldog.NavigationAgent", function() {
         it("should have the correct project selected", function() {
           expect(item.name).toEqual('Thank You Notes');
           expect(item.className).toEqual('project active');
-          expect(item.url).toEqual('project/ThankYouNotes');
+          expect(item.url).toEqual('todo/project/ThankYouNotes');
         });
       });
 

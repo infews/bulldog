@@ -71,7 +71,7 @@
       return {
         name: prettyProjectName(name),
         className: classes.join(' '),
-        url: "project/" + project.get('name')
+        url: "todo/project/" + project.get('name')
       };
     }
 
@@ -86,7 +86,7 @@
       return {
         name: prettyContextName(name),
         className: classes.join(' '),
-        url: "context/" + name
+        url: "todo/context/" + name
       };
     }
 

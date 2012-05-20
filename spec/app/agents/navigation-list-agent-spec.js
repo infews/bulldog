@@ -5,7 +5,7 @@ describe("bulldog.NavigationListAgent", function() {
     router = jasmine.createSpyObj('FakeRouter', ['updateNavigationView', 'updateTaskListView']);
     var tasks = buildTaskFixtures();
     var taskList = new bulldog.TaskList(tasks);
-    routerAgent = new bulldog.RouterAgent(router, taskList);
+    routerAgent = new bulldog.ToDoAgent(router, taskList);
 
     view = { render: jasmine.createSpy('view.render') };
     agent = new bulldog.NavigationListAgent(
@@ -43,7 +43,7 @@ describe("bulldog.NavigationListAgent", function() {
       });
 
       it("should build the correct URLs", function() {
-        expect(locals.list[0].url).toEqual('#/projects/All');
+        expect(locals.list[0].url).toEqual('#/todo/projects/All');
       });
 
       it("should have the default list item selected", function() {
@@ -71,7 +71,7 @@ describe("bulldog.NavigationListAgent", function() {
       });
 
       it("should build the correct URLs", function() {
-        expect(locals.list[1].url).toEqual('#/contexts/pc');
+        expect(locals.list[1].url).toEqual('#/todo/contexts/pc');
       });
 
       it("should have the correct list item selected", function() {

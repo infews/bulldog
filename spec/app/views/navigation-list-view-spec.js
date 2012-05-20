@@ -5,7 +5,7 @@ describe("bulldog.NavigationListView", function() {
     var router = jasmine.createSpyObj('FakeRouter', ['updateNavigationView', 'updateTaskListView']);
     var tasks = buildTaskFixtures();
     var taskList = new bulldog.TaskList(tasks);
-    routerAgent = new bulldog.RouterAgent(router, taskList);
+    routerAgent = new bulldog.ToDoAgent(router, taskList);
 
     view = new bulldog.NavigationListView({ app: routerAgent });
     $content = $("#jasmine_content");

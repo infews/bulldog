@@ -5,7 +5,7 @@ describe("bulldog.NavigationTabsAgent", function() {
     var router = jasmine.createSpyObj('FakeRouter', ['updateNavigationView', 'updateTaskListView']);
     var tasks = buildTaskFixtures();
     var taskList = new bulldog.TaskList(tasks);
-    routerAgent = new bulldog.RouterAgent(router, taskList);
+    routerAgent = new bulldog.ToDoAgent(router, taskList);
 
     view = {
       render: jasmine.createSpy('view.render')
@@ -44,21 +44,21 @@ describe("bulldog.NavigationTabsAgent", function() {
         expect(projects.text).toEqual('+');
         expect(projects.className).toMatch(/projects/);
         expect(projects.className).toMatch(/active/);
-        expect(projects.link).toEqual('#/');
+        expect(projects.link).toEqual('#/todo');
       });
 
       it("should configure the contexts tab correctly", function() {
         var contexts = locals.tabs[1];
         expect(contexts.text).toEqual('@');
         expect(contexts.className).toMatch(/contexts/);
-        expect(contexts.link).toEqual('#/contexts');
+        expect(contexts.link).toEqual('#/todo/contexts');
       });
 
       it("should configure the nextActions tab correctly", function() {
         var nextActions = locals.tabs[2];
         expect(nextActions.text).toEqual('\u2794');
         expect(nextActions.className).toMatch(/next-actions/);
-        expect(nextActions.link).toEqual('#/next-actions');
+        expect(nextActions.link).toEqual('#/todo/next-actions');
       });
     });
   });
@@ -83,7 +83,7 @@ describe("bulldog.NavigationTabsAgent", function() {
         var projects = locals.tabs[0];
         expect(projects.text).toEqual('+');
         expect(projects.className).toMatch(/projects/);
-        expect(projects.link).toEqual('#/');
+        expect(projects.link).toEqual('#/todo');
       });
 
       it("should configure the contexts tab correctly", function() {
@@ -91,14 +91,14 @@ describe("bulldog.NavigationTabsAgent", function() {
         expect(contexts.text).toEqual('@');
         expect(contexts.className).toMatch(/contexts/);
         expect(contexts.className).toMatch(/active/);
-        expect(contexts.link).toEqual('#/contexts');
+        expect(contexts.link).toEqual('#/todo/contexts');
       });
 
       it("should configure the nextActions tab correctly", function() {
         var nextActions = locals.tabs[2];
         expect(nextActions.text).toEqual('\u2794');
         expect(nextActions.className).toMatch(/next-actions/);
-        expect(nextActions.link).toEqual('#/next-actions');
+        expect(nextActions.link).toEqual('#/todo/next-actions');
       });
     });
   });

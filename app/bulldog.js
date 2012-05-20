@@ -7,7 +7,8 @@
     localStorage.clear();
 
     todoTxt.build(function(tasks) {
-      window.app = new bulldog.Router(tasks);
+      var taskList = new bulldog.TaskList(tasks);
+      window.app = new bulldog.Router(taskList);
       Backbone.history.start();
     });
 

@@ -11,6 +11,7 @@ javascripts:
     - app/todoTxt.js
     - app/models/**/*.js
     - app/collections/**/*.js
+    - app/controllers/**/*.js
     - app/agents/**/*.js
     - app/views/**/*.js
     - app/routers/**/*.js

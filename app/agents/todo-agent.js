@@ -1,5 +1,5 @@
 (function($) {
-  bulldog.RouterAgent = function(router, taskList) {
+  bulldog.ToDoAgent = function(router, taskList) {
     var self = this;
 
     var navigationLists = {

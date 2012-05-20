@@ -22,6 +22,7 @@ src_files:
     - app/bulldog.js
     - app/models/*.js
     - app/collections/*.js
+    - app/controllers/*.js
     - app/views/*.js
     - app/**/*.js
 

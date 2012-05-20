@@ -8,9 +8,9 @@
 
     self.getLocals = function() {
       var tabs = [
-        {text: '+', className: 'projects', link: '#/'},
-        {text: '@', className: 'contexts', link: '#/contexts'},
-        {text: '\u2794', className: 'next-actions', link: '#/next-actions' }
+        {text: '+', className: 'projects', link: '#/todo/projects'},
+        {text: '@', className: 'contexts', link: '#/todo/contexts'},
+        {text: '\u2794', className: 'next-actions', link: '#/todo/next-actions' }
       ];
 
       _(tabs).each(function(tab) {

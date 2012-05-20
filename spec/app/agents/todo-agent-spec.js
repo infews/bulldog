@@ -1,4 +1,4 @@
-describe("bulldog.RouterAgent", function() {
+describe("bulldog.ToDoAgent", function() {
   var agent, router, taskList;
 
   beforeEach(function() {
@@ -11,7 +11,7 @@ describe("bulldog.RouterAgent", function() {
     var tasks = buildTaskFixtures();
     var taskList = new bulldog.TaskList(tasks);
 
-    agent = new bulldog.RouterAgent(router, taskList);
+    agent = new bulldog.ToDoAgent(router, taskList);
   });
 
   describe("#selectProject", function() {

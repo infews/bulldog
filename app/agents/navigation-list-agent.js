@@ -22,7 +22,7 @@
           classes.push('active');
         }
 
-        var url = _.template("#/<%=list%>/<%=name%>");
+        var url = _.template("#/todo/<%=list%>/<%=name%>");
         return {
           name:      prettyNameFor(name),
           className: classes.join(' '),
