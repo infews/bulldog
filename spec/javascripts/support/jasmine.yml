@@ -10,21 +10,10 @@
 #   - lib/source2.js
 #   - dist/**/*.js
 #
-src_files:
-    - lib/dev/jquery-1.7.1.js
-    - lib/dev/underscore.js
-    - lib/dev/underscore.string.js
-    - lib/add-underscore-string.js
-    - lib/dev/backbone.js
-    - lib/dev/backbone.localstorage.js
-    - lib/mustache.js
-    - lib/mustache-jammit.js
-    - app/bulldog.js
-    - app/models/*.js
-    - app/collections/*.js
-    - app/controllers/*.js
-    - app/views/*.js
-    - app/**/*.js
+
+#src_files:
+# see spec/support/jasmine_config.rb - overriding #src_files to pull in from the JAMMIT config files
+
 
 # stylesheets
 #
