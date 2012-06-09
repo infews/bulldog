@@ -18,8 +18,8 @@ module Jasmine
       jammit_config = YAML::load(ERB.new(File.read("#{root}/config/assets.yml.erb")).result(binding))
       files = jammit_config['javascripts']['lib'] + jammit_config['javascripts']['app']
 
-      # remove .mustache entry
-      files.select! {|f| f.match(/js$/)}
+      # remove .mustache files & init file
+      files.reject! {|f| f.match(/mustache$/) || f.match(/init.js$/) }
 
       match_files(src_dir, files)
     end
