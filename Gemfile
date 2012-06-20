@@ -1,7 +1,7 @@
 source :rubygems
 
 gem 'rake'
-gem 'jasmine', :git => 'git@github.com:pivotal/jasmine-gem.git'
+gem 'jasmine'
 gem 'haml'
 gem 'sass'
 gem 'compass'

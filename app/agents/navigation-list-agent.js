@@ -7,17 +7,17 @@
     };
 
     self.getLocals = function() {
-      var currentSelection = options.app.getCurrentSelection();
-      var currentItem = currentSelection.currentItem;
+      var selection = options.selection.get();
+      var currentItem = selection.item;
 
       return {
-        list: currentSelection.collection.map(forLocals)
+        list: selection.list.map(forLocals)
       };
 
       function forLocals(model) {
         var name = model.get('name') || '__none';
 
-        var classes = [itemClassNameFrom(currentSelection.currentList)];
+        var classes = [itemClassNameFrom(selection.listName)];
         if (name === currentItem) {
           classes.push('active');
         }
@@ -26,7 +26,7 @@
         return {
           name:      prettyNameFor(name),
           className: classes.join(' '),
-          url:       url({list: currentSelection.currentList, name: name})
+          url:       url({list: selection.listName, name: name})
         };
       }
     };

@@ -1,10 +1,20 @@
 require 'jammit'
+require 'haml'
+require 'tilt'
+
 module Jasmine
   class Config
 
     # Override to pull source files in from JAMMIT configuration
     def src_files
       root = File.dirname(__FILE__) + '/../../..'
+
+      # Compile app body html for use in test
+      app_body = Tilt.new("#{root}/app/html/app_body.html.haml").render
+      File.open("#{root}/spec/helpers/app_body.js", 'w') do |f|
+        app_body.gsub!(/\n/, "")
+        f << "var appBody = \"#{app_body}\";"
+      end
 
       # Compile templates each time, put them in the helpers dir as template.js
       Jammit.package!({

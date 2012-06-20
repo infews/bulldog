@@ -1,53 +1,32 @@
-(function($) {
-  bulldog.ToDoAgent = function(router, taskList) {
+(function($, bulldog) {
+  bulldog.ToDos = function(tasks) {
     var self = this;
 
-    var navigationLists = {
+    var taskList = new bulldog.TaskList(tasks);
+
+    var todos = {
       projects:       new Backbone.Collection(projectsFrom(taskList)),
       contexts:       new Backbone.Collection(contextsFrom(taskList)),
       'next-actions': new Backbone.Collection(contextsWithNextActions(taskList))
     };
 
-    var validNavigationTabs = ['projects', 'contexts', 'next-actions'];
-    var currentList = validNavigationTabs[0];
-    var currentItem = navigationLists[currentList].first().get('name');
-
-    self.selectProject = function(name) {
-      currentList = 'projects';
-      setCurrentItem(name);
-      updateWith('actionsForProject');
+    self.taskList = function() {
+      return taskList;
     };
 
-    self.selectContext = function(name) {
-      currentList = 'contexts';
-      setCurrentItem(name);
-      updateWith('actionsForContext');
+    self.projects = function() {
+      return todos.projects;
     };
 
-    self.selectContextsWithNextActions = function(name) {
-      currentList = 'next-actions';
-      setCurrentItem(name);
-      updateWith('nextActionsForContext');
+    self.contexts = function() {
+      return todos.contexts;
     };
 
-    self.getCurrentSelection = function() {
-      return {
-        currentList: currentList,
-        collection:  navigationLists[currentList],
-        currentItem: currentItem
-      };
+    self['next-actions'] = function() {
+      return todos['next-actions'];
     };
 
     return self;
-
-    function setCurrentItem(name) {
-      currentItem = name ? name : navigationLists[currentList].first().get('name');
-    }
-
-    function updateWith(filterName) {
-      router.updateNavigationView();
-      router.updateTaskListView(taskList[filterName](currentItem));
-    }
 
     function projectsFrom(tasks) {
       var names = tasks.reduce(toUniqueProjectNames, []).sort();
@@ -98,14 +77,14 @@
     }
 
     function addIfUnique(list, value) {
-      if (!_(list).include(value)) {
-        list.push(value);
+      if (_(list).include(value)) {
+        return;
       }
+      list.push(value);
     }
 
     function buildModels(name) {
       return new Backbone.Model({name: name});
     }
-
-  };
-}(jQuery));
+  }
+}(jQuery, bulldog));

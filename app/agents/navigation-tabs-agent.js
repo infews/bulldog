@@ -13,8 +13,10 @@
         {text: '\u2794', className: 'next-actions', link: '#/todo/next-actions' }
       ];
 
+      var currentList = options.selection.get().listName;
+
       _(tabs).each(function(tab) {
-        if (tab.className === options.app.getCurrentSelection().currentList) {
+        if (tab.className === currentList) {
           tab.className += ' active';
         }
       });

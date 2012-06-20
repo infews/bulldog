@@ -1,18 +1,34 @@
 (function($) {
-  window.bulldog = {};
-  bulldog.version = "0.3.0";
-  $(document).ready(startApp);
+  bulldog = {};
+  bulldog.App = function() {
+    var self = this;
 
-  function startApp() {
-    localStorage.clear();
+    var todos, taskList, todotxt;
 
-    todoTxt.build(function(tasks) {
-      var taskList = new bulldog.TaskList(tasks);
-      window.app = new bulldog.Router(taskList);
+    self.version = "0.4.0";
+
+    self.loadTodoTxt = function() {
+      todotxt.build(function(tasks) {
+        taskList = new bulldog.TaskList(tasks.todo);
+        todos = new bulldog.ToDos(tasks.todo);
+      });
+    };
+
+    self.getToDos = function() {
+      return todos;
+    };
+
+    self.start = function() {
+      window.router = new bulldog.Router(taskList);
       Backbone.history.start();
-    });
+    };
 
-    $('.modal-footer .version').text('v' + bulldog.version);
-    $('.modal a').attr('target','_blank');
-  }
+    initialize();
+
+    return self;
+
+    function initialize() {
+      todotxt = new bulldog.TodoTxtApi();
+    }
+  };
 }(jQuery));

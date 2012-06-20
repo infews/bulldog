@@ -10,3 +10,8 @@ testResponses.localTodos = {
     "Wipe off top of desk @home +CleanDesk\n" +
     "Add stories for lastest release +Release1.2 @House-2"
 };
+
+testResponses.localTodos404 = {
+  status: 404,
+  responseText: ""
+};

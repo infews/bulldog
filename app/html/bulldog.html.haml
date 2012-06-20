@@ -9,19 +9,7 @@
           :type =>'text/css'}
     = head
   %body
-    .navbar.navbar-fixed-top
-      .navbar-inner
-        .container
-          %a.brand{:href => "#"} Bulldog
-          %ul.nav
-            %li
-              %a{:href => '#/todo'} To Do
-          %ul.nav.pull-right
-            %li
-              %a{"data-toggle".to_sym => "modal", :href => "#about-modal"} About
-    .main
-      %nav
-      %section.tasks
+    = app_body
     .modal#about-modal{:style => 'display:none;'}
       .modal-header
         %a.close{"data-dismiss".to_sym => "modal"} &times;

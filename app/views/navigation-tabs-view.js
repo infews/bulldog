@@ -7,15 +7,11 @@
     var self = new (Backbone.View.extend(baseOptions))();
     var agent = new bulldog.NavigationTabsAgent(self, options);
 
-    var $el;
-
     self.render = function() {
-      $el = $(self.el);
-
-      $el.empty();
+      this.$el.empty();
 
       var locals = agent.getLocals();
-      $el.append(JST["tabs"](locals));
+      this.$el.append(JST["tabs"](locals));
 
       return self;
     };

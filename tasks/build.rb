@@ -3,9 +3,6 @@ require 'tilt'
 require 'fileutils'
 require 'ostruct'
 
-# TODO: trace through and refactor
-# TODO: are Jammit's release and dev files factored right?
-
 namespace :build do
 
   task :del_assets_yml do
@@ -36,6 +33,7 @@ namespace :build do
 
     context = OpenStruct.new(
       :head => Tilt.new("#{html_dir}/css_js_dev.html.haml").render,
+      :app_body => Tilt.new("#{html_dir}/app_body.html.haml").render,
       :about_box => Tilt.new("#{html_dir}/about_box.md").render,
       :bottom => ""
     )
@@ -65,6 +63,7 @@ namespace :build do
 
     context = OpenStruct.new(
       :head => "",
+      :app_body => Tilt.new("#{html_dir}/app_body.html.haml").render,
       :about_box => Tilt.new("#{html_dir}/about_box.md").render,
       :bottom => Tilt.new("#{html_dir}/css_js_rel.html.haml").render(bottom_context)
     )

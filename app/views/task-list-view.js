@@ -1,28 +1,29 @@
 (function($, namespace) {
 
   namespace.TaskListView = function(options) {
-    var tagOptions = {tagName: 'div', className: 'task-list'};
-    var self = new (Backbone.View.extend(tagOptions))(options);
+    var self = new (Backbone.View.extend({}))(options);
 
-    self.render = function() {
-      var $el = $(self.el);
-      $el.empty();
+    var selection = options.selection;
 
-      options.collection.each(function(task) {
+    self.render = function(taskList) {
+      var current = selection.get();
+
+      var classes = ['tasks', current.listName];
+      if (current.item == 'All') {
+        classes.push('all');
+      }
+      this.$el.attr('class', classes.join(' '));
+
+      this.$el.empty();
+      taskList.each(function(task) {
         var taskView = new bulldog.TaskView(task);
-        $el.append(taskView.render().el);
+        self.$el.append(taskView.render().el);
       });
 
       return self;
     };
 
-    initialize();
-
     return self;
-
-    function initialize() {
-      options.collection.bind('reset', self.render);
-    }
   };
 
 }(jQuery, bulldog));

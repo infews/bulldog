@@ -3,12 +3,15 @@ describe("bulldog.Router", function() {
 
   beforeEach(function() {
     $content = $("#jasmine_content");
-    $content.append('<nav></nav><section class="tasks"></section>');
 
-    var tasks = buildTaskFixtures();
-    tasks.push(new bulldog.Task({action: "flint", projectName: 'Fluffy', context: 'home', priority: 'N'}));
-    var taskList = new bulldog.TaskList(tasks);
-    router = new bulldog.Router(taskList);
+    var dawg = new bulldog.App();
+    dawg.loadTodoTxt();
+    ajaxRequests[0].response(testResponses.localTodos);
+    ajaxRequests[1].response(testResponses.localDone);
+
+    window.getDawg = function() { return dawg; };
+
+    router = new bulldog.Router();
 
     spyOn(router.toDoController, 'action');
   });

@@ -1,37 +1,41 @@
 (function($) {
-  bulldog.ToDoController = function(taskList) {
+  bulldog.ToDoController = function() {
     var self = this;
 
-    var agent = new bulldog.ToDoAgent(self, taskList);
-    var $tasks, views = {};
+    var views = {};
+    var todos = getDawg().getToDos();
+    var taskList = todos.taskList();
+    var navSelection = new bulldog.ToDoNavSelection();
 
     self.action = function(action, name) {
       if (action == 'contexts') {
-        agent.selectContext(name);
+        self.selectContext(name);
       } else if (action == 'next-actions') {
-        agent.selectContextsWithNextActions(name);
+        self.selectContextsWithNextActions(name);
       } else {
-        agent.selectProject(name);
+        self.selectProject(name);
       }
     };
 
-    // interface for Agent
-
-    self.updateNavigationView = function() {
+    self.selectProject = function(name) {
+      item = name ? name : todos['projects']().first().get('name');
+      navSelection.set('projects', item);
       views.navigationView.select();
+      views.taskListView.render(taskList['actionsForProject'](item));
     };
 
-    self.updateTaskListView = function(collection) {
-      delete views.tasksView;
-      views.tasksView = new bulldog.TaskListView({collection: collection});
-      $tasks.html(views.tasksView.render().el);
+    self.selectContext = function(name) {
+      item = name ? name : todos['contexts']().first().get('name');
+      navSelection.set('contexts', item);
+      views.navigationView.select();
+      views.taskListView.render(taskList['actionsForContext'](item));
+    };
 
-      var currentSelection = agent.getCurrentSelection();
-      var taskSectionClasses = ['tasks', currentSelection.currentList];
-      if (currentSelection.currentItem == 'All') {
-        taskSectionClasses.push('all');
-      }
-      $tasks.attr('class', taskSectionClasses.join(' '));
+    self.selectContextsWithNextActions = function(name) {
+      item = name ? name : todos['next-actions']().first().get('name');
+      navSelection.set('next-actions', item);
+      views.navigationView.select();
+      views.taskListView.render(taskList['nextActionsForContext'](item));
     };
 
     initialize();
@@ -40,10 +44,16 @@
 
     function initialize() {
       views.navigationView = new bulldog.NavigationView({
-        app: agent
+        el: 'nav',
+        selection: navSelection
       });
-      $('nav').append(views.navigationView.render().el);
-      $tasks = $('section.tasks');
+      views.navigationView.render();
+
+      views.taskListView = new bulldog.TaskListView({
+        el: $('section'),
+        selection: navSelection
+      });
+      views.taskListView.render(taskList['actionsForProject']('All'));
     }
   };
 }(jQuery));

@@ -1,9 +1,9 @@
 (function($, namespace) {
   namespace.TaskList = function(options) {
     var baseOptions = {
-      localStorage: new Store("TaskList"),
+      localStorage: new Store("TaskList"), // TODO: probably don't need this
       model:        namespace.Task,
-      comparator:   priority,
+      comparator:   priority
     };
 
     var self = new (Backbone.Collection.extend(baseOptions))(options);
@@ -49,7 +49,5 @@
       var tasks = self.filter(filterFn);
       return new namespace.TaskList(tasks);
     }
-
-
   };
 }(jQuery, bulldog));

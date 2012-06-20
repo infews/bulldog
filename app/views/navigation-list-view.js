@@ -2,18 +2,14 @@
 
   namespace.NavigationListView = function(options) {
     var baseOptions = {
-      tagName: 'ul',
-      className: 'nav nav-pills nav-stacked list'
+      className: 'scroll'
     };
     var self = new (Backbone.View.extend(baseOptions))(options);
     var agent = new bulldog.NavigationListAgent(self, options);
 
     self.render = function() {
-      var $el = $(self.el);
-
-      $el.empty();
-
-      $el.append(JST["list"](agent.getLocals()));
+      this.$el.empty();
+      this.$el.append(JST["list"](agent.getLocals()));
 
       return self;
     };

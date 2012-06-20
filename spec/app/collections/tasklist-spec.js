@@ -1,5 +1,5 @@
 describe("bulldog.TaskList", function () {
-  var taskList, otherCollection;
+  var taskList;
 
   beforeEach(function () {
     var tasks = buildTaskFixtures();

@@ -1,5 +1,5 @@
-(function($) {
-  bulldog.Router = Backbone.Router.extend({
+(function($, namespace) {
+  namespace.Router = Backbone.Router.extend({
 
     routes: {
       '':           'todo',
@@ -7,7 +7,8 @@
       'todo/*path': 'todo'
     },
 
-    initialize: function(taskList) {
+    initialize: function() {
+      var taskList = getDawg().getToDos().taskList();
       this.toDoController = new bulldog.ToDoController(taskList);
     },
 
@@ -16,4 +17,4 @@
       this.toDoController.action(pathElements[0], pathElements[1]);
     }
   });
-}(jQuery));
+}(jQuery, bulldog));

@@ -6,17 +6,6 @@ compress_assets: off
 
 javascripts:
 
-  app:
-    - app/bulldog.js
-    - app/todoTxt.js
-    - app/models/**/*.js
-    - app/collections/**/*.js
-    - app/controllers/**/*.js
-    - app/agents/**/*.js
-    - app/views/**/*.js
-    - app/routers/**/*.js
-    - app/views/templates/*.mustache
-
   lib:
     - lib/dev/jquery-1.7.1.js
     - lib/dev/underscore.js
@@ -27,3 +16,15 @@ javascripts:
     - lib/mustache.js
     - lib/mustache-jammit.js
     - lib/add-underscore-string.js
+  app:
+    - app/bulldog.js
+    - app/init.js
+    - app/apis/**/*.js
+    - app/models/**/*.js
+    - app/collections/**/*.js
+    - app/controllers/**/*.js
+    - app/agents/**/*.js
+    - app/views/**/*.js
+    - app/routers/**/*.js
+    - app/views/templates/*.mustache
+

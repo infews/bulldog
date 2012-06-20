@@ -1,5 +1,9 @@
 beforeEach(function () {
-  jasmine.Ajax.useMock();
-  $("#jasmine_content").empty();
   localStorage.clear();
+  clearAjaxRequests();
+  jasmine.Ajax.useMock();
+
+  $content = $("#jasmine_content");
+  $content.empty();
+  $content.append($(appBody));
 });

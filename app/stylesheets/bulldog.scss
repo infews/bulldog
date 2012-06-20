@@ -37,7 +37,7 @@ nav {
   padding: 8px;
   background-color: white;
 
-  .scroll {
+  .list {
     @include display-box;
     @include box-flex(1);
     overflow: auto;

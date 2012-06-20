@@ -1,37 +1,32 @@
 (function($, namespace) {
 
   namespace.NavigationView = function(options) {
-    var baseOptions = {
-      tagName:   'div',
-      className: 'navigation'
-    };
+    var baseOptions = {};
     var self = new (Backbone.View.extend(baseOptions))(options);
-    var tabsView = new bulldog.NavigationTabsView(options);
-    var listView = new bulldog.NavigationListView(options);
+
+    var tabsView = new bulldog.NavigationTabsView({selection: options.selection});
+    var listView = new bulldog.NavigationListView({selection: options.selection});
 
     self.render = function() {
+      if (!this.$el.hasClass('navigation')) {
+        this.$el.attr('class', 'navigation');
+      }
       self.renderTabs();
       self.renderList();
       return self;
     };
 
     self.renderTabs = function() {
-      var $el = $(self.el);
-      var $tabs = $('.tabs', $el);
-      if (!$tabs.length) {
-        $el.append(tabsView.render().el);
+      var $tabs = $('.tabs', this.$el);
+      if ($tabs.length) {
+        return;
       }
+
+      this.$el.append(tabsView.render().el);
     };
 
     self.renderList = function() {
-      var $el = $(self.el);
-
-      var $scroll = $('.scroll', $el);
-      if (!$scroll.length) {
-        $el.append('<div class="scroll"></div>');
-        $scroll = $('.scroll', $el);
-      }
-      $scroll.append(listView.render().el);
+      this.$el.append(listView.render().el);
     };
 
     self.select = function() {
