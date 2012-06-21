@@ -34,19 +34,26 @@ nav {
   @include box-pack(start);
   @include box-orient(vertical);
 
-  padding: 8px;
   background-color: white;
+  overflow: auto;
+  padding: 8px;
 
-  .list {
+  .items {
     @include display-box;
-    @include box-flex(1);
-    overflow: auto;
+    @include box-orient(vertical);
+    padding: 4px;
   }
 }
 
 section {
   @include display-box;
+  @include box-pack(start);
+  @include box-orient(vertical);
   @include box-flex(1);
+  @include box-align(stretch);
+  overflow: auto;
+  position: relative;
+  padding: 8px;
 
   &.tasks.projects {
 
@@ -73,17 +80,6 @@ section {
   padding: 8px;
   @include border-radius(4px);
   background-color: white;
-}
-
-.task-list {
-  @include display-box;
-  @include box-pack(start);
-  @include box-orient(vertical);
-  @include box-flex(1);
-  @include box-align(stretch);
-  overflow: auto;
-  position: relative;
-  padding: 8px;
 }
 
 .task {

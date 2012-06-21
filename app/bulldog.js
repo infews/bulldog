@@ -11,6 +11,8 @@
       todotxt.build(function(tasks) {
         taskList = new bulldog.TaskList(tasks.todo);
         todos = new bulldog.ToDos(tasks.todo);
+        window.router = new bulldog.Router(taskList);
+        Backbone.history.start();
       });
     };
 
@@ -19,8 +21,7 @@
     };
 
     self.start = function() {
-      window.router = new bulldog.Router(taskList);
-      Backbone.history.start();
+      self.loadTodoTxt();
     };
 
     initialize();

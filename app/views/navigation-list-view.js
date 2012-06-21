@@ -2,7 +2,7 @@
 
   namespace.NavigationListView = function(options) {
     var baseOptions = {
-      className: 'scroll'
+      className: 'items'
     };
     var self = new (Backbone.View.extend(baseOptions))(options);
     var agent = new bulldog.NavigationListAgent(self, options);

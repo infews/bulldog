@@ -6,7 +6,7 @@ describe 'A User, when viewing To Dos', :type => :request, :js => true do
     visit '/bulldog.html'
   end
 
-  xit 'should be able to navigate between todos' do
+  it 'should be able to navigate between todos' do
     # todos should be selected in the nav bar
 
     # projects should be selected in the tabs
