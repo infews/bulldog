@@ -1,4 +1,4 @@
-describe("Bulldog", function() {
+describe("bulldog.App", function() {
   var dawg;
 
   beforeEach(function() {
