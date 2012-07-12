@@ -7,12 +7,14 @@
 
     self.version = "0.4.0";
 
-    self.loadTodoTxt = function() {
+    self.loadTodoTxt = function(done) {
       todotxt.build(function(tasks) {
         taskList = new bulldog.TaskList(tasks.todo);
         todos = new bulldog.ToDos(tasks.todo);
-        window.router = new bulldog.Router(taskList);
-        Backbone.history.start();
+
+        if (done) {
+          done();
+        }
       });
     };
 
@@ -21,7 +23,8 @@
     };
 
     self.start = function() {
-      self.loadTodoTxt();
+      window.router = new bulldog.Router(taskList);
+      Backbone.history.start();
     };
 
     initialize();

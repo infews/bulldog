@@ -5,11 +5,11 @@ describe("bulldog.Router", function() {
     $content = $("#jasmine_content");
 
     var dawg = new bulldog.App();
+    window.getDawg = function() { return dawg; };
+
     dawg.loadTodoTxt();
     ajaxRequests[0].response(testResponses.localTodos);
     ajaxRequests[1].response(testResponses.localDone);
-
-    window.getDawg = function() { return dawg; };
 
     router = new bulldog.Router();
 

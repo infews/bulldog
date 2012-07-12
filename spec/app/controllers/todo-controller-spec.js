@@ -5,11 +5,11 @@ describe("bulldog.ToDoController", function() {
     $content = $("#jasmine_content");
 
     var dawg = new bulldog.App();
+    window.getDawg = function() { return dawg; };
+
     dawg.loadTodoTxt();
     ajaxRequests[0].response(testResponses.localTodos);
     ajaxRequests[1].response(testResponses.localDone);
-
-    window.getDawg = function() { return dawg; };
 
     controller = new bulldog.ToDoController();
   });
@@ -137,7 +137,7 @@ describe("bulldog.ToDoController", function() {
       });
 
       it("should select the correct context in the navigation", function() {
-        expect($('nav .scroll .next-action.active').text()).toMatch(/pc/i);
+        expect($('nav .items .next-action.active').text()).toMatch(/pc/i);
       });
 
       it("should label the tasks with the current tab", function() {

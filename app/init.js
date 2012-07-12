@@ -7,9 +7,10 @@
     var dawg = new bulldog.App();
     window.getDawg = function() { return dawg; };
 
+    // TODO: move this to dawg#modalSetup
     $('.modal-footer .version').text('v' + dawg.version);
     $('.modal a').attr('target','_blank');
 
-    dawg.start();
+    dawg.loadTodoTxt(dawg.start);
   }
 }(jQuery));

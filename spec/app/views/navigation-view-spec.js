@@ -4,7 +4,9 @@ describe("bulldog.NavigationView", function() {
   beforeEach(function() {
     $content = $("#jasmine_content");
 
-    dawg = new bulldog.App();
+    var dawg = new bulldog.App();
+    window.getDawg = function() { return dawg; };
+
     dawg.loadTodoTxt();
     ajaxRequests[0].response(testResponses.localTodos);
     ajaxRequests[1].response(testResponses.localDone);
@@ -33,7 +35,7 @@ describe("bulldog.NavigationView", function() {
     });
 
     it("should render the project/context list into the dom", function() {
-      expect($('.scroll', $navigationNode).length).toEqual(1);
+      expect($('.items', $navigationNode).length).toEqual(1);
     });
   });
 

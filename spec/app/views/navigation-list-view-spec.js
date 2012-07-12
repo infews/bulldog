@@ -5,11 +5,12 @@ describe("bulldog.NavigationListView", function() {
     $content = $("#jasmine_content");
 
     var dawg = new bulldog.App();
+    window.getDawg = function() { return dawg; };
+
     dawg.loadTodoTxt();
     ajaxRequests[0].response(testResponses.localTodos);
     ajaxRequests[1].response(testResponses.localDone);
 
-    window.getDawg = function() { return dawg; };
 
     selection = new bulldog.ToDoNavSelection();
 
@@ -20,10 +21,10 @@ describe("bulldog.NavigationListView", function() {
   describe("#render", function() {
     beforeEach(function() {
       $content.append(view.render().el);
-      $list = $('.scroll ul', $content);
+      $list = $('.items ul', $content);
     });
 
-    it("should render the project/context list into the dom", function() {
+    it("should render the navigation list into the dom", function() {
       expect($list.length).toEqual(1);
     });
   });
