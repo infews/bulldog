@@ -1,5 +1,5 @@
 (function($) {
-  bulldog.NavigationListAgent = function(view, options) {
+  bulldog.agents.NavigationList = function(view, options) {
     var self = this;
 
     self.select = function() {

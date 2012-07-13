@@ -1,19 +1,19 @@
-describe("bulldog.NavigationTabsView", function() {
+describe("bulldog.views.NavigationTabs", function() {
   var view, $content, $tabs, controller;
 
   beforeEach(function() {
     $content = $("#jasmine_content");
 
-    var dawg = new bulldog.App();
+    var dawg = new bulldog.models.App();
     window.getDawg = function() { return dawg; };
 
     dawg.loadTodoTxt();
     ajaxRequests[0].response(testResponses.localTodos);
     ajaxRequests[1].response(testResponses.localDone);
 
-    selection = new bulldog.ToDoNavSelection();
+    selection = new bulldog.models.ToDoNavSelection();
 
-    view = new bulldog.NavigationTabsView({selection: selection});
+    view = new bulldog.views.NavigationTabs({selection: selection});
     $('nav', $content).append(view.render().el);
   });
 

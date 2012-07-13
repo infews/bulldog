@@ -1,10 +1,10 @@
-describe("bulldog.TaskListView", function() {
+describe("bulldog.views.TaskList", function() {
   var view, selection, taskList, $content;
 
   beforeEach(function() {
     $content = $("#jasmine_content");
 
-    var dawg = new bulldog.App();
+    var dawg = new bulldog.models.App();
     window.getDawg = function() { return dawg; };
 
     dawg.loadTodoTxt();
@@ -12,9 +12,9 @@ describe("bulldog.TaskListView", function() {
     ajaxRequests[1].response(testResponses.localDone);
 
     taskList = getDawg().getToDos().taskList();
-    selection = new bulldog.ToDoNavSelection();
+    selection = new bulldog.models.ToDoNavSelection();
 
-    view = new bulldog.TaskListView({
+    view = new bulldog.views.TaskList({
       el: $content.find('section'),
       selection: selection
     });

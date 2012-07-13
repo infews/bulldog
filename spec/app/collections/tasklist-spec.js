@@ -1,9 +1,9 @@
-describe("bulldog.TaskList", function () {
+describe("bulldog.collections.TaskList", function () {
   var taskList;
 
   beforeEach(function () {
     var tasks = buildTaskFixtures();
-    taskList = new bulldog.TaskList(tasks);
+    taskList = new bulldog.collections.TaskList(tasks);
   });
 
   describe("should stay sorted with", function() {

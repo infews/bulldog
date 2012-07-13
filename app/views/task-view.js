@@ -1,13 +1,13 @@
-(function($, namespace) {
+(function($) {
 
-  namespace.TaskView = function(task) {
+  bulldog.views.Task = function(task) {
     var tagOptions = {
       tagName: 'div',
       className: 'task roundy'
     };
     var self = new (Backbone.View.extend(tagOptions))(task);
 
-    var agent = new bulldog.TaskAgent(self, task);
+    var agent = new bulldog.agents.Task(self, task);
 
     self.render = function() {
 
@@ -27,4 +27,4 @@
     }
   };
 
-}(jQuery, bulldog));
+}(jQuery));

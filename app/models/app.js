@@ -1,5 +1,5 @@
 (function($) {
-  bulldog.App = function() {
+  bulldog.models.App = function() {
     var self = this;
 
     var todos, taskList, todotxt;
@@ -8,8 +8,8 @@
 
     self.loadTodoTxt = function(done) {
       todotxt.build(function(tasks) {
-        taskList = new bulldog.TaskList(tasks.todo);
-        todos = new bulldog.ToDos(tasks.todo);
+        taskList = new bulldog.collections.TaskList(tasks.todo);
+        todos = new bulldog.models.ToDos(tasks.todo);
 
         if (done) {
           done();

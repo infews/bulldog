@@ -1,8 +1,8 @@
-describe("bulldog.ToDos", function() {
+describe("bulldog.models.ToDos", function() {
   var todos;
 
   beforeEach(function() {
-    todos = new bulldog.ToDos(buildTaskFixtures());
+    todos = new bulldog.models.ToDos(buildTaskFixtures());
   });
 
   describe("#taskList", function() {

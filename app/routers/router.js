@@ -9,7 +9,7 @@
 
     initialize: function() {
       var taskList = getDawg().getToDos().taskList();
-      this.toDoController = new bulldog.ToDoController(taskList);
+      this.toDoController = new bulldog.controllers.ToDo(taskList);
     },
 
     todo: function(path) {

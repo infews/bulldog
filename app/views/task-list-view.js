@@ -1,6 +1,6 @@
-(function($, namespace) {
+(function($) {
 
-  namespace.TaskListView = function(options) {
+  bulldog.views.TaskList = function(options) {
     var self = new (Backbone.View.extend({}))(options);
 
     var selection = options.selection;
@@ -16,7 +16,7 @@
 
       this.$el.empty();
       taskList.each(function(task) {
-        var taskView = new bulldog.TaskView(task);
+        var taskView = new bulldog.views.Task(task);
         self.$el.append(taskView.render().el);
       });
 
@@ -26,4 +26,4 @@
     return self;
   };
 
-}(jQuery, bulldog));
+}(jQuery));

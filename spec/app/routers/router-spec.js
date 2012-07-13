@@ -4,7 +4,7 @@ describe("bulldog.Router", function() {
   beforeEach(function() {
     $content = $("#jasmine_content");
 
-    var dawg = new bulldog.App();
+    var dawg = new bulldog.models.App();
     window.getDawg = function() { return dawg; };
 
     dawg.loadTodoTxt();

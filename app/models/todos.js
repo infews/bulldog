@@ -1,8 +1,8 @@
-(function($, bulldog) {
-  bulldog.ToDos = function(tasks) {
+(function($) {
+  bulldog.models.ToDos = function(tasks) {
     var self = this;
 
-    var taskList = new bulldog.TaskList(tasks);
+    var taskList = new bulldog.collections.TaskList(tasks);
 
     var todos = {
       projects:       new Backbone.Collection(projectsFrom(taskList)),
@@ -87,4 +87,4 @@
       return new Backbone.Model({name: name});
     }
   }
-}(jQuery, bulldog));
+}(jQuery));

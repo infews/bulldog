@@ -1,8 +1,8 @@
-describe("bulldog.NavigationTabsAgent", function() {
+describe("bulldog.agents.NavigationTabs", function() {
   var agent, view, locals;
 
   beforeEach(function() {
-    var dawg = new bulldog.App();
+    var dawg = new bulldog.models.App();
     window.getDawg = function() { return dawg; };
 
     dawg.loadTodoTxt();
@@ -12,8 +12,8 @@ describe("bulldog.NavigationTabsAgent", function() {
     view = {
       render: jasmine.createSpy('view.render')
     };
-    selection = new bulldog.ToDoNavSelection();
-    agent = new bulldog.NavigationTabsAgent(view, {selection: selection});
+    selection = new bulldog.models.ToDoNavSelection();
+    agent = new bulldog.agents.NavigationTabs(view, {selection: selection});
   });
 
   describe("#select", function() {

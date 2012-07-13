@@ -1,11 +1,11 @@
-(function($, namespace) {
+(function($) {
 
-  namespace.NavigationView = function(options) {
+  bulldog.views.Navigation = function(options) {
     var baseOptions = {};
     var self = new (Backbone.View.extend(baseOptions))(options);
 
-    var tabsView = new bulldog.NavigationTabsView({selection: options.selection});
-    var listView = new bulldog.NavigationListView({selection: options.selection});
+    var tabsView = new bulldog.views.NavigationTabs({selection: options.selection});
+    var listView = new bulldog.views.NavigationList({selection: options.selection});
 
     self.render = function() {
       if (!this.$el.hasClass('navigation')) {
@@ -37,4 +37,4 @@
     return self;
   };
 
-}(jQuery, bulldog));
+}(jQuery));

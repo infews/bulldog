@@ -1,5 +1,5 @@
 (function($) {
-  bulldog.TaskAgent = function(view, task) {
+  bulldog.agents.Task = function(view, task) {
     var self = this;
 
     self.getTaskLocals = function() {

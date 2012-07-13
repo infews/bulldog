@@ -1,11 +1,11 @@
 (function($) {
-  bulldog.ToDoController = function() {
+  bulldog.controllers.ToDo = function() {
     var self = this;
 
     var views = {};
     var todos = getDawg().getToDos();
     var taskList = todos.taskList();
-    var navSelection = new bulldog.ToDoNavSelection();
+    var navSelection = new bulldog.models.ToDoNavSelection();
 
     self.action = function(action, name) {
       if (action == 'contexts') {
@@ -43,13 +43,13 @@
     return self;
 
     function initialize() {
-      views.navigationView = new bulldog.NavigationView({
+      views.navigationView = new bulldog.views.Navigation({
         el: 'nav',
         selection: navSelection
       });
       views.navigationView.render();
 
-      views.taskListView = new bulldog.TaskListView({
+      views.taskListView = new bulldog.views.TaskList({
         el: $('section'),
         selection: navSelection
       });

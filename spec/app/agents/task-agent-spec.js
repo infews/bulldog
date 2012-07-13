@@ -1,16 +1,16 @@
-describe("bulldog.TaskAgent", function() {
+describe("bulldog.agents.Task", function() {
   var agent, view, locals;
 
   describe("for a task without prirority", function() {
     beforeEach(function() {
-      var task = new bulldog.Task({
+      var task = new bulldog.models.Task({
         action:      "Call mom for wishes",
         number:      "17",
         context:     "calls",
         projectName: "Happy Birthday"
       });
 
-      agent = new bulldog.TaskAgent(view, task);
+      agent = new bulldog.agents.Task(view, task);
     });
 
     describe("#getTaskLocals", function() {
@@ -32,7 +32,7 @@ describe("bulldog.TaskAgent", function() {
 
   describe("for a task with prirority", function() {
     beforeEach(function() {
-      var task = new bulldog.Task({
+      var task = new bulldog.models.Task({
         action:      "Call mom for wishes",
         number:      "17",
         context:     "calls",
@@ -40,7 +40,7 @@ describe("bulldog.TaskAgent", function() {
         priority:    "A"
       });
 
-      agent = new bulldog.TaskAgent(view, task);
+      agent = new bulldog.agents.Task(view, task);
     });
 
     describe("#getTaskLocals", function() {
@@ -62,7 +62,7 @@ describe("bulldog.TaskAgent", function() {
 
   describe("for a task withpout a project", function() {
     beforeEach(function() {
-      var task = new bulldog.Task({
+      var task = new bulldog.models.Task({
         action:   "Call mom for wishes",
         number:   "17",
         context:  "calls",
@@ -70,7 +70,7 @@ describe("bulldog.TaskAgent", function() {
         priority: "A"
       });
 
-      agent = new bulldog.TaskAgent(view, task);
+      agent = new bulldog.agents.Task(view, task);
     });
 
     describe("#getTaskLocals", function() {
@@ -92,7 +92,7 @@ describe("bulldog.TaskAgent", function() {
 
   describe("for a task without a context", function() {
     beforeEach(function() {
-      var task = new bulldog.Task({
+      var task = new bulldog.models.Task({
         action:   "Call mom for wishes",
         number:   "17",
         context:  "__none",
@@ -100,7 +100,7 @@ describe("bulldog.TaskAgent", function() {
         priority: "A"
       });
 
-      agent = new bulldog.TaskAgent(view, task);
+      agent = new bulldog.agents.Task(view, task);
     });
 
     describe("#getTaskLocals", function() {
@@ -122,7 +122,7 @@ describe("bulldog.TaskAgent", function() {
 
   describe("for a task that is a Next Action", function() {
     beforeEach(function() {
-      var task = new bulldog.Task({
+      var task = new bulldog.models.Task({
         action:      "Call mom for wishes",
         number:      "17",
         context:     "calls",
@@ -130,7 +130,7 @@ describe("bulldog.TaskAgent", function() {
         priority:    "N"
       });
 
-      agent = new bulldog.TaskAgent(view, task);
+      agent = new bulldog.agents.Task(view, task);
     });
 
     describe("#getTaskLocals", function() {
@@ -155,14 +155,14 @@ describe("bulldog.TaskAgent", function() {
 
     describe("with a single link", function() {
       beforeEach(function() {
-        var task = new bulldog.Task({
+        var task = new bulldog.models.Task({
           action:      "Call mom for wishes http://foobar.com/abc",
           number:      "17",
           context:     "calls",
           projectName: "Happy Birthday"
         });
 
-        agent = new bulldog.TaskAgent(view, task)
+        agent = new bulldog.agents.Task(view, task)
         locals = agent.getTaskLocals();
       });
 
@@ -173,14 +173,14 @@ describe("bulldog.TaskAgent", function() {
 
     describe("with multiple links", function() {
       beforeEach(function() {
-        var task = new bulldog.Task({
+        var task = new bulldog.models.Task({
           action:      "Call mom for wishes http://foobar.com/abc boo https://www.example.com?q=zippy",
           number:      "17",
           context:     "calls",
           projectName: "Happy Birthday"
         });
 
-        agent = new bulldog.TaskAgent(view, task)
+        agent = new bulldog.agents.Task(view, task)
         locals = agent.getTaskLocals();
       });
 

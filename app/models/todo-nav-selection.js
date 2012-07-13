@@ -1,5 +1,5 @@
-(function($, bulldog) {
-  bulldog.ToDoNavSelection = function() {
+(function($) {
+  bulldog.models.ToDoNavSelection = function() {
     var self = this;
 
     var todos = getDawg().getToDos();
@@ -32,4 +32,4 @@
 
     return self;
   }
-}(jQuery, bulldog));
+}(jQuery));

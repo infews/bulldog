@@ -1,15 +1,15 @@
-describe("bulldog.TaskView", function() {
+describe("bulldog.views.Task", function() {
   var view, $content, $task;
 
   beforeEach(function() {
-    var task = new bulldog.Task({
+    var task = new bulldog.models.Task({
       action:      "Call mom for wishes",
       number:      "17",
       context:     "calls",
       projectName: "HappyBirthday"
     });
 
-    view = new bulldog.TaskView(task);
+    view = new bulldog.views.Task(task);
     $content = $("#jasmine_content");
   });
 
@@ -46,7 +46,7 @@ describe("bulldog.TaskView", function() {
 
   describe("when a task has prirority", function() {
     beforeEach(function() {
-      var task = new bulldog.Task({
+      var task = new bulldog.models.Task({
         action:      "Call mom for wishes",
         number:      "17",
         context:     "calls",
@@ -54,7 +54,7 @@ describe("bulldog.TaskView", function() {
         priority:    "A"
       });
 
-      view = new bulldog.TaskView(task);
+      view = new bulldog.views.Task(task);
       $content.append(view.render().el);
       $task = $('div.task', $content);
     });

@@ -1,10 +1,10 @@
-describe("bulldog.NavigationView", function() {
+describe("bulldog.views.Navigation", function() {
   var view, $content, routerAgent;
 
   beforeEach(function() {
     $content = $("#jasmine_content");
 
-    var dawg = new bulldog.App();
+    var dawg = new bulldog.models.App();
     window.getDawg = function() { return dawg; };
 
     dawg.loadTodoTxt();
@@ -13,9 +13,9 @@ describe("bulldog.NavigationView", function() {
 
     window.getDawg = function() { return dawg; };
 
-    selection = new bulldog.ToDoNavSelection();
+    selection = new bulldog.models.ToDoNavSelection();
 
-    view = new bulldog.NavigationView({
+    view = new bulldog.views.Navigation({
       el:  $('nav', $content),
       selection: selection
     });

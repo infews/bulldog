@@ -1,9 +1,9 @@
-describe("bulldog.Task", function() {
+describe("bulldog.models.Task", function() {
   var task;
 
   describe("without a next action", function() {
     beforeEach(function() {
-      task = new bulldog.Task({ action: "foo", context: "Email", project: "HawaiiTrip"});
+      task = new bulldog.models.Task({ action: "foo", context: "Email", project: "HawaiiTrip"});
     });
 
     it("should report that it does not have a next action", function() {
@@ -13,7 +13,7 @@ describe("bulldog.Task", function() {
 
   describe("with a next action", function() {
     beforeEach(function() {
-      task = new bulldog.Task({ action: "baz", context: "Email", project: "HawaiiTrip", priority: "N"});
+      task = new bulldog.models.Task({ action: "baz", context: "Email", project: "HawaiiTrip", priority: "N"});
     });
 
     it("should report that it does not have a next action", function() {

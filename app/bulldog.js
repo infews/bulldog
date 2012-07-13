@@ -1,3 +1,9 @@
 (function($) {
-  bulldog = {};
+  bulldog = {
+    agents: {},
+    collections: {},
+    controllers: {},
+    models: {},
+    views: {}
+  };
 }(jQuery));

@@ -1,8 +1,8 @@
-describe("bulldog.App", function() {
+describe("bulldog.models.App", function() {
   var dawg;
 
   beforeEach(function() {
-    dawg = new bulldog.App();
+    dawg = new bulldog.models.App();
   });
 
   describe("#loadTodoTxt", function() {

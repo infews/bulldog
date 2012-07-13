@@ -4,7 +4,7 @@
   function startApp() {
     localStorage.clear();
 
-    var dawg = new bulldog.App();
+    var dawg = new bulldog.models.App();
     window.getDawg = function() { return dawg; };
 
     // TODO: move this to dawg#modalSetup

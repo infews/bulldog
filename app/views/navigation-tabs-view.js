@@ -1,11 +1,11 @@
-(function($, namespace) {
-  namespace.NavigationTabsView = function(options) {
+(function($) {
+  bulldog.views.NavigationTabs = function(options) {
     var baseOptions = {
       tagName: 'ul',
       className: 'nav nav-tabs tabs'
     };
     var self = new (Backbone.View.extend(baseOptions))();
-    var agent = new bulldog.NavigationTabsAgent(self, options);
+    var agent = new bulldog.agents.NavigationTabs(self, options);
 
     self.render = function() {
       this.$el.empty();
@@ -22,4 +22,4 @@
 
     return self;
   }
-}(jQuery, bulldog));
+}(jQuery));

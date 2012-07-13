@@ -1,17 +1,17 @@
-describe("bulldog.ToDoController", function() {
+describe("bulldog.controllers.ToDo", function() {
   var controller, $content;
 
   beforeEach(function() {
     $content = $("#jasmine_content");
 
-    var dawg = new bulldog.App();
+    var dawg = new bulldog.models.App();
     window.getDawg = function() { return dawg; };
 
     dawg.loadTodoTxt();
     ajaxRequests[0].response(testResponses.localTodos);
     ajaxRequests[1].response(testResponses.localDone);
 
-    controller = new bulldog.ToDoController();
+    controller = new bulldog.controllers.ToDo();
   });
 
   // TODO: There should be a spec for starting from unknown contents for nav/section

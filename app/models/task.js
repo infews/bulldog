@@ -1,5 +1,5 @@
 (function ($) {
-  bulldog.Task = Backbone.Model.extend({
+  bulldog.models.Task = Backbone.Model.extend({
 
     isNextAction: function() {
       return this.get('priority') == 'N';

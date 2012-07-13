@@ -1,8 +1,8 @@
-(function($, namespace) {
-  namespace.TaskList = function(options) {
+(function($) {
+  bulldog.collections.TaskList = function(options) {
     var baseOptions = {
       localStorage: new Store("TaskList"), // TODO: probably don't need this
-      model:        namespace.Task,
+      model:        bulldog.models.Task,
       comparator:   priority
     };
 
@@ -47,7 +47,7 @@
 
     function filtered(filterFn) {
       var tasks = self.filter(filterFn);
-      return new namespace.TaskList(tasks);
+      return new bulldog.collections.TaskList(tasks);
     }
   };
 }(jQuery, bulldog));

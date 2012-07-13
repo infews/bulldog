@@ -57,7 +57,7 @@
         if (line.length) {
           var properties = taskPropertiesFrom(line);
           properties.number = i;
-          tasks.push(new bulldog.Task(properties));
+          tasks.push(new bulldog.models.Task(properties));
         }
         return tasks;
       }

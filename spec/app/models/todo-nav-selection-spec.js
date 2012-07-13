@@ -1,15 +1,15 @@
-describe("bulldog.ToDoNavSelection", function() {
+describe("bulldog.models.ToDoNavSelection", function() {
   var selection, currentSelection;
 
   beforeEach(function() {
-    var dawg = new bulldog.App();
+    var dawg = new bulldog.models.App();
     window.getDawg = function() { return dawg; };
 
     dawg.loadTodoTxt();
     ajaxRequests[0].response(testResponses.localTodos);
     ajaxRequests[1].response(testResponses.localDone);
 
-    selection = new bulldog.ToDoNavSelection();
+    selection = new bulldog.models.ToDoNavSelection();
   });
 
   describe("#get", function() {
