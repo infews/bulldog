@@ -1,37 +1,50 @@
 require 'spec_helper'
 
-describe 'A User, when viewing To Dos', :type => :request, :js => true do
+describe 'A User viewing To Dos', :type => :request, :js => true do
 
   before do
     visit '/bulldog.html'
+
+    wait_until { page.has_content? 'Bulldog' }
   end
 
-  it 'should be able to navigate between todos' do
+  it 'should be able to navigate between projects, contexts, and next actions' do
+
     # todos should be selected in the nav bar
+    active_top_nav = page.find('.navbar.navbar-fixed-top li.active')
+    active_top_nav.should have_content('To Do')
 
     # projects should be selected in the tabs
+    active_left_nav_tab = page.find('nav ul.nav-tabs li.active')
+    active_left_nav_tab.should have_content('+')
+
     # All should be selected in the list
-    # there should be tasks
+    active_left_list = page.find('nav ul.nav-pills li.active')
+    active_left_list.should have_content('All')
 
-    # click a new project
+    # there should be tasks on the right
+    page.all('section.tasks .task').length.should > 0
 
-    # tasks display should hide project name
+    # click on a new left nav tab
+    page.find('.main nav ul.nav-tabs li.contexts a').click
 
-    # list selection should change
-    # tasks should be correct
+    wait_until {
+      active_left_nav_tab = page.find('nav ul.nav-tabs li.active')
+      active_left_nav_tab.has_content?('@')
+    }
 
-    # click contexts
-    # tab selection should change
-    # tasks should change, only showing context
+    # there should be tasks on the right
+    page.all('section.tasks .task').length.should > 0
 
-    # tasks display should hide context
+    # click on a new left nav list item
+    page.all('nav .items li a')[3].click
 
-    # click a new context
-    # tasks should be correct
+    wait_until {
+      active_left_list_item = page.find('nav .items li.active')
+      active_left_list_item.has_content?('Pc')
+    }
 
-    # click next actions
-    # tab selection should change
-    # tasks should change, only showing next actions
-
+    # there should be tasks on the right
+    page.all('section.tasks .task').length.should > 0
   end
 end

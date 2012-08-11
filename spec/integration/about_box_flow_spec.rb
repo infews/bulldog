@@ -2,12 +2,13 @@ require 'spec_helper'
 
 describe 'When clicking on "about"', :type => :request, :js => true do
 
-  it 'should show the user an about box' do
-
+  before do
     visit '/bulldog.html'
 
     wait_until { page.has_content? 'Bulldog'}
+  end
 
+  it 'should show the user an about box' do
     click_link 'About'
 
     modal = page.find('.modal')
