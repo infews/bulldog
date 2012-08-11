@@ -5,6 +5,10 @@ require 'ostruct'
 
 namespace :build do
 
+  task :copy_sample_todo_txt do
+    system "cp todo.txt build/dev" unless File.exist? "build/dev/todo.txt"
+  end
+
   task :del_assets_yml do
     del_file 'assets.yml'
   end
@@ -26,7 +30,7 @@ namespace :build do
   end
 
   desc "build HTML for development"
-  task :dev => [:dev_assets, :dev_css] do
+  task :dev => [:dev_assets, :dev_css, :copy_sample_todo_txt] do
     dev_html = "#{root}/build/dev/bulldog.html"
 
     del_file dev_html
