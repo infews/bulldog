@@ -16,7 +16,8 @@ javascripts:
     - lib/mustache-jammit.js
     - lib/add-underscore-string.js
     - app/bulldog.js
-    - app/todoTxt.js
+    - app/init.js
+    - app/apis/*.js
     - app/models/**/*.js
     - app/collections/**/*.js
     - app/controllers/**/*.js
@@ -28,5 +29,4 @@ javascripts:
 stylesheets:
 
   all:
-    - lib/release/bootstrap.min.css
     - build/dev/bulldog.css
