@@ -1,5 +1,5 @@
 # Bulldog
-## An HTML viewer for Todo.Txt
+## An HTML viewer for Todo.Txt [![Build Status](https://secure.travis-ci.org/infews/bulldog.png?branch=master)](http://travis-ci.org/infews/bulldog)
 
 Be tenacious, like a bulldog, on your task list.
 
