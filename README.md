@@ -3,7 +3,7 @@
 
 Be tenacious, like a bulldog, on your task list.
 
-Bulldog is a single-page HTML view of your [todo.txt](http://http://todotxt.com/) file. Use the [command line interface](http://https://github.com/ginatrapani/todo.txt-cli/downloads) for capture, editing, and completing tasks. But if you want something a little bit more "app-y" for managing your tasks, Bulldog is for you.
+Bulldog is a single-page HTML view of your [todo.txt](http://todotxt.com/) file. Use the [command line interface](http://https://github.com/ginatrapani/todo.txt-cli/downloads) for capture, editing, and completing tasks. But if you want something a little bit more "app-y" for managing your tasks, Bulldog is for you.
 
 ## Browser Compatibility
 
