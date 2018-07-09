@@ -84,7 +84,7 @@ All of the CSS and JavaScript is included inline so that no server is required.
 
 ## Contributions
 
-I welcome contributions and suggestions. Any code changes should include tests - naturally, using [Jasmine](http://pivotal.github.com/jasmine).
+I welcome contributions and suggestions. Any code changes should include tests - naturally, using [Jasmine](https://jasmine.github.io/).
 
 ## License
 
